@@ -1,0 +1,543 @@
+html
+{ --bg: bisque;
+  --color-heading:black;
+  --color-text:black;
+  --select-color:#128F76;
+  --modal-bg:white;
+  --cross-color:grey;
+}
+
+html[data-theme='dark']
+{ --bg: black;
+  --color-heading:bisque;
+  --color-text:bisque;
+  --select-color:#149f83;
+  --modal-bg:#4D4D4D;
+  --cross-color:#ffffff;
+}
+
+body
+{
+    background-color: var(--bg) !important;
+    color:  var(--color-text) !important;
+}
+
+#h1
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+#h2
+{
+    position: relative;
+    display: none;
+    justify-content: flex-start;
+}
+
+#Winmsgbody
+{
+    text-align: center;
+}
+
+.close
+{
+    color:var(--cross-color) !important;
+}
+
+.modalcolor
+{
+    background-color: var(--modal-bg) !important;
+    color:  var(--color-text) !important;
+}
+
+#game
+{
+    display: none;
+}
+
+#toggle
+{
+    position:absolute;
+    top:10px;
+    right: 10px;
+}
+h1
+{
+    color:var(--color-heading);
+}
+
+.displayarea
+{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#switch
+{
+   padding:1px;
+}
+
+#starwars
+{
+    height: auto;
+    width:6vw;
+    padding: 0px;
+}
+
+.score
+{
+    padding:10vw;
+    font-size: 2em;
+    word-wrap: break-word;
+}
+.left
+{
+    padding-right:0;
+}
+.right
+{
+    padding-left:0;
+}
+
+.playarea
+{
+    display: flex;
+    flex-wrap: wrap;  
+    margin:0vw 10vw;
+    margin-top: 3%;
+    justify-content: center;
+}
+
+.box
+{
+    border:2px solid var(--color-text);
+    width: 150px;
+    height:150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:7vw;
+}
+.box:hover
+{
+    cursor: pointer;
+}
+
+.box#box1
+{
+    border-width:0px 2px 2px 0px;
+}
+.box#box2
+{
+    border-width:0px 2px 2px 2px;
+}
+.box#box3
+{
+    border-width:0px 0px 2px 2px;
+}
+.box#box4
+{
+    border-width:2px 2px 2px 0px;
+}
+.box#box5
+{
+    border-width:2px 2px 2px 2px;
+}
+.box#box6
+{
+    border-width:2px 0px 2px 2px;
+}
+.box#box7
+{
+    border-width:2px 2px 0px 0px;
+}
+.box#box8
+{
+    border-width:2px 2px 0px 2px;
+}
+.box#box9
+{
+    border-width:2px 0px 0px 2px;
+}
+
+input[type=checkbox]
+{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label 
+{
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 25px;
+    background: #1690fa;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+label:after
+{
+    content: 'Dark';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.5s;
+}
+
+input:checked + label
+{
+    background: grey;
+}
+input:checked + label:after 
+{
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+label:active:after
+{
+    width: 20px;
+}
+
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after{
+    transition: all 750ms !important;
+    transition-delay:0 !important;
+}
+
+
+.vscard
+{
+    display: flex;
+    justify-content: center;
+}
+#vs
+{
+    padding:0.5vw;
+}
+
+#player_name
+{
+    background-color: var(--select-color);
+    float:right;
+    padding:0.5vw;
+    border-radius: 20px;
+}
+
+#opp_name
+{
+    float:left;
+    padding:0.5vw;
+    border-radius: 20px;
+}
+
+.left-text
+{
+    text-align: left;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.right-text
+{
+    text-align: right;
+}
+
+[class*="container"]
+{
+    margin:5vw;
+}
+
+.first
+{
+    font-size: 1.5em;
+    font-weight:500;
+}
+.second
+{
+    font-size: 1.5em;
+    font-weight:500;
+    visibility: hidden;
+}
+
+footer
+{
+    text-align: right;
+    bottom: 0;
+}
+
+
+@media screen and (max-width:975px)
+{
+    .score
+    {
+        padding:8vw;
+    }
+    .playarea
+    {
+        margin:0vw 0vw;
+        margin-top: 3%;
+   
+    }
+    .box
+    {
+        font-size:7.5vw;
+    }
+}
+
+@media screen and (max-width:880px)
+{
+    .score
+    {
+        padding:6vw;
+    }
+    .playarea
+    {
+        margin:0vw 0vw;
+        margin-top: 3%;
+   
+    }
+    .box
+    {
+        width: 125px;
+        height:125px;
+        font-size: 8vw;
+    }
+}
+
+@media screen and (max-width:665px)
+{
+    .score
+    {
+        padding:0vw;
+        
+        visibility: hidden;
+    }
+    .playarea
+    {
+        margin:0vw 0vw;
+        margin-top: 3%;
+   
+    }
+    .box
+    {
+        width: 150px;
+        height:150px;
+        font-size:10vw;
+    }
+   
+    .second
+    {
+        visibility:inherit;
+    }
+}
+
+@media screen and (max-width:580px)
+{
+    .box
+    {
+        width: 25vw;
+        height:25vw;
+        font-size:10vw;
+    }
+}
+@media screen and (max-width:520px)
+{
+    .playarea
+    {
+        margin:0vw 0vw;
+        margin-top: 3%;
+        padding: 0px;
+    }
+    
+    .box
+    {
+        width: 120px;
+        height:120px;
+        font-size:10vw;
+    }
+    
+    .right-text
+    {
+        text-align: center;
+    }
+    
+    .left-text
+    {
+        text-align: center;
+    }
+    #player_name
+    {
+        float:none;
+    }
+    #opp_name
+    {
+        float:none;
+    }
+
+}
+
+@media screen and (max-width:490px)
+{
+    .box
+    {
+        width: 100px;
+        height:100px;
+        font-size:10vw;
+    }
+    
+    .playarea
+    {
+        margin:10vw 10vw;
+        margin-top: 10%;
+        padding: 0px;
+    }
+    .score
+    {
+        width:7vw;
+    }
+    
+    .right-text
+    {
+        position: relative;
+        top:-30px;
+    }
+    
+    #vs
+    {
+        position: relative;
+        top:-30px;
+    }
+    .left-text
+    {
+        position: relative;
+        top:-30px;
+    }
+
+}
+
+@media screen and (max-width:455px)
+{
+    .playarea
+    {
+        margin:10vw 5vw;
+        margin-top: 10%;
+        padding: 0px;
+    }
+    .score
+    {
+        width:8vw;
+    }
+
+}
+@media screen and (max-width:415px)
+{
+    .playarea
+    {
+        margin:10vw 5vw;
+        margin-bottom: 60%;
+        padding: 0px;
+    }
+    .box
+    {
+        font-size:13vw;
+    }
+    .score
+    {
+        width:0vw;
+    }
+    
+    .right-text
+    {
+        position: relative;
+        top:-220px;
+    }
+    
+    #vs
+    {
+        position: relative;
+        top:-220px;
+    }
+    .left-text
+    {
+        position: relative;
+        top:-220px;
+    }
+
+}
+
+@media screen and (max-width:340px)
+{
+    .playarea
+    {
+        margin:25vw 5vw;
+        margin-bottom: 70%;
+        padding: 0px;
+    }
+    .box
+    {
+        width: 70px;
+        height:80px;
+        font-size:13vw;
+    }
+    .score
+    {
+        width:0vw;
+    }
+
+}
+
+@media screen and (max-width:318px)
+{
+    .playarea
+    {
+        margin:40vw 5vw;
+        margin-bottom: 70%;
+        padding: 0px;
+    }
+    .box
+    {
+        width: 70px;
+        height:80px;
+        font-size:13vw;
+    }
+    .score
+    {
+        width:0vw;
+    }
+    
+    .right-text
+    {
+        position: relative;
+        top:-200px;
+    }
+    
+    #vs
+    {
+        position: relative;
+        top:-200px;
+    }
+    .left-text
+    {
+        position: relative;
+        top:-200px;
+    }
+
+}
+
+

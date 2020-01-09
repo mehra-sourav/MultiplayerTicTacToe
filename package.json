@@ -1,0 +1,24 @@
+{
+  "name": "na",
+  "version": "1.0.0",
+  "description": "2 player tic tac toe game using Socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body": "^5.1.0",
+    "express": "^4.17.1",
+    "parser": "^0.1.4",
+    "socket.io": "^2.3.0"
+  },
+  "engines": {
+    "node": "12.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

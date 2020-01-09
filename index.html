@@ -1,0 +1,159 @@
+<html data-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="index.css" type="text/css"><!-- For server deployment-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>2 Player Tic-Tac-Toe</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>  <!--From CDN-->
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    </head>
+    <body>
+        <br><br>
+        <div class="heading">
+                <div id="name">
+                    <h1 id="h1">2-Player Tic Tac Toe</h1>
+                    <h1 id="h2">Room ID:</h1>
+                </div>                
+                <div id="toggle">
+                    <button type="button" class="btn btn-outline-dark" id="switch" onclick="Toggletheme()">
+                        <img src="https://cdn.hitc-s.com/i/1232/star_wars_battlefront_darth_vader_2_1026058.jpg" id="starwars" title="Dark Mode">
+                    </button>
+                </div>
+            </div>
+        <div id="landpage">
+            <div class="container ml-5">
+                <h3><u>Rules</u></h3>
+                <ol>
+                    <li>Create a new game by entering your name.</li>
+                    <li>If you want to join an existing game, enter the room id along with your name to join that room.<br> (Only 2 players may join the room at this moment. Spectator mode maybe available soon)</li>
+                </ol>
+                <br>
+                <h3>Create a New Game</h3>
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="newname" placeholder="Enter your name" required>
+                    </div>
+                    <button type="submit" id="newgame" class="btn btn-outline-dark mb-2" onsubmit="return false;">New Game</button>
+                </form>
+                <br>
+                <h3>Join an Existing Game</h3>
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="joinname" placeholder="Enter your name" required>
+                        <input type="text" class="form-control" id="roomID" placeholder="Enter room id"  required>
+                    </div>
+                    <button type="submit" id="joingame" class="btn btn-outline-dark mb-2">Join Game</button>
+                </form>     
+            </div>
+        </div>
+        <div id="game">
+            <div class="displayarea">
+                <div class="left score">
+                    Your Score
+                    <div id="playerscore">0
+                    </div>
+                </div>
+                <div class="playarea">
+                    <div class="row">
+                        <div id="box1" class="box">
+                        </div>
+                        <div id="box2" class="box"></div>
+                        <div id="box3" class="box"></div>
+                    </div>
+                    <div class="row">
+                        <div id="box4" class="box"></div>
+                        <div id="box5" class="box"></div>
+                        <div id="box6" class="box"></div>
+                    </div>
+                    <div class="row">
+                        <div id="box7" class="box"></div>
+                        <div id="box8" class="box"></div>
+                        <div id="box9" class="box"></div>
+                    </div>
+                </div>
+                <div class="right score">
+                      Their Score
+                    <div id="oppscore">0
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid first">
+                <div class="row">
+                    <div class="col-5 right-text">
+                        <div id="player_name">Sourav</div>
+                    </div>
+                    <div class="col-2 center">
+                        <div id="vs">vs</div>
+                    </div>
+                    <div class="col-5 left-text">
+                       <div id="opp_name"> Opp</div>
+                    </div>  
+                </div>
+            </div>
+            <div class="container-fluid second">
+                <div class="row">
+                    <div class="col-5 right-text">
+                        <div id="secondplayerscore">0</div>
+                    </div>
+                    <div class="col-2 center">
+                        <div id="vs"></div>
+                    </div>
+                    <div class="col-5 left-text">
+                       <div id="secondoppscore"> 0</div>
+                    </div>  
+                </div>
+            </div>
+            <div class="modal fade" id="Winmsg" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content modalcolor">
+                        <div class="modal-header no-border">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body" id="Winmsgbody">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger mr-auto" id="quitbutton">Quit Game</button>
+                            <button type="button" class="btn btn-primary" id="resetbutton">Play again</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="closebutton">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="Playagainmsg" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content modalcolor">
+                        <div class="modal-header no-border">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body"id="Playagainmsgbody">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary align-self-start" id="yesbutton" data-dismiss="modal">Yes</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="nobutton">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="Playermark" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content modalcolor">
+                        <div class="modal-header no-border">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body"id="Playermarkbody">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="closebutton">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>                
+        </div>
+        <script src="index.js"></script> <!-- For server deployment-->
+        <script src="game.js"></script> <!-- For server deployment-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
