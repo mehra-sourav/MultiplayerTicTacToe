@@ -529,15 +529,23 @@ function Changebutton(theme)
     try
     {
         document.documentElement.addEventListener("click", function(event){
-        
          //Making sure that 'closebutton' and 'resetbutton' don't have event listeners attached
-         if(!player.getgamestarted() && !game.getfinish()) 
-            alert("The game hasn't started. The opponent hasn't joined")
-         if(event.target.id == "closebutton" || event.target.id == "resetbutton"  || event.target.id == "quitbutton")
+         if(!player.getgamestarted() && !game.getfinish())
+           {
+               //Adding an exception for theme toggle button
+               if(event.target.id != "switch" && event.target.id != "starwars")
+                   {
+                       alert("The game hasn't started. The opponent hasn't joined")
+                   }
+           }
+            
+         if(event.target.id == "closebutton" || event.target.id == "resetbutton"  || event.target.id == "quitbutton" || event.target.id == "switch")
          {
             return;
          }
-         else if(game.getfinish() == true)
+        
+         //else
+         if(game.getfinish() == true)
          {
             let modaltext = document.getElementById("Winmsgbody").innerHTML
             modaltext = modaltext.substring(0,modaltext.indexOf(" ")) + " has won the game";
