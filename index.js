@@ -7,15 +7,16 @@ var bodyParser = require('body-parser');
 
 var rooms = 0;
 
-app.use(express.static('.'));
-
 //For statically loading styles folder
-app.use(express.static(path.join(__dirname,'./../styles')))
-//For statically loading scripts folder
-app.use(express.static(__dirname))
+// app.use(express.static(path.join(__dirname,'./../styles')))
+//For statically loading styles folder
+// app.use(express.static(path.join(__dirname,'./../styles'))
+
+//For statically loading public folder
+app.use(express.static("public"))
 
 app.get('/',function(req,res){
-    res.sendFile(path.resolve(__dirname+"./../index.html"))
+    res.sendFile(path.resolve(__dirname+"/index.html"))
 })
 
 io.on('connection',function(socket){

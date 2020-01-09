@@ -49,7 +49,7 @@ function Changebutton(theme)
 {
     var arrTic = document.getElementsByClassName("box");
     var opp_name = document.getElementById("opp_name").innerHTML;
-    var socket = io.connect('http://localhost:3000'),player,game;
+    var socket = io(),player,game;
 
     document.getElementById("newgame").onclick = function(event){
             event.preventDefault();
