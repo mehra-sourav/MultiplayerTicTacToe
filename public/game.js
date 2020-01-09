@@ -340,6 +340,7 @@ function Changebutton(theme)
             }
             else
             {
+                document.getElementById("Winmsgbody").innerHTML = "The match was a Draw";
                 $("#Winmsg").modal("show");
             }
         }
