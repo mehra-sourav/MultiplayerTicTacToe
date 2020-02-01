@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 var path = require('path');
 var bodyParser = require('body-parser');
 
-var rooms = 0;
+var rooms = 0;//##Implement dB instead of this
 
 //For statically loading styles folder
 // app.use(express.static(path.join(__dirname,'./../styles')))

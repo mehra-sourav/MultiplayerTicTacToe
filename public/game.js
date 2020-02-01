@@ -32,6 +32,7 @@ function Changebutton(theme)
         var button = document.getElementsByClassName("btn")
         button[0].classList.replace("btn-outline-dark","btn-outline-light")
         document.getElementById("starwars").src="https://m.media-amazon.com/images/M/MV5BNDhlNWFiZTItMjFhZi00NGRmLWI2ZmUtNzdjYjUzM2VmNDIxXkEyXkFqcGdeQW1yb3NzZXI@._V1_UX477_CR0,0,477,268_AL_.jpg";
+		document.getElementById("starwars").title="Light Mode"
         button['newgame'].classList.replace("btn-outline-dark","btn-outline-light")
         button['joingame'].classList.replace("btn-outline-dark","btn-outline-light")  
     }
@@ -40,6 +41,7 @@ function Changebutton(theme)
         var button = document.getElementsByClassName("btn")
         button[0].classList.replace("btn-outline-light","btn-outline-dark")
         document.getElementById("starwars").src="https://cdn.hitc-s.com/i/1232/star_wars_battlefront_darth_vader_2_1026058.jpg";
+		document.getElementById("starwars").title="Dark Mode"
         button['newgame'].classList.replace("btn-outline-light","btn-outline-dark")
         button['joingame'].classList.replace("btn-outline-light","btn-outline-dark")
     }

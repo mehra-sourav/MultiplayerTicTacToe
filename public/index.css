@@ -1,14 +1,14 @@
 html
 { --bg: bisque;
-  --color-heading:black;
-  --color-text:black;
+  --color-heading:#35363a;
+  --color-text:#35363a;
   --select-color:#128F76;
   --modal-bg:white;
   --cross-color:grey;
 }
 
 html[data-theme='dark']
-{ --bg: black;
+{ --bg: #35363a;
   --color-heading:bisque;
   --color-text:bisque;
   --select-color:#149f83;
