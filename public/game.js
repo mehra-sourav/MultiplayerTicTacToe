@@ -430,11 +430,11 @@ function Changebutton(theme)
         document.getElementById("landpage").setAttribute("style","display:none");
         document.getElementById("game").setAttribute("style","display:block");
         document.getElementById("h1").setAttribute("style","display:none");
-        document.getElementById("h2").setAttribute("style","display:block");
+        document.getElementById("h2").setAttribute("style","display:flex");
     }
     
     socket.on('newGame',function(data){
-        document.getElementById('h2').innerHTML="Room ID:"+data.room;
+        document.getElementById('h2').innerHTML="Room ID:  "+data.room;
        
         //Setting player_name on player-1 side
         document.getElementById('player_name').innerHTML = data.name; 

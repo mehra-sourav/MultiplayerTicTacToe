@@ -4,8 +4,12 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 var bodyParser = require('body-parser');
+var fs = require('fs')
 
-var rooms = 0;//##Implement dB instead of this
+var file = fs.readFileSync('./rooms.json');
+// file = JSON.parse(file);     
+
+// var rooms = 0;//##Implement dB instead of this
 
 //For statically loading styles folder
 // app.use(express.static(path.join(__dirname,'./../styles')))
@@ -20,15 +24,23 @@ app.get('/',function(req,res){
 })
 
 io.on('connection',function(socket){
-    
+    // file = JSON.parse(file);
+    // console.log("On conn file:",file)
     //Creating a new room and notifying the creator of room. 
     socket.on('createNewGame',function(data){
         // console.log("Increatenewgame on server side")
-        socket.join('Room-'+ ++rooms);
+        file = JSON.parse(file);
+        // console.log("On createNG file:",file)
+        socket.join('Room-'+ (++file.rooms));
+        console.log(file.rooms)
+        var room = file.rooms
+        //file.rooms = file.rooms + 1;
+        file = JSON.stringify(file,null,2);
+        fs.writeFileSync("./rooms.json",file);
         socket.emit('newGame',{
             name:data.name,
-            room:'Room-'+rooms
-            })
+            room:'Room-'+ room
+        })
     });
     
     //Connecting second player to room.

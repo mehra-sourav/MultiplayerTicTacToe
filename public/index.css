@@ -32,7 +32,7 @@ body
 {
     position: relative;
     display: none;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 #Winmsgbody
