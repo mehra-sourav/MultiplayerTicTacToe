@@ -214,6 +214,10 @@ let transition = () =>{
     var ID;
     var gamemode;
 
+    // document.getElementsByClassName("button").onmouseover(
+    //     alert("on")
+    // )
+    
     $("button").hover(
         function () {
         //   $(this).addClass("btn-light");
@@ -550,14 +554,14 @@ let transition = () =>{
                 document.getElementById("Winmsgbody").innerHTML = "<p align='center'>CPU wins</p>";
                 document.getElementById("oppscore").innerHTML++
                 document.getElementById("secondoppscore").innerHTML++
-                alert("CPU score upgrade")
+                // alert("CPU score upgrade")
             }
             else
             {
                 document.getElementById("Winmsgbody").innerHTML = "<p align='center'>You won</p>";
                 document.getElementById("playerscore").innerHTML++ 
                 document.getElementById("secondplayerscore").innerHTML++ 
-                alert("Player score upgrade")
+                // alert("Player score upgrade")
             }
             console.log("In checkValue")
             console.log("Gamemode:",gamemode)
