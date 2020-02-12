@@ -1,25 +1,46 @@
-html
+/* html
 { --bg: bisque;
   --color-heading:#35363a;
   --color-text:#35363a;
   --select-color:#128F76;
   --modal-bg:white;
   --cross-color:grey;
-}
+} */
 
-html[data-theme='dark']
-{ --bg: #35363a;
+html
+{ --bg: #1f1f1f;
   --color-heading:bisque;
   --color-text:bisque;
   --select-color:#149f83;
   --modal-bg:#4D4D4D;
   --cross-color:#ffffff;
+  --hsize:40px;
+  /* -- */
 }
 
 body
 {
     background-color: var(--bg) !important;
     color:  var(--color-text) !important;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+}
+
+.btn-primary
+{
+    border-radius: 35%;
+}
+.btn-dark
+{
+    background-color: #343a40   ;
+    /* color:red; */
+}
+.btn-light
+{
+    background-color: bisque   ;
+    /* color:red; */
 }
 
 #h1
@@ -27,12 +48,14 @@ body
     position: relative;
     display: flex;
     justify-content: center;
+    font-size: var(--hsize);
 }
 #h2
 {
     position: relative;
     display: none;
     justify-content: center;
+    font-size: var(--hsize);
 }
 
 #Winmsgbody
@@ -62,6 +85,62 @@ body
     top:10px;
     right: 10px;
 }
+
+#gamemode
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    padding:auto;
+    /* align-items: center; */
+    height: 60vh;
+    width:30vh;
+    /* background-color: blue; */
+}
+
+#gamemode button
+{
+    width:80%;
+    height: 10%;
+    /* background-color: red   ; */
+}
+
+#singlemode
+{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* flex-basis: 100%; */
+    margin:auto;
+    padding:auto;
+    height: 60vh;
+    width:30vh;
+    /* background-color: blue; */
+}
+
+#multimode
+{
+    display: none;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* flex-basis: 100%; */
+    margin:auto;
+    padding:auto;
+    height: 60vh;
+    width:30vh;
+    /* background-color: blue; */
+}
+
+#h6
+{
+    font-size:1.3vw;
+}
+
 h1
 {
     color:var(--color-heading);
@@ -72,6 +151,15 @@ h1
     display: flex;
     justify-content: center;
     text-align: center;
+}
+#joinname
+{
+    margin-bottom: 3%;
+}
+
+.errorclass
+{
+    border:3px solid crimson;
 }
 
 #switch
@@ -118,8 +206,19 @@ h1
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size:7vw;
+    font-size:90px;
+    /* color:blue; */
+    /* animation: popin 3s linear 0.1s 1 forwards; */
 }
+
+@keyframes popin
+{
+    0%{ opacity:0; transform: scale(0.3);}
+    /* 70%{ opacity:0.2; transform: scale(1.12);}
+    90%{ opacity:0.6; transform: scale(0.9);} */
+    100%{ opacity:1; transform: scale(1);}
+}
+
 .box:hover
 {
     cursor: pointer;
@@ -282,11 +381,41 @@ footer
 }
 
 
+
+@media screen and (max-width:994px)
+{
+    /* .score
+    {
+        padding:8vw;
+    } */
+    
+    /* .playarea
+    {
+        margin:0vw 0vw;
+        margin-top: 3%;
+    } */
+    .box
+    {
+        font-size:80px;
+        width: 130px;
+        height:130px;
+    }
+}
+
+
+
+
 @media screen and (max-width:975px)
 {
+    
+    
     .score
     {
         padding:8vw;
+    }
+    html
+    {
+        --hsize:35px;
     }
     .playarea
     {
@@ -294,10 +423,10 @@ footer
         margin-top: 3%;
    
     }
-    .box
+    /* .box
     {
         font-size:7.5vw;
-    }
+    } */
 }
 
 @media screen and (max-width:880px)
@@ -312,11 +441,46 @@ footer
         margin-top: 3%;
    
     }
+    html
+    {
+        --hsize:32px;
+    }
     .box
     {
         width: 125px;
         height:125px;
-        font-size: 8vw;
+        font-size: 75px;
+    }
+    html
+    {
+        --hsize:33px;
+    }
+}
+
+@media screen and (max-width:685px)
+{
+    .score
+    {
+        padding:6vw;
+    }
+    .playarea
+    {
+        margin:0vw 0vw;
+        margin-top: 3%;
+    }
+    html
+    {
+        --hsize:32px;
+    }
+    .box
+    {
+        width: 120px;
+        height:120px;
+        font-size: 70px;
+    }
+    html
+    {
+        --hsize:33px;
     }
 }
 
@@ -338,22 +502,46 @@ footer
     {
         width: 150px;
         height:150px;
-        font-size:10vw;
+        font-size:90px;
     }
    
     .second
     {
         visibility:inherit;
     }
+    html
+    {
+        --hsize:32px;
+    }
 }
 
-@media screen and (max-width:580px)
+@media screen and (max-width:596px)
+{
+    .playarea
+    {
+        margin:0vw 0vw;
+        margin-top: 3%;
+   
+    }
+    .box
+    {
+        width: 145px;
+        height:145px;
+        font-size:85px;
+    }
+}
+
+@media screen and (max-width:582px)
 {
     .box
     {
-        width: 25vw;
-        height:25vw;
-        font-size:10vw;
+        width: 130px;
+        height:130px;
+        font-size:80px;
+    }
+    html
+    {
+        --hsize:31px;
     }
 }
 @media screen and (max-width:520px)
@@ -369,7 +557,7 @@ footer
     {
         width: 120px;
         height:120px;
-        font-size:10vw;
+        font-size:70px;
     }
     
     .right-text
@@ -389,6 +577,10 @@ footer
     {
         float:none;
     }
+    html
+    {
+        --hsize:30px;
+    }
 
 }
 
@@ -398,7 +590,7 @@ footer
     {
         width: 100px;
         height:100px;
-        font-size:10vw;
+        font-size:60px;
     }
     
     .playarea
@@ -428,6 +620,10 @@ footer
         position: relative;
         top:-30px;
     }
+    html
+    {
+        --hsize:29px;
+    }
 
 }
 
@@ -443,6 +639,10 @@ footer
     {
         width:8vw;
     }
+    html
+    {
+        --hsize:28px;
+    }
 
 }
 @media screen and (max-width:415px)
@@ -455,7 +655,7 @@ footer
     }
     .box
     {
-        font-size:13vw;
+        font-size:55px;
     }
     .score
     {
@@ -477,6 +677,10 @@ footer
     {
         position: relative;
         top:-220px;
+    }
+    html
+    {
+        --hsize:27px;
     }
 
 }
@@ -485,37 +689,61 @@ footer
 {
     .playarea
     {
-        margin:25vw 5vw;
-        margin-bottom: 70%;
+        margin:10vw 5vw 25vw;
+        margin-bottom: 80%;
         padding: 0px;
     }
     .box
     {
-        width: 70px;
-        height:80px;
-        font-size:13vw;
+        width: 90px;
+        height:90px;
+        font-size:50px;
     }
     .score
     {
         width:0vw;
+    }
+    html
+    {
+        --hsize:26px;
     }
 
 }
 
 @media screen and (max-width:318px)
 {
+    html
+    {
+        --hsize:25px;
+    }
+        
     .playarea
+    {
+        margin:10vw 5vw 25vw;
+        margin-bottom: 80%;
+        padding: 0px;
+    }
+    .box
+    {
+        width: 90px;
+        height:90px;
+        font-size:45px;
+    }
+
+    /* .playarea
     {
         margin:40vw 5vw;
         margin-bottom: 70%;
         padding: 0px;
     }
+
     .box
     {
         width: 70px;
         height:80px;
         font-size:13vw;
-    }
+    } */
+
     .score
     {
         width:0vw;
@@ -540,4 +768,13 @@ footer
 
 }
 
+/* @media screen and (max-width:318px)
+{
+    .playarea
+    {
+        display:static;
+    }
+
+
+} */
 

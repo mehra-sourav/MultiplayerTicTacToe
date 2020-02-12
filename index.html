@@ -1,4 +1,4 @@
-<html data-theme="dark">
+<html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,14 +15,87 @@
                     <h1 id="h1">2-Player Tic Tac Toe</h1>
                     <h1 id="h2">Room ID:  </h1>
                 </div>                
-                <div id="toggle">
+                <!-- <div id="toggle">
                     <button type="button" class="btn btn-outline-light" id="switch" onclick="Toggletheme()">
                         <img src="https://m.media-amazon.com/images/M/MV5BNDhlNWFiZTItMjFhZi00NGRmLWI2ZmUtNzdjYjUzM2VmNDIxXkEyXkFqcGdeQW1yb3NzZXI@._V1_UX477_CR0,0,477,268_AL_.jpg" id="starwars" title="Light Mode">
                     </button>
+                </div> -->
+        </div>
+        <div id="gamemode">
+            
+            <button id="Singleplayer" class="btn btn-primary mb-2" onsubmit="return false;">Single Player</button>
+            <br/>
+            <br/>
+            <button id="Twoplayer" class="btn btn-primary mb-2" onsubmit="return false;"> Two Player </button>
+            
+        </div>
+
+        <div id="singlemode">
+            <form class="form" id="form1" onsubmit="return false;">
+                <div class="form-group mx-sm-3 mb-2">
+                    <h5 style="width:initial; text-align:center">Enter your name</h5>
+                    <!-- <br/> -->
+                    <input type="text" class="form-control" id="singlemodename" style="text-align:center" placeholder="Enter your name" required>
                 </div>
-            </div>
-        <div id="landpage">
-            <div class="container ml-5">
+            </form>
+            <button type="submit" id="newsinglegame" class="btn btn-success mb-2" onsubmit="return false;" form="form1">Start</button>
+        </div>
+        <div id="multimode">
+            <!-- <div class="container ml-5"> -->
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <form class="form" id="form2" onsubmit="return false;">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <!-- <h6 id="h6" style="width:initial; text-align:center">Create a New Game</h6> -->
+                        <h5 style="width:initial; text-align:center">Create a New Game</h5>
+                        <!-- <br/> -->
+                        <input type="text" class="form-control" id="newname" style="text-align:center" placeholder="Enter your name" required>
+                        <!-- </div> -->
+                    </div>
+                </form>
+                <button type="button" id="newgame" class="btn btn-success mb-2">New Game</button>
+                <br/>
+                <br/>
+                <form class="form" id="form3" onsubmit="return false;">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <!-- <h5 id="h6" style="width:initial; text-align:center">Join a Game</h5> -->
+                        <h5 style="width:initial; text-align:center">Join a Game</h5>
+                        <!-- <br/> -->
+                        <input type="text" class="form-control" id="joinname" style="text-align:center" placeholder="Enter your name" required >
+                        <input type="text" class="form-control" id="roomID" style="text-align:center" placeholder="Enter room id"  required>
+                        <!-- </div> -->
+                    </div>
+                </form>
+                <button type="submit" id="joingame" class="btn btn-success mb-2">Join Game</button>
+                <!-- <h3><u>Rules</u></h3>
+                <ol>
+                    <li>Create a new game by entering your name.</li>
+                    <li>If you want to join an existing game, enter the room id along with your name to join that room.<br> (Only 2 players may join the room at this moment. Spectator mode maybe available soon)</li>
+                </ol>
+                <br>
+                <h3>Create a New Game</h3>
+                <form class="form-inline" onsubmit="return false;">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="newname" placeholder="Enter your name" required>
+                    </div>
+                    <button type="submit" id="newgame" class="btn btn-outline-light mb-2">New Game</button>
+                </form>
+                <br>
+                <h3>Join an Existing Game</h3>
+                <form class="form-inline" onsubmit="return false;">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="joinname" placeholder="Enter your name" required >
+                        <input type="text" class="form-control" id="roomID" placeholder="Enter room id"  required >
+                    </div>
+                    <button type="submit" id="joingame" class="btn btn-outline-light mb-2">Join Game</button>
+                </form>      -->
+            <!-- </div> -->
+            
+            
+            <!-- <div class="container ml-5">
                 <h3><u>Rules</u></h3>
                 <ol>
                     <li>Create a new game by entering your name.</li>
@@ -30,34 +103,33 @@
                 </ol>
                 <br>
                 <h3>Create a New Game</h3>
-                <form class="form-inline">
+                <form class="form-inline" onsubmit="return false;">
                     <div class="form-group mx-sm-3 mb-2">
                         <input type="text" class="form-control" id="newname" placeholder="Enter your name" required>
                     </div>
-                    <button type="submit" id="newgame" class="btn btn-outline-light mb-2" onsubmit="return false;">New Game</button>
+                    <button type="submit" id="newgame" class="btn btn-outline-light mb-2">New Game</button>
                 </form>
                 <br>
                 <h3>Join an Existing Game</h3>
-                <form class="form-inline">
+                <form class="form-inline" onsubmit="return false;">
                     <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="joinname" placeholder="Enter your name" required>
-                        <input type="text" class="form-control" id="roomID" placeholder="Enter room id"  required>
+                        <input type="text" class="form-control" id="joinname" placeholder="Enter your name" required >
+                        <input type="text" class="form-control" id="roomID" placeholder="Enter room id"  required >
                     </div>
                     <button type="submit" id="joingame" class="btn btn-outline-light mb-2">Join Game</button>
                 </form>     
-            </div>
+            </div> -->
         </div>
         <div id="game">
             <div class="displayarea">
-                <div class="left score">
+                <div class="left score" id="left_score">
                     Your Score
                     <div id="playerscore">0
                     </div>
                 </div>
                 <div class="playarea">
                     <div class="row">
-                        <div id="box1" class="box">
-                        </div>
+                        <div id="box1" class="box"></div>
                         <div id="box2" class="box"></div>
                         <div id="box3" class="box"></div>
                     </div>
@@ -72,7 +144,7 @@
                         <div id="box9" class="box"></div>
                     </div>
                 </div>
-                <div class="right score">
+                <div class="right score" id="right_score">
                       Their Score
                     <div id="oppscore">0
                     </div>
@@ -115,7 +187,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger mr-auto" id="quitbutton">Quit Game</button>
                             <button type="button" class="btn btn-primary" id="resetbutton">Play again</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal" id="closebutton">Close</button>
+                            <!-- <button type="button" class="btn btn-success" data-dismiss="modal" id="closebutton">Close</button> -->
                         </div>
                     </div>
                 </div>
@@ -141,7 +213,7 @@
                         <div class="modal-header no-border">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                        <div class="modal-body"id="Playermarkbody">
+                        <div class="modal-body" id="Playermarkbody" style="text-align: center;">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal" id="closebutton">OK</button>

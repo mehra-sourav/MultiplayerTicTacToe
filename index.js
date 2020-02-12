@@ -9,7 +9,7 @@ var fs = require('fs')
 var file = fs.readFileSync('./rooms.json');
 // file = JSON.parse(file);     
 
-// var rooms = 0;//##Implement dB instead of this
+var rooms = 0;//##Implement dB instead of this
 
 //For statically loading styles folder
 // app.use(express.static(path.join(__dirname,'./../styles')))
@@ -29,14 +29,19 @@ io.on('connection',function(socket){
     //Creating a new room and notifying the creator of room. 
     socket.on('createNewGame',function(data){
         // console.log("Increatenewgame on server side")
-        file = JSON.parse(file);
+        // file = JSON.parse(file);
         // console.log("On createNG file:",file)
-        socket.join('Room-'+ (++file.rooms));
-        console.log(file.rooms)
-        var room = file.rooms
-        //file.rooms = file.rooms + 1;
-        file = JSON.stringify(file,null,2);
-        fs.writeFileSync("./rooms.json",file);
+        // socket.join('Room-'+ ++file.rooms);
+        // console.log("P1 Joining room:",file.rooms)
+        // let room = file.rooms
+        // file = JSON.stringify(file,null,2);
+        // fs.writeFileSync("./rooms.json",file);
+
+        socket.join('Room-'+ ++rooms);
+        console.log("P1 Joining room:",rooms)
+        let room = rooms
+
+        // file.rooms = file.rooms + 1;
         socket.emit('newGame',{
             name:data.name,
             room:'Room-'+ room
@@ -45,11 +50,14 @@ io.on('connection',function(socket){
     
     //Connecting second player to room.
     socket.on('joinGame',function(data){
-        // console.log("in joingame")
-        // console.log(data)
-        var room = io.nsps['/'].adapter.rooms[data.room];
-        if(room && room.length == 1)
+        console.log("in joingame")
+        console.log("Room P1 joined:",data.room)
+        var roomID = io.nsps['/'].adapter.rooms[data.room];
+        console.log(typeof(roomID))
+        // console.log(room.length)
+        if(roomID && roomID.length == 1)
         {
+            console.log("in joingame,just before joining")
             socket.join(data.room);
             io.in(data.room).clients((err,clients)=>{
                 // console.log(clients)
@@ -106,9 +114,18 @@ io.on('connection',function(socket){
     socket.on("Playerquit",function(){
         socket.broadcast.emit("Opponentquit")
     });
+
+    //Player wants to play against CPU
+    // socket.on("createNewSinglePlayerGame",function(data){
+    //     console.log("In createNewSinglePlayerGame");
+    //     socket.emit("startSinglePlayerGame",{
+    //         name:data.name
+    //     });
+    // });
+    
 });
 
 
-http.listen(process.env.PORT || 3000,function(){
+http.listen(process.env.PORT || 3001,function(){
     // console.log("Server running at port 3000")
 })
