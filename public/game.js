@@ -266,65 +266,15 @@ let transition = () =>{
     {   
         var gamestate = {
             finish:false,
-            count:0
+            count:0,
+            // playerturn:true
         }
         gamemode="Single"
         
         console.log("In singlegame")
-        // alert("Ingame")
-
-        // for(let i=0;i<arrTic.length;i++)
-        // {
-        //     if(arrTic[i].getAttribute("checked") == "true")
-        //         console.log(i,"1234Chechked");
-        //     else
-        //         console.log(i,"123UnChechked");
-        // }
-
-        // for(let i=0;i<arrTic.length;i++)
-        // {
-        //     arrTic[i].onclick = function(){
-        //         console.log("In arrtic onclick")
-                
-        //         for(let i=0;i<arrTic.length;i++)
-        //         {
-        //             if(arrTic[i].getAttribute("checked") == "true")
-        //                 console.log("Before is Chechked",i);
-        //             else
-        //                 console.log("Before is UnChechked",i);
-        //         }
-
-        //         if(this.getAttribute("checked")!="true" && !finish)
-        //         {
-        //             // console.log("This is not checked")
-        //             this.setAttribute("checked","true");
-        //             //console.log(this.id);
-        //             //this.style.backgroundColor="#4CAF50";
-        //             // console.log(i+" was clicked")
-        //             ++count;
-        //             if(count%2==0)
-        //                 this.innerHTML = "X";
-        //             else
-        //                 this.innerHTML = "O";
-        //         }
-
-        //         for(let i=0;i<arrTic.length;i++)
-        //         {
-        //             if(arrTic[i].getAttribute("checked") == "true")
-        //                 console.log("After is Chechked",i);
-        //             else
-        //                 console.log("After is UnChechked",i);
-        //         }
-
-        //     }
-        //     // if(arrTic[i].getAttribute("checked") == "true")
-        //     //     console.log(i,"Chechked");
-        //     // else
-        //     //     console.log(i,"UnChechked");
-        // }
-
-
-
+        
+        // Playerturn(gamestate)
+        
         ID = setInterval(function(){
             Check(gamestate)
             console.log("In setinterval")
@@ -333,14 +283,15 @@ let transition = () =>{
             // {
             //     console.log("Checked",i,arrTic[i].getAttribute("checked"))
             // }
-            if(gamestate.count%2==0 && !gamestate.finish)
+            if(gamestate.count%2==0 && !gamestate.finish)// && gamestate.playerturn)
             {
+                console.log("Player's turn.Playerturn:",gamestate.playerturn)
                 for(let i=0;i<arrTic.length;i++)
                 {
                     arrTic[i].onclick = function(){
                         console.log("In arrtic onclick")
 
-                        if(this.getAttribute("checked")!="true" && !gamestate.finish)
+                        if(this.getAttribute("checked")!="true"  && gamestate.count%2==0)
                         {
                             console.log("This is not checked")
                             this.setAttribute("checked","true");
@@ -350,15 +301,17 @@ let transition = () =>{
                             ++gamestate.count;
                             this.innerHTML = "X";
                             changeTurn(gamestate)
+                            console.log("Player's turn.Playerturn now:",gamestate.playerturn)
                             // else
                             //     arrTic[cputurn].innerHTML = "O";
                         }
                     }
                 }
             }
-            else if(gamestate.count%2!=0 && !gamestate.finish)
+            else if(gamestate.count%2!=0 && !gamestate.finish)// && !gamestate.playerturn)
             {
                 console.log("Gamestate:",gamestate.finish)
+                console.log("CPU's turn.Playerturn:",gamestate.playerturn)
                 setTimeout(()=>{
                     var cputurn = Math.floor(Math.random() * Math.floor(9));
                     // console.log("CPU will play",cputurn)
@@ -380,6 +333,7 @@ let transition = () =>{
                             arrTic[cputurn].innerHTML = "O";
                             ++gamestate.count;
                             changeTurn(gamestate)
+                            console.log("CPU's turn.Playerturn now:",gamestate.playerturn)
                         
                         // },800)
                         
@@ -405,72 +359,73 @@ let transition = () =>{
             document.getElementById("Winmsgbody").innerHTML = "Loading main page ...";
             location.reload();
         }
+    }
 
-        //     for(let i=0;i<arrTic.length;i++)
-        //     {
-        //         arrTic[i].onclick = function(){
-        //             console.log("In arrtic onclick")
-
-        //             if(this.getAttribute("checked")!="true" && !finish)
-        //             {
-        //                 this.setAttribute("checked","true");
-        //                 //console.log(this.id);
-        //                 //this.style.backgroundColor="#4CAF50";
-        //                 // console.log(i+" was clicked")
-        //                 ++count;
-        //                 this.innerHTML = "X";
-        //                 // else
-        //                 //     arrTic[cputurn].innerHTML = "O";
-        //             }
-        //         }
-        //     }
-        // // }
-        // else
-        // {
-        //     var cputurn = Math.floor(Math.random() * Math.floor(9));
-    
-        //     while(arrTic[cputurn].getAttribute("checked")=="true")
-        //         cputurn = Math.floor(Math.random() * Math.floor(9));
-        //     arrTic[cputurn].innerHTML = "O";
-        //     ++count;
-        // }
-        // Check(arrTic)
-    // }
-
-
-    // for(let i=0;i<arrTic.length;i++)
+    // function Playerturn(gamestate)
     // {
-    //     arrTic[i].onclick = function(){
-
-    //         if(count%2==0)
+    //     Check(gamestate)
+    //     if(gamestate.count%2==0 && !gamestate.finish && gamestate.playerturn)
+    //     {
+    //         console.log("Player's turn.Playerturn:",gamestate.playerturn)
+    //         for(let i=0;i<arrTic.length;i++)
     //         {
-    //             if(this.getAttribute("checked")!="true")
-    //             {
-    //                 this.setAttribute("checked","true");
-    //                 //console.log(this.id);
-    //                 //this.style.backgroundColor="#4CAF50";
-    //                 console.log(i+" was clicked")
-    //                 ++count;
-    //                 if(count%2!=0)
+    //             arrTic[i].onclick = function(){
+    //                 console.log("In arrtic onclick")
+
+    //                 if(this.getAttribute("checked")!="true" && !gamestate.finish && gamestate.count%2==0)
+    //                 {
+    //                     console.log("This is not checked")
+    //                     this.setAttribute("checked","true");
+    //                     //console.log(this.id);
+    //                     //this.style.backgroundColor="#4CAF50";
+    //                     // console.log(i+" was clicked")
+    //                     ++gamestate.count;
     //                     this.innerHTML = "X";
-    //                 // else
-    //                 //     arrTic[cputurn].innerHTML = "O";
+    //                     changeTurn(gamestate)
+    //                     console.log("Player's turn.Playerturn now:",gamestate.playerturn)
+    //                     // else
+    //                     //     arrTic[cputurn].innerHTML = "O";
+    //                 }
     //             }
     //         }
-    //         else
-    //         {
-    //             var cputurn = Math.floor(Math.random() * Math.floor(9));
-
-    //             while(arrTic[cputurn].getAttribute("checked")=="true")
-    //                 cputurn = Math.floor(Math.random() * Math.floor(9));
-    //             arrTic[cputurn].innerHTML = "O";
-    //             ++count;
-    //         }
-            
-            
-    //         Check(arrTic)
     //     }
-    }
+    // }
+
+    // function CPUturn(gamestate)
+    // {
+    //     Check(gamestate)
+    //     if(gamestate.count%2!=0 && !gamestate.finish && !gamestate.playerturn)
+    //     {
+    //         console.log("Gamestate:",gamestate.finish)
+    //         console.log("CPU's turn.Playerturn:",gamestate.playerturn)
+    //         // setTimeout(()=>{
+    //             var cputurn = Math.floor(Math.random() * Math.floor(9));
+    //             // console.log("CPU will play",cputurn)
+    //             while(arrTic[cputurn].getAttribute("checked")=="true" && gamestate.count < 9)
+    //             {
+    //                 console.log("CPU will play",cputurn)
+    //                 cputurn = Math.floor(Math.random() * Math.floor(9));
+                    
+    //             }
+    //             // console.log("after while")
+                    
+    //             // setTimeout(function(){
+    //             if(arrTic[cputurn].getAttribute("checked")!="true" && gamestate.count < 9)
+    //             {
+    //                 // console.log("CPU Played",cputurn)
+    //                 // alert("CPU Played")
+    //                 // setTimeout(()=>{
+    //                     arrTic[cputurn].setAttribute("checked","true");
+    //                     arrTic[cputurn].innerHTML = "O";
+    //                     ++gamestate.count;
+    //                     changeTurn(gamestate)
+    //                     console.log("CPU's turn.Playerturn now:",gamestate.playerturn)
+
+    //             }
+      
+    //         // },800);
+    //     }
+    // }
 
     function Check(gamestate)
     {
@@ -589,12 +544,16 @@ let transition = () =>{
         {
             document.getElementById("player_name").setAttribute("style","background-color:var(--select-color)");
             document.getElementById("opp_name").setAttribute("style","background-color:transparent");
+            // gamestate.playerturn = !gamestate.playerturn
+            // Playerturn(gamestate)
         }
         else
         {
             document.getElementById("player_name").setAttribute("style","background-color:transparent");
             document.getElementById("opp_name").setAttribute("style","background-color:var(--select-color)");
+            // gamestate.playerturn = !gamestate.playerturn 
         }
+        
     }
 
     function Reset(gamestate)
@@ -615,6 +574,8 @@ let transition = () =>{
 
     //Player clicks on two player game-mode
     document.getElementById("Twoplayer").onclick = function(event){
+        //To let the game know that the player wants a two player mode
+        gamemode="Twoplayer"
         event.preventDefault();
         // alert("Getting clicked")
         console.log("IN twoplayergame")
@@ -625,6 +586,8 @@ let transition = () =>{
     
     //Player clicks on newgame in two player mode
     document.getElementById("newgame").onclick = function(event){
+            //To let the game know that the player wants a two player mode
+            gamemode="Twoplayer"
             event.preventDefault();
             // document.getElementById("multimode").setAttribute("style","display:none");
             // document.getElementById("game").setAttribute("style","display:block");
@@ -1144,7 +1107,7 @@ let transition = () =>{
     {
         document.documentElement.addEventListener("click", function(event){
          //Making sure that 'closebutton' and 'resetbutton' don't have event listeners attached
-         if(!player.getgamestarted() && !game.getfinish())
+         if(gamemode=="Twoplayer" && !player.getgamestarted() && !game.getfinish())
            {
                //Adding an exception for theme toggle button
             //    if(event.target.id != "switch" && event.target.id != "starwars")
@@ -1159,7 +1122,7 @@ let transition = () =>{
          }
         
          //else
-         if(game.getfinish() == true)
+         if(gamemode=="Twoplayer" && game.getfinish() == true)
          {
             let modaltext = document.getElementById("Winmsgbody").innerHTML
             modaltext = modaltext.substring(0,modaltext.indexOf(" ")) + " has won the game";
