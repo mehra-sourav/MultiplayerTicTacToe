@@ -43,7 +43,12 @@ body
     /* color:red; */
 }
 
-#h1
+.titlelink,.titlelink:hover
+{
+    text-decoration: none;
+}
+
+#h1,#gameh1
 {
     position: relative;
     display: flex;
@@ -79,11 +84,165 @@ body
     display: none;
 }
 
+#singlegame
+{
+    display: block;
+}
+
+.form
+{
+    width:100%;
+    margin:0px;
+    padding:0px;
+    text-align: center;
+}
+
+#gamelogo
+{
+    display:none;
+    position: absolute;
+    left:5px;
+    width:64px;
+    height: auto;
+    z-index:1;
+    top:16px;
+    border-radius:10px;
+}
+
 #toggle
 {
     position:absolute;
     top:10px;
     right: 10px;
+}
+.bg-modal
+{
+    width:100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    background-color:rgba(255,255,255,.1);
+    z-index:2;
+    border-radius:4px;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    color:black;
+}
+
+.content-modal
+{
+    width:400px;
+    height:450px;
+    background-color: white;
+    display:flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align:center;
+    padding:15px;
+    border-radius:5px;
+    position:relative;
+}
+#content-modal-body
+{
+    height:85%;
+    width:100%;
+    border:1px solid grey;
+    border-top: 0px;
+}
+
+.authmodalclose
+{
+    position:absolute;
+    top:-15px;
+    right:-5px;
+    transform:rotate(45deg);
+    color: black;
+    font-size:40px; 
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.tabgroup
+{
+    width:100%;
+    top:30px;
+    left:0px;
+    padding:15px;
+    position: absolute;
+}
+
+#login,#signup
+{
+    width:50%;
+    height: 50px;
+    float:left;
+    text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor:pointer;
+    border:1px solid grey;
+}
+#login:hover,#signup:hover
+{
+    /* Add light color on hover */
+}
+
+#login-form,#signup-form
+{
+    /* border:1px solid; */
+    width:100%;
+    padding:40px;
+    clear:both;
+    /* height:60%;
+    display: flex;
+    align-items: flex-end; */
+}
+
+#login-form input,#signup-form input
+{
+    margin:10px auto;
+    width:80%;
+    height:10%;
+    padding:5px;
+    transition: all 0.5s ease;
+    /* border:1px solid; */
+}
+
+#Msg
+{
+    text-align: center;
+}
+
+
+/* ul
+{
+    color:red;
+    list-style-type: none;
+    background-color: yellow;
+}
+
+li
+{
+    display: inline;
+} .tab
+{
+    display:flex;
+    flex-direction: column;
+
+} */
+
+
+
+#signup input
+{
+    display:block;
+    /* width:50%; */
+    margin:10px auto;
+    /* border-radius:2px; */
+    /* background-color: red; */
+    /* padding: */
 }
 
 #gamemode
@@ -100,12 +259,110 @@ body
     /* background-color: blue; */
 }
 
+#histtable
+{
+    margin:auto;
+    width:50%;
+    text-align: center;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+#matchtable
+{
+    width: 100%;
+    text-align: center;
+    /* border:1px solid white; */
+}
+
+#matchtable tr td
+{
+    /* border:1px solid white; */
+}
+
+.red
+{
+    color:red;
+}
+
+.green
+{
+    color:#64a166;
+}
+
+.grey
+{
+    color:#747880;
+}
+
+.histscore
+{
+    font-size:20px;
+}
+
+.lightmtchbg
+{
+    background-color: #363535;
+    /* background-image: linear-gradient(to top,#1f1f1f, #363535, #1f1f1f); */
+}
+
+
+
+
 #gamemode button
 {
     width:80%;
     height: 10%;
     /* background-color: red   ; */
 }
+
+#info
+{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    padding:auto;
+    /* background-color: blue; */
+    width:50vh;
+    height: 70vh;
+}
+
+#showlogin
+{
+    /* display: flex;
+    justify-content: flex-end; */
+    position: absolute; 
+    right:15px;
+    top:25px;
+    /* background-color: red; */
+    z-index: 1;
+}
+
+
+#showlogin:hover
+{
+    /* background-color:blue; */
+}
+
+#logout
+{
+    /* display: flex;
+    justify-content: flex-end; */
+    position: absolute; 
+    right:15px;
+    top:25px;
+    /* background-color: red; */
+    z-index: 1;
+}
+
+.heading
+{
+    /* background-color: orange; */
+}
+
+
 
 #singlemode
 {
@@ -120,6 +377,7 @@ body
     width:30vh;
     /* background-color: blue; */
 }
+
 
 #multimode
 {
@@ -529,6 +787,12 @@ footer
         height:145px;
         font-size:85px;
     }
+    #showlogin
+    {
+        display: none;
+    }
+
+    
 }
 
 @media screen and (max-width:582px)
@@ -580,6 +844,16 @@ footer
     html
     {
         --hsize:30px;
+    }
+
+    #gameh1
+    {
+        display: none;
+    }
+
+    #gamelogo
+    {
+        display: block;
     }
 
 }
@@ -778,3 +1052,17 @@ footer
 
 } */
 
+/* import java.util.*;
+
+class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        int T = scanner.nextInt();
+
+        int[] arr = new int[N];
+
+        for(int i=0;i<N;i++)
+            arr[i] = scanner.nextInt(); */

@@ -4,106 +4,49 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="index.css" type="text/css"><!-- For server deployment-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <!-- <link rel="icon" href='/public/favicon.ico' class='js-favicon'> -->
+        <!-- <link rel="icon" href="public/favicon.ico"> -->
         <title>2 Player Tic-Tac-Toe</title>
         <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>  <!--From CDN-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     </head>
     <body>
         <br>
         <!-- <br> -->
         <div class="heading">
-                <button class="btn btn-outline-light choicebutton" id="showlogin">
-                        Login/Signup<!-- <img src="https://m.media-amazon.com/images/M/MV5BNDhlNWFiZTItMjFhZi00NGRmLWI2ZmUtNzdjYjUzM2VmNDIxXkEyXkFqcGdeQW1yb3NzZXI@._V1_UX477_CR0,0,477,268_AL_.jpg" id="starwars" title="Light Mode"> -->
+                <!-- <button class="btn btn-outline-light choicebutton" id="showlogin">
+                        Login/Signup
+                </button> -->
+                <button class="btn btn-outline-light choicebutton" id="logout">
+                    Logout<!-- <img src="https://m.media-amazon.com/images/M/MV5BNDhlNWFiZTItMjFhZi00NGRmLWI2ZmUtNzdjYjUzM2VmNDIxXkEyXkFqcGdeQW1yb3NzZXI@._V1_UX477_CR0,0,477,268_AL_.jpg" id="starwars" title="Light Mode"> -->
                 </button>
             
                 <div id="name">
-                    <h1 id="h1">2-Player Tic Tac Toe</h1>
-                    <!-- <h1 id="h2">Room ID:  </h1> -->
-                </div>                        
+                    <a href="/game"><img src="/gamelogo.png" id="gamelogo" title="Take me to Home" /></a>
+                    <a href="/game" class="titlelink"><h1 id="gameh1">2-Player Tic Tac Toe</h1></a>
+                    <h1 id="h2">Room ID:  </h1>
+                    <!-- <h2 id="nametag">Hi</h2> -->
+                    
+                    <!-- <img src=""> -->
+                </div>                
+                
         </div>
-        <!-- Signup/loginmodal -->
-        <div id="info">
-            <div>
-                <u><h5 style="width:initial; text-align:center">Have no friends?</h5></u>
-            </div>
-            <div>
-                <h5 style="width:initial; text-align:center">
-                    Play against the CPU which will always be there for you
-                </h5>
-            </div>
+        <div id="gamemode">
+            <!-- <form action="/game/singleplayer" method="get" class="form"> -->
+                <button id="Singleplayer" class="btn btn-primary mb-2" class="choicebutton" onsubmit="return false;">Single Player</button>
+            <!-- </form> -->
             <br/>
             <br/>
-            <div>
-                <u><h5 style="width:initial; text-align:center">
-                    Want to obliterate your buddy?
-                </h5></u>
-            </div>
-            <div>
-                <h5 style="width:initial; text-align:center">
-                    Play against them in the Two Player mode
-                </h5>
-            </div>
-            <br>
-            <br>
-            <div>
-                <h5 style="width:initial; text-align:center">
-                    <a href src="#" id="Loginlink">Login</a> to play
-                </h5>
-            </div>
-        </div>
-        
-        <div class="bg-modal">
-            <div class="content-modal">
-                <div class="authmodalclose">+</div>
-                <div id="content-modal-body">
-                    <div class="tabgroup">
-                        <div id="login">Login</div>
-                        <div id="signup">Signup</div> 
-                    </div>
-                    <br>
-                    <br>
-                    <form id="login-form" >
-                        <input name="loginemail" placeholder="Email ID" required><br>
-                        <input name="loginpassword" type="password" placeholder="Password" required><br>
-                        <button type="Submit" class="btn btn-success mb-2 w-25" onsubmit="return false;">Login</button>
-                    </form>
-                    <form id="signup-form">
-                        
-                        <input name="signupname" placeholder="Enter your name"></input><br>
-                        <input type="email" name="signupemail" placeholder="Enter your email ID" required></input><br>
-                        <input name="signuppassword" type="password" placeholder="Enter a password" required></input><br>
-                        <button type="Submit" class="btn btn-success mb-2 w-25">Signup</button>
-                    </form>
-                </div>
-            </div>  
-        </div>
-        <div class="modal fade" id="Msg" role="dialog">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content modalcolor">
-                    <div class="modal-header no-border">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body" id="Msgbody">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id="OK">OK</button>
-                        <!-- <button type="button" class="btn btn-primary" id="resetbutton">Play again</button> -->
-                        <!-- <button type="button" class="btn btn-success" data-dismiss="modal" id="closebutton">Close</button> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div id="gamemode">
-            
-            <button id="Singleplayer" class="btn btn-primary mb-2" class="choicebutton" onsubmit="return false;">Single Player</button>
+            <!-- <form action="/game/twoplayer" method="get" class="form"></form> -->
+                <button id="Twoplayer" class="btn btn-primary mb-2" class="choicebutton"onsubmit="return false;"> Two Player </button>
+            <!-- </form> -->
             <br/>
             <br/>
-            <button id="Twoplayer" class="btn btn-primary mb-2" class="choicebutton"onsubmit="return false;"> Two Player </button>            
+            <!-- <form action="/history" method="get" class="form"> -->
+                <button id="History" class="btn btn-primary mb-2" class="choicebutton"onsubmit="return false;"> Match History </button>
+            <!-- </form> -->
         </div>
-
-        <div id="singlemode">
+        <!-- Asking user for their name when clicking on singleplayer -->
+        <!-- <div id="singlemode">
             <form class="form" id="form1" onsubmit="return false;">
                 <div class="form-group mx-sm-3 mb-2">
                     <h5 style="width:initial; text-align:center">Enter your name</h5>
@@ -112,41 +55,93 @@
                 </div>
             </form>
             <button type="submit" id="newsinglegame" class="btn btn-success mb-2 choicebutton" onsubmit="return false;" form="form1">Start</button>
-        </div>
+        </div> -->
         <div id="multimode">
-            
+            <!-- <div class="container ml-5"> -->
                 <br/>
                 <br/>
                 <br/>
                 <br/>
                 <br/>
-                <form class="form" id="form2" onsubmit="return false;">
-                    <div class="form-group mx-sm-3 mb-2">
-                        
-                        <h5 style="width:initial; text-align:center">Create a New Game</h5>
-                        
-                        <input type="text" class="form-control" id="newname" style="text-align:center" placeholder="Enter your name" required>
-                        
-                    </div>
-                </form>
-                <button type="button" id="newgame" class="btn btn-success mb-2 choicebutton">New Game</button>
+                <!-- <form class="form" id="form2" action="/game/twoplayer" method="get"> -->
+                <div class="form-group mx-sm-3 mb-2">
+                    <!-- <h6 id="h6" style="width:initial; text-align:center">Create a New Game</h6> -->
+                    <h5 style="width:initial; text-align:center">Create a New Game</h5>
+                    <!-- <br/> -->
+                    
+                    <!-- </div> -->
+                </div>
+                <button type="Submit" id="newgame" class="btn btn-success mb-2 choicebutton">New Game</button>
+                <!-- </form> -->
                 <br/>
                 <br/>
                 <form class="form" id="form3" onsubmit="return false;">
                     <div class="form-group mx-sm-3 mb-2">
+                        <!-- <h5 id="h6" style="width:initial; text-align:center">Join a Game</h5> -->
                         <h5 style="width:initial; text-align:center">Join a Game</h5>
-                        <input type="text" class="form-control" id="joinname" style="text-align:center" placeholder="Enter your name" required >
-                        <input type="text" class="form-control" id="roomID" style="text-align:center" placeholder="Enter room id"  required>
+                        <!-- <br/> -->
+                        <!-- <input type="text" class="form-control" id="joinname" style="text-align:center" placeholder="Enter your name" required > -->
+                        <input type="text" class="form-control" id="roomID" style="text-align:center" placeholder="Enter Room ID"  required>
+                        <!-- </div> -->
                     </div>
                 </form>
-                <button type="submit" id="joingame" class="btn btn-success mb-2 choicebutton">Join Game</button> -->
-        <!-- </div>
+                <button type="submit" id="joingame" class="btn btn-success mb-2 choicebutton">Join Game</button>
+            
+                <!-- <h3><u>Rules</u></h3>
+                <ol>
+                    <li>Create a new game by entering your name.</li>
+                    <li>If you want to join an existing game, enter the room id along with your name to join that room.<br> (Only 2 players may join the room at this moment. Spectator mode maybe available soon)</li>
+                </ol>
+                <br>
+                <h3>Create a New Game</h3>
+                <form class="form-inline" onsubmit="return false;">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="newname" placeholder="Enter your name" required>
+                    </div>
+                    <button type="submit" id="newgame" class="btn btn-outline-light mb-2">New Game</button>
+                </form>
+                <br>
+                <h3>Join an Existing Game</h3>
+                <form class="form-inline" onsubmit="return false;">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="joinname" placeholder="Enter your name" required >
+                        <input type="text" class="form-control" id="roomID" placeholder="Enter room id"  required >
+                    </div>
+                    <button type="submit" id="joingame" class="btn btn-outline-light mb-2">Join Game</button>
+                </form>      -->
+            <!-- </div> -->
+            
+            
+            <!-- <div class="container ml-5">
+                <h3><u>Rules</u></h3>
+                <ol>
+                    <li>Create a new game by entering your name.</li>
+                    <li>If you want to join an existing game, enter the room id along with your name to join that room.<br> (Only 2 players may join the room at this moment. Spectator mode maybe available soon)</li>
+                </ol>
+                <br>
+                <h3>Create a New Game</h3>
+                <form class="form-inline" onsubmit="return false;">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="newname" placeholder="Enter your name" required>
+                    </div>
+                    <button type="submit" id="newgame" class="btn btn-outline-light mb-2">New Game</button>
+                </form>
+                <br>
+                <h3>Join an Existing Game</h3>
+                <form class="form-inline" onsubmit="return false;">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="joinname" placeholder="Enter your name" required >
+                        <input type="text" class="form-control" id="roomID" placeholder="Enter room id"  required >
+                    </div>
+                    <button type="submit" id="joingame" class="btn btn-outline-light mb-2">Join Game</button>
+                </form>     
+            </div> -->
+        </div>
         <div id="game">
             <div class="displayarea">
                 <div class="left score" id="left_score">
                     Your Score
-                    <div id="playerscore">0
-                    </div>
+                    <div id="playerscore">0</div>
                 </div>
                 <div class="playarea">
                     <div class="row">
@@ -167,8 +162,7 @@
                 </div>
                 <div class="right score" id="right_score">
                       Their Score
-                    <div id="oppscore">0
-                    </div>
+                    <div id="oppscore">0</div>
                 </div>
             </div>
             <div class="container-fluid first">
@@ -196,8 +190,8 @@
                        <div id="secondoppscore"> 0</div>
                     </div>  
                 </div>
-            </div> -->
-            <!-- <div class="modal fade" id="Winmsg" role="dialog">
+            </div>
+            <div class="modal fade" id="Winmsg" role="dialog">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content modalcolor">
                         <div class="modal-header no-border">
@@ -208,12 +202,12 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger mr-auto" id="quitbutton">Quit Game</button>
                             <button type="button" class="btn btn-primary" id="resetbutton">Play again</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal" id="closebutton">Close</button>
+                            <!-- <button type="button" class="btn btn-success" data-dismiss="modal" id="closebutton">Close</button> -->
                         </div>
                     </div>
                 </div>
-            </div> -->
-            <!-- <div class="modal fade" id="Playagainmsg" role="dialog">
+            </div>
+            <div class="modal fade" id="Playagainmsg" role="dialog">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content modalcolor">
                         <div class="modal-header no-border">
@@ -242,10 +236,11 @@
                     </div>
                 </div>
             </div>                
-        </div> -->
+        </div>
         <!-- <script src="index.js"></script> For server deployment -->
-        <script src="landpage.js"></script> <!-- For server deployment-->
+        <script src="game.js"></script> <!-- For server deployment-->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.8/uuid.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>

@@ -1,23 +1,3 @@
-function Toggletheme()
-{
-    var checkbox = document.getElementById("switch");
-    checkbox.onclick=function(){
-        if(document.documentElement.getAttribute('data-theme') == "light")
-        {
-            transition();
-            Changebutton("light")
-            document.documentElement.setAttribute('data-theme','dark')  
-        }
-        else
-        {
-        
-            transition();
-            Changebutton("dark")
-            document.documentElement.setAttribute('data-theme','light')
-        }
-    }
-}
-
 let transition = () =>{
     document.documentElement.classList.add('transition');
     window.setTimeout(()=>{
@@ -25,33 +5,11 @@ let transition = () =>{
     },3000)
 }
 
-// function Changebutton(theme)
-// {
-//     if(theme == "light")
-//     {
-//         var button = document.getElementsByClassName("btn")
-//         button[0].classList.replace("btn-outline-dark","btn-outline-light")
-//         document.getElementById("starwars").src="https://m.media-amazon.com/images/M/MV5BNDhlNWFiZTItMjFhZi00NGRmLWI2ZmUtNzdjYjUzM2VmNDIxXkEyXkFqcGdeQW1yb3NzZXI@._V1_UX477_CR0,0,477,268_AL_.jpg";
-// 		document.getElementById("starwars").title="Light Mode"
-//         button['newgame'].classList.replace("btn-outline-dark","btn-outline-light")
-//         button['joingame'].classList.replace("btn-outline-dark","btn-outline-light")  
-//     }
-//     else
-//     {
-//         var button = document.getElementsByClassName("btn")
-//         button[0].classList.replace("btn-outline-light","btn-outline-dark")
-//         document.getElementById("starwars").src="https://cdn.hitc-s.com/i/1232/star_wars_battlefront_darth_vader_2_1026058.jpg";
-// 		document.getElementById("starwars").title="Dark Mode"
-//         button['newgame'].classList.replace("btn-outline-light","btn-outline-dark")
-//         button['joingame'].classList.replace("btn-outline-light","btn-outline-dark")
-//     }
-// }
-
 // document.getElementById("Singleplayer").onclick = function(event){
-//     event.preventDefault();
-//     // alert("Getting clicked")
-//     document.getElementById("gamemode").setAttribute("style","display:none");
-//     document.getElementById("singlemode").setAttribute("style","display:flex");
+//     // event.preventDefault();
+//     alert("Single player Getting clicked")
+//     // document.getElementById("gamemode").setAttribute("style","display:none");
+//     // document.getElementById("singlemode").setAttribute("style","display:flex");
 //     // document.getElementById("h1").setAttribute("style","display:none");
 // }
 
@@ -204,62 +162,153 @@ let transition = () =>{
 // }
 
 
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
 
-
+var player,game;
+var gameID = uuidv4();
 (function()
 {
+    // document.getElementById("h1").setAttribute("style","display:none");
     var arrTic = document.getElementsByClassName("box");
     var opp_name = document.getElementById("opp_name").innerHTML;
-    var socket = io(),player,game;
-    var ID;
-    var gamemode;
-
-    // document.getElementsByClassName("button").onmouseover(
-    //     alert("on")
-    // )
     
-    $("button").hover(
+    
+    var socket = io.connect('http://localhost:3001')
+    var ID;
+    var Playername
+    var gamemode;
+    // document.getElementById("h1").setAttribute("style","display:none");
+
+    $(".choicebutton").hover(
         function () {
         //   $(this).addClass("btn-light");
           $(this).toggleClass("btn-outline-dark");
-        //   $(this).toggleClass("btn-outline-light");
-
-        //   alert("Hello")
+        
         },
-        // function () {
-        //   $(this).tClass("btn-outline-light");
-        // }
     );
+
+    //Fetching userinfo from backend
+    var user = $.get('/userinfo',function(result){
+        user = JSON.parse(result);
+        // console.log("user inside:",user)
+        return user
+    }).then(result=> {return result;})
+
     
-    //Player clicks on single player game-mode
-    document.getElementById("Singleplayer").onclick = function(event){
-        event.preventDefault();
-        // alert("Getting clicked")
-        console.log("IN singlegame")
-        document.getElementById("gamemode").setAttribute("style","display:none");
-        document.getElementById("singlemode").setAttribute("style","display:flex");
-        // document.getElementBcyId("h1").setAttribute("style","display:none");
+
+    //Extracting name of user from cookie
+    let output = {};
+    // console.log("Cookie:")
+    document.cookie.split(/\s*;\s*/).forEach(function(pair) {
+        pair = pair.split(/\s*=\s*/);
+        output[pair[0]] = pair[1]
+    });
+
+    //decoding URI encoding from name and selecting first name
+    Playername = decodeURIComponent(output['userName']).split(/\s* \s*/)[0]
+    // console.log("Cookie",output['userName'])
+    
+    
+    // document.getElementById("Singleplayer").onclick = function(event){
+    //     // event.preventDefault();
+    //     // alert("Getting clicked")
+    //     console.log("IN singlegame")
+    //     document.getElementById("gamemode").setAttribute("style","display:none");
+    //     document.getElementById("singlemode").setAttribute("style","display:flex");
+    //     // document.getElementBcyId("h1").setAttribute("style","display:none");
+    // }
+    
+    // document.getElementById("newsinglegame").onclick = function(event)
+    
+    // async function fetchusername(user) 
+    // {
+    //     try
+    //     {
+    //             // let mode= JSON.stringify({
+    //             //    game:"single" 
+    //             // })
+    //             let fetchResult = await fetch('/userinfo',{
+    //                 method:"GET",
+    //                 headers : { 
+    //                 'Content-Type': 'application/json',
+    //                 'Accept': 'application/json'
+    //                 },
+    //                 redirect:"follow"
+    //             }).then(result => {return result.text()})
+
+    //         fetchResult = fetchResult.replace(/['"]/g,'')
+    //         // Playername = fetchResult
+    //         // console.log("fetchResult",fetchResult)
+    //         // console.log("Playername",Playername)
+            
+    //         // let response = await fetchResult;
+    //         // let jsonData = await response.json();
+    //         // console.log("NAme:",jsonData);
+    //         // if(user == "player")
+    //         document.getElementById("player_name").innerHTML= fetchResult
+    //         // else
+    //         // return Playername
+            
+    //     }
+    //     catch(error)
+    //     {
+
+    //     }
+    // }
+    console.log("Global playername:",Playername)
+    
+    //Logging out and redirecting to login page
+    document.getElementById("logout").onclick = function(event)
+    {
+        // document.cookie = "cookiename= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+        document.cookie = "";
+        fetch('/logout',{
+            method:"GET",
+            headers : { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+            },
+            // redirect:"follow"
+        })
+        window.location.href="/";
     }
     
-    document.getElementById("newsinglegame").onclick = function(event){
-        
+    
+    
+    
+    //Player clicks on single player game-mode
+    document.getElementById("Singleplayer").onclick = function(event)
+    {
         // event.preventDefault();
-        var name = document.getElementById("singlemodename").value;
-        console.log("In newsinglegame",name);
-        if(!name)
-            alert("Please enter your name.")
-        else
-        {
-            document.getElementById("singlemode").setAttribute("style","display:none");
+        // alert("Hello")
+        // var name = document.getElementById("singlemodename").value;
+        // Playername = fetch('')
+        // console.log
+        // socket.
+        // alert("In singlemplayer")
+        // fetch('http://example.com/movies.json')
+        // console.log("In newsinglegame",name);
+        // if(!name)
+        //     alert("Please enter your name.")
+        // else
+        // {
+            document.getElementById("gamemode").setAttribute("style","display:none");
             document.getElementById("game").setAttribute("style","display:block");
             // document.getElementById("h1").setAttribute("style","display:none");
             // document.getElementById("h2").setAttribute("style","display:flex");
 
             document.getElementById("opp_name").innerHTML = "CPU";
-            document.getElementById("player_name").innerHTML = name;
+            // fetchusername("player")
+            document.getElementById("player_name").innerHTML = Playername;
+            console.log("Single player username:",Playername)
+            // document.getElementById("player_name").innerHTML = name;
             document.getElementById("right_score").innerHTML = "CPU's score" + "<div id=\"oppscore\">0</div>";
             SingleGame();
-        }   
+        // }   
     }
     
     function SingleGame()
@@ -506,16 +555,22 @@ let transition = () =>{
             Show(gamestate.count);
             if(arrTic[x].innerHTML == "O")
             {
-                document.getElementById("Winmsgbody").innerHTML = "<p align='center'>CPU wins</p>";
-                document.getElementById("oppscore").innerHTML++
-                document.getElementById("secondoppscore").innerHTML++
+                if(!gamestate.finish)
+                {
+                    document.getElementById("Winmsgbody").innerHTML = "<p align='center'>CPU wins</p>";
+                    document.getElementById("oppscore").innerHTML++
+                    document.getElementById("secondoppscore").innerHTML++
+                }
                 // alert("CPU score upgrade")
             }
             else
             {
-                document.getElementById("Winmsgbody").innerHTML = "<p align='center'>You won</p>";
-                document.getElementById("playerscore").innerHTML++ 
-                document.getElementById("secondplayerscore").innerHTML++ 
+                if(!gamestate.finish)
+                {
+                    document.getElementById("Winmsgbody").innerHTML = "<p align='center'>You won</p>";
+                    document.getElementById("playerscore").innerHTML++ 
+                    document.getElementById("secondplayerscore").innerHTML++ 
+                }
                 // alert("Player score upgrade")
             }
             console.log("In checkValue")
@@ -560,6 +615,7 @@ let transition = () =>{
     {
         gamestate.count = 0;
         gamestate.finish = false;
+        changeTurn(gamestate)
         
         for(var i=0;i<arrTic.length;i++)
         {
@@ -571,10 +627,10 @@ let transition = () =>{
 
     }
 
-
     //Player clicks on two player game-mode
     document.getElementById("Twoplayer").onclick = function(event){
         //To let the game know that the player wants a two player mode
+        // alert("hello")
         gamemode="Twoplayer"
         event.preventDefault();
         // alert("Getting clicked")
@@ -588,55 +644,101 @@ let transition = () =>{
     document.getElementById("newgame").onclick = function(event){
             //To let the game know that the player wants a two player mode
             gamemode="Twoplayer"
-            event.preventDefault();
-            // document.getElementById("multimode").setAttribute("style","display:none");
-            // document.getElementById("game").setAttribute("style","display:block");
-            var name = document.getElementById("newname").value;
-
-            if(!name)
-            {
-                alert("Please enter your name.")
-                document.getElementById("newname").classList.add("errorclass")
-                // $(this).toggleClass("btn-outline-light");
-            }
-            else
-            {
-                document.getElementById("newname").classList.remove("errorclass")
+            console.log("in two play newgame")
+            // alert("New game")
+            // event.preventDefault();
+            document.getElementById("multimode").setAttribute("style","display:none");
+            document.getElementById("game").setAttribute("style","display:block");
+            // var name = document.getElementById("newname").value;
+            
+            // fetchusername()
+            // Playername = document.getElementById("player_name").innerHTML
+            // console.log("Single player username:",Playername)
+            document.getElementById("player_name").innerHTML = Playername;
+            // console.log(playername)
+            // if(!name)
+            // {
+            //     alert("Please enter your name.")
+            //     document.getElementById("newname").classList.add("errorclass")
+            //     // $(this).toggleClass("btn-outline-light");
+            // }
+            // else
+            // {
+            //     document.getElementById("newname").classList.remove("errorclass")
                 socket.emit('createNewGame',{
-                    name:name});
-                player = new Player(name,"X");
-            } 
-        }
+                    name:Playername
+                });
+                player = new Player(Playername,"X");
+            // } 
+    }
     
     //Joining an existing game
     document.getElementById("joingame").onclick = function(event){
         // event.preventDefault();
-        var name = document.getElementById("joinname").value;
+        // var name = document.getElementById("joinname").value;
         var roomID = document.getElementById("roomID").value;
         
         // if(document.getElementById("joinname").value == "")
+        console.log("In joingame")
 
         
-        console.log("In joingame")
+        document.getElementById("player_name").innerHTML = Playername;
         
-        if(!roomID && !name)
-            alert("Please enter your name and the room ID you want to join.");
-        else if(!name)
-        {
-            alert("Please enter your name before joining.");
-        }
-        else if(!roomID)
-            alert("Please enter the room ID before joining."); 
-        else
-        {
-            ChangepageTwoPlayer()
-            console.log("In joingame,just before emit")
-            socket.emit("joinGame",{
-                name:name,
-                room:roomID
-            });
-            player = new Player(name,"O");
-        }  
+        //Checking if entered roomID is valid or not,i.e., if the room has been created or not
+            $.post('/roomlength',{ID:roomID}, function(result) {
+            console.log("POSTING roomlength")
+
+            if(!roomID)
+                alert("Please enter the room ID before joining."); 
+            else if(result == "Full")
+                alert("The room ID you entered is full.Please try some other room.");
+            else if(result == "Invalid")
+                alert("The room ID you entered doesn't exist yet.Please try some other room."); 
+            else if(result == "Notfull")
+            {
+                ChangepageTwoPlayer()
+                console.log("In joingame,just before emit")
+                socket.emit("joinGame",{
+                    name:Playername,
+                    room:roomID
+                });
+                player = new Player(Playername,"O");
+            }
+            
+        })
+
+        // var user = $.get('/userinfo',function(result){
+        //     user = JSON.parse(result);
+        //     // console.log("user inside:",user)
+        //     return user
+        // }).then(result=> {return result;})
+        // }, 5000);
+        
+        // setTimeout(()=>{
+
+            // console.log("Validroom:",validroom)
+        // },3000)
+
+        // if(!roomID)
+        //     alert("Please enter the room ID before joining."); 
+        // else if(validroom == "Full")
+        //     alert("The room ID you entered is either full or doesn't exist yet.Please try some other room."); 
+        // else if(validroom == "Notfull")
+        // {
+        //     ChangepageTwoPlayer()
+        //     console.log("In joingame,just before emit")
+        //     socket.emit("joinGame",{
+        //         name:Playername,
+        //         room:roomID
+        //     });
+        //     player = new Player(Playername,"O");
+        // }  
+    }
+    
+    //Match history click
+    document.getElementById("History").onclick = function(){
+        console.log("In History mode")
+        window.location.href="/history";
     }
 
     //Requesting the opponent for a rematch
@@ -664,7 +766,9 @@ let transition = () =>{
         }
         else
         {
-            socket.emit("Playerquit")
+            socket.emit("Playerquit",{
+                room:game.getRoomID()
+            })
             game.showcustommodal("Loading main page ...");
             location.reload();
         }
@@ -672,13 +776,17 @@ let transition = () =>{
     
     //Accepting the rematch request
     document.getElementById("yesbutton").onclick = function(){
-        socket.emit("Challenge_accepted");
+        socket.emit("Challenge_accepted",{
+            room:game.getRoomID()
+       });
         game.Reset();
     }
     
     //Rejecting the rematch request
     document.getElementById("nobutton").onclick = function(){
-        socket.emit("Challenge_rejected");
+        socket.emit("Challenge_rejected",{
+            room:game.getRoomID()
+       });
         game.showcustommodal("You have rejected the challenge. Redirecting you to the main page in 5 seconds.")
         setTimeout(function(){
             game.showcustommodal("Loading main page ...");
@@ -863,42 +971,54 @@ let transition = () =>{
         {
           if(!game.getfinish())
           {
+            console.log("Game count:",game.getcount())
             if(game.checkValue(0,1,2))
             {
-              game.setfinish(true);
+                game.setfinish(true);
+                game.showresult();
             }
             else if(game.checkValue(3,4,5))
             {
-              game.setfinish(true);
+                game.setfinish(true);
+                game.showresult();
             }
             else if(game.checkValue(6,7,8))
             {
-              game.setfinish(true);
+                game.setfinish(true);
+                game.showresult();
             }
             else if(game.checkValue(0,3,6))
             {
-              game.setfinish(true);
+                game.setfinish(true);
+                game.showresult();
             }
             else if(game.checkValue(1,4,7))
             {
-              game.setfinish(true);
+                game.setfinish(true);
+                game.showresult();
             }
             else if(game.checkValue(2,5,8))
             {
-              game.setfinish(true);
+                game.setfinish(true);
+                game.showresult();
             }
             else if(game.checkValue(0,4,8))
             {
-              game.setfinish(true);
+                game.setfinish(true);
+                game.showresult();
             }
             else if(game.checkValue(2,4,6))
             {
-              game.setfinish(true);
+                game.setfinish(true);
+                game.showresult();
             }
-            else if(game.getcount()==9)
+            else if(game.getcount() == 9)
             {
-              game.showresult();
-            }
+                game.setfinish(true);
+                game.showresult();
+                document.getElementById("Winmsgbody").innerHTML = "The match was a Draw";
+                // alert("draw");
+            } 
           }
         }
         
@@ -907,10 +1027,10 @@ let transition = () =>{
             if(game.getcount() != 9)
             {
                 $("#Winmsg").modal("show");
+                // alert("In showresult 1")
             }
             else
             {
-                document.getElementById("Winmsgbody").innerHTML = "The match was a Draw";
                 $("#Winmsg").modal("show");
             }
         }
@@ -925,24 +1045,41 @@ let transition = () =>{
         
         checkValue(x,y,z)
         {
+            console.log("IN checkvalue")
             if(arrTic[x].innerHTML == "O" && arrTic[y].innerHTML == "O" && arrTic[z].innerHTML == "O" || arrTic[x].innerHTML == "X" && arrTic[y].innerHTML == "X" && arrTic[z].innerHTML == "X" )
             {
-              game.changeother(x,y,z);
-              let player_name = document.getElementById("player_name").innerHTML;
-              if(arrTic[x].innerHTML == "O" && player.getPlayerMark() == "O" || arrTic[x].innerHTML == "X" && player.getPlayerMark() == "X")
-              {
-                  document.getElementById("Winmsgbody").innerHTML = "<b>"+player_name+"</b>"+" wins";
-                  document.getElementById("playerscore").innerHTML++ 
-                  document.getElementById("secondplayerscore").innerHTML++ 
-              }
-              else
-              {
-                  document.getElementById("Winmsgbody").innerHTML = "<b>"+opp_name+"</b>"+" wins";
-                  document.getElementById("oppscore").innerHTML++
-                  document.getElementById("secondoppscore").innerHTML++
-              }
-              game.showresult();
-              return true;
+                game.changeother(x,y,z);
+                let player_name = document.getElementById("player_name").innerHTML;
+                
+                if(arrTic[x].innerHTML == "O" && player.getPlayerMark() == "O" || arrTic[x].innerHTML == "X" && player.getPlayerMark() == "X")
+                {
+                    document.getElementById("Winmsgbody").innerHTML = "<b>"+player_name+"</b>"+" wins";
+                    document.getElementById("playerscore").innerHTML++ 
+                    document.getElementById("secondplayerscore").innerHTML++ 
+                }
+                else
+                {
+                    document.getElementById("Winmsgbody").innerHTML = "<b>"+opp_name+"</b>"+" wins";
+                    document.getElementById("oppscore").innerHTML++
+                    document.getElementById("secondoppscore").innerHTML++
+                }
+
+                console.log("UUID:",gameID)
+                let matchresult = {
+                        matchID:gameID,
+                        playerA:Playername,
+                        playerAscore:document.getElementById("playerscore").innerHTML,
+                        playerBscore:document.getElementById("oppscore").innerHTML,
+                        playerB:opp_name
+                    }
+                //Updating match result in DB
+                $.post('/addmatchdata',matchresult, function(result) {
+                    console.log("POSTING addmatchdata")
+                    console.log("Result:",result)    
+                })
+
+                
+                return true;
             }
           else
             return false;
@@ -961,7 +1098,9 @@ let transition = () =>{
         
         Playagain()
         {
-            socket.emit("Playagain");
+            socket.emit("Playagain",{
+                room:game.getRoomID()
+           });
         }
         
         Reset()
@@ -999,10 +1138,12 @@ let transition = () =>{
         document.getElementById("game").setAttribute("style","display:block");
         document.getElementById("h1").setAttribute("style","display:none");
         document.getElementById("h2").setAttribute("style","display:flex");
+        document.getElementById("gamelogo").setAttribute("style","display:block");
     }
     
     socket.on('newGame',function(data){
         document.getElementById('h2').innerHTML="Room ID:  "+data.room;
+        // document.getElementById('h1').innerHTML="Room ID:  "+data.room;
        
         //Setting player_name on player-1 side
         document.getElementById('player_name').innerHTML = data.name; 
@@ -1014,6 +1155,7 @@ let transition = () =>{
     
     socket.on('Player1',function(data){
         player.setturn(true);
+        console.log("In Player1")
          
         //Seting opp_name on player-1 side
         document.getElementById('opp_name').innerHTML = data.name;
@@ -1025,7 +1167,28 @@ let transition = () =>{
         
         document.getElementById("Playermarkbody").innerHTML = "You are "+"<b>"+player.getPlayerMark()+"</b>"+" in this game."
         $("#Playermark").modal("toggle");
-        game.game() 
+        game.game()
+        
+        //Checking every five seconds if opponent in the same room has left the game or not
+        var ID = game.getRoomID()
+        setInterval(function(){
+            
+            $.post('/roomlength',{ID}, function(result) {
+                console.log("POSTING roomlength")
+                if(result == "Notfull")
+                {
+                    // alert("Opp has left the game.")
+                    game.showcustommodal("<b>"+opp_name+"</b>"+" has left the game.<br/>Redirecting you to the main page in 5 seconds.");
+                    $("#Winmsg").modal("toggle");
+                    setTimeout(function(){
+                        game.showcustommodal("Loading main page ...");
+                        location.reload()
+                    },5000);
+                }    
+            });
+        }, 5000);
+
+
         
         console.log("In player1  on P1 side")
         socket.emit('player-1name',{
@@ -1036,6 +1199,7 @@ let transition = () =>{
     })
     
     socket.on('Player2',function(data){
+        console.log("In Player2")
         player.setturn(false);
         player.setgamestarted()
         document.getElementById('player_name').innerHTML = data.name
@@ -1054,6 +1218,28 @@ let transition = () =>{
         document.getElementById('opp_name').innerHTML = data.oppname;
         //Updating opponent's name in global variable 'opp_name'
         opp_name = data.oppname;
+        
+        
+        console.log("In player-1name")
+        
+        //Checking every five seconds if opponent in the same room has left the game or not
+        var ID = game.getRoomID()
+        setInterval(function(){
+            
+            $.post('/roomlength',{ID}, function(result) {
+                console.log("POSTING roomlength")
+                if(result == "Notfull")
+                {
+                    // alert("Opp has left the game.")
+                    game.showcustommodal("<b>"+opp_name+"</b>"+" has left the game. <br/>Redirecting you to the main page in 5 seconds.");
+                    $("#Winmsg").modal("toggle");
+                    setTimeout(function(){
+                        game.showcustommodal("Loading main page ...");
+                        location.reload()
+                    },5000);
+                }    
+            });
+        }, 5000);  
     });
     
     //Tells current player that they can play their turn
@@ -1098,39 +1284,61 @@ let transition = () =>{
         },5000);
     });
 
-    // socket.on("startSinglePlayerGame",function(data){
-        
-    //    console.log("In startSinglePlayerGame")
-    // });
-        
+            
     try
     {
         document.documentElement.addEventListener("click", function(event){
-         //Making sure that 'closebutton' and 'resetbutton' don't have event listeners attached
-         if(gamemode=="Twoplayer" && !player.getgamestarted() && !game.getfinish())
-           {
-               //Adding an exception for theme toggle button
-            //    if(event.target.id != "switch" && event.target.id != "starwars")
-            //        {
-                       alert("The game hasn't started. The opponent hasn't joined")
-                //    }
-           }
+            //Making sure that 'closebutton' and 'resetbutton' don't have event listeners attached
+            console.log("Global user:",user)
+            //  console.log("Global playername",Playername)
+            //  console.log("Global",Playername," score:",document.getElementById("playerscore").innerHTML)
+            //  console.log("Global oppname",opp_name)
+            //  console.log("Global",opp_name," score:",document.getElementById("oppscore").innerHTML)
             
-         if(event.target.id == "closebutton" || event.target.id == "resetbutton"  || event.target.id == "quitbutton" || event.target.id == "switch")
-         {
-            return;
-         }
-        
-         //else
-         if(gamemode=="Twoplayer" && game.getfinish() == true)
-         {
-            let modaltext = document.getElementById("Winmsgbody").innerHTML
-            modaltext = modaltext.substring(0,modaltext.indexOf(" ")) + " has won the game";
-                  
-            //Todo On P1 side, won message replaces win msg.
-            document.getElementById("Winmsgbody").innerHTML = modaltext
-            game.showresult();
-        }
+            //  console.log("UNique ID:",gameID)
+            if(gamemode=="Twoplayer" && !player.getgamestarted() && !game.getfinish())
+            {
+                //Adding an exception for theme toggle button
+                if(event.target.id != 'gamelogo' )
+                    {
+                        alert("The game hasn't started. The opponent hasn't joined")
+                    }
+            }
+                
+            if(event.target.id == "closebutton" || event.target.id == "resetbutton"  || event.target.id == "quitbutton" || event.target.id == "switch")
+            {
+                return;
+            }
+            
+            //else
+            if(gamemode=="Twoplayer" && game.getfinish() == true && game.getcount()!=9)
+            {
+                let modaltext = document.getElementById("Winmsgbody").innerHTML
+                modaltext = modaltext.substring(0,modaltext.indexOf(" ")) + " has won the game";
+                
+                //Todo On P1 side, won message replaces win msg.
+                document.getElementById("Winmsgbody").innerHTML = modaltext
+                $("#Winmsg").modal("show");
+            }
+
+            // if(gamemode=="Twoplayer" && game.getfinish() == true)
+            // {
+            //     console.log("UUID:",gameID)
+            //     let matchresult = {
+            //         matchID:gameID,
+            //         playerA:Playername,
+            //         playerAscore:document.getElementById("playerscore").innerHTML,
+            //         playerBscore:document.getElementById("oppscore").innerHTML,
+            //         playerB:opp_name
+            //     }
+
+            // //  console.log("Global oppname",opp_name)
+            // //  console.log("Global",opp_name," score:",document.getElementById("oppscore").innerHTML)
+            //     $.post('/addmatchdata',matchresult, function(result) {
+            //         console.log("POSTING addmatchdata")
+            //         console.log("Result:",result)    
+            //     })
+            // }
         });
     }catch(err)
         {
