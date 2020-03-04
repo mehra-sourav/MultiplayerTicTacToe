@@ -177,7 +177,7 @@ var gameID = uuidv4();
     var opp_name = document.getElementById("opp_name").innerHTML;
     
     
-    var socket = io.connect('http://localhost:3001')
+    var socket = io.connect()//'http://localhost:3001')
     var ID;
     var Playername
     var gamemode;
