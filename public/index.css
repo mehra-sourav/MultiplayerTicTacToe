@@ -274,6 +274,8 @@ li
 {
     width: 100%;
     text-align: center;
+    table-layout: fixed;
+    text-overflow: ellipsis;
     /* border:1px solid white; */
 }
 
