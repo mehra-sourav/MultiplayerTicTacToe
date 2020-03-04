@@ -2,7 +2,7 @@ require('dotenv').config()
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(app.listen("https://twoplayertictactoe.herokuapp.com" || 3001));
+var io = require('socket.io')(app.listen(process.env.PORT || 3001));
 
 var path = require('path');
 var bodyParser = require('body-parser');
