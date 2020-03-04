@@ -1,18 +1,19 @@
 require('dotenv').config()
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(app.listen(process.env.PORT || 3001));
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(app.listen(process.env.PORT || 3001));
 
-var path = require('path');
-var bodyParser = require('body-parser');
-var fs = require('fs')
-var MongoClient = require('mongodb').MongoClient;
+const path = require('path');
+const bodyParser = require('body-parser');
+const fs = require('fs')
+const MongoClient = require('mongodb').MongoClient;
 // var uri = "mongodb+srv://test1:t est1@cluster0-or75i.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(process.env.DB_CONNECT, { useNewUrlParser: true});
-var bcrypt = require('bcrypt')
-var jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
+const connection = client.connect()
 var file = fs.readFileSync('./rooms.json','utf8');
 file = JSON.parse(file);     
 console.log("File contents:",file)
@@ -25,7 +26,6 @@ app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended: true})); //Possible point of error in game names processing
 app.use(express.json()); //Possible point of error in game names processing
 
-const connection = client.connect()
 
 app.get('/',function(req,res){
     // console.log(req.headers)
@@ -138,7 +138,9 @@ app.post("/login",function(req,res){
             {
                 console.log("User doesn't exist")
                 res.send("Nosuchuser") //Add error message on frontend side   
-            }  
+            }
+            
+            console.log("after  ini check:",user)
                         
             if(user.userID == req.body.loginemail)
             {
