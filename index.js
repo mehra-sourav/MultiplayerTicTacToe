@@ -250,6 +250,7 @@ app.post('/roomlength',function(req,res){
         console.log("In /roomlength:",req.body.ID)
         var roomID = io.nsps['/'].adapter.rooms[req.body.ID];
         console.log("RoomID:",roomID)
+        console.log("RoomID:",roomID)
         if(roomID && roomID.length < 2)
         {
             res.send("Notfull")
@@ -405,17 +406,19 @@ io.on('connection',function(socket){
     // console.log("In connection.File:",file)
     //Creating a new room and notifying the creator of room. 
     socket.on('createNewGame',function(data){
-        
-        var room = ++file.rooms;
-        socket.join('Room-'+ room);
-        console.log("P1 Joining room:",room)
+        // file = JSON.parse(file);  
+        console.log("File rooms:",file.rooms)
+        var newroom = ++file.rooms;
+        // var newroom = ++rooms;
+        socket.join('Room-'+ newroom);
+        console.log("P1 Joining room:",newroom)
         let newjson = {
-            rooms:room
+            rooms:newroom
         }
         fs.writeFileSync('./rooms.json',JSON.stringify(newjson,null,4))
         socket.emit('newGame',{
             name:data.name,
-            room:'Room-'+ room
+            room:'Room-'+ newroom
         })
     });
     
