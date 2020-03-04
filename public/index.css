@@ -60,6 +60,8 @@ body
     position: relative;
     display: none;
     justify-content: center;
+    align-items: center;
+    vertical-align: middle;
     font-size: var(--hsize);
 }
 
@@ -409,6 +411,7 @@ h1
     display: flex;
     justify-content: center;
     text-align: center;
+    /* background-color: green; */
 }
 #joinname
 {
@@ -451,7 +454,7 @@ h1
 {
     display: flex;
     flex-wrap: wrap;  
-    margin:0vw 10vw;
+    margin:1.5vw 15vw;
     margin-top: 3%;
     justify-content: center;
 }
@@ -638,6 +641,14 @@ footer
     bottom: 0;
 }
 
+@media screen and (max-width:1204px)
+{
+    .playarea
+    {
+        margin:0vw 0vw;
+        margin-top: 3%;
+    }
+}
 
 
 @media screen and (max-width:994px)
@@ -813,7 +824,7 @@ footer
     .playarea
     {
         margin:0vw 0vw;
-        margin-top: 3%;
+        margin-top: 15%;
         padding: 0px;
     }
     
@@ -843,7 +854,7 @@ footer
     }
     html
     {
-        --hsize:30px;
+        --hsize:28px;
     }
 
     #gameh1
@@ -870,7 +881,7 @@ footer
     .playarea
     {
         margin:10vw 10vw;
-        margin-top: 10%;
+        margin-top: 20%;
         padding: 0px;
     }
     .score
@@ -896,7 +907,11 @@ footer
     }
     html
     {
-        --hsize:29px;
+        --hsize:27px;
+    }
+    #h2
+    {
+        margin-bottom: 0px;
     }
 
 }
@@ -906,8 +921,9 @@ footer
     .playarea
     {
         margin:10vw 5vw;
-        margin-top: 10%;
+        margin-top: 20%;
         padding: 0px;
+        /* background-color: red; */
     }
     .score
     {
@@ -915,7 +931,7 @@ footer
     }
     html
     {
-        --hsize:28px;
+        --hsize:25px;
     }
 
 }
@@ -924,6 +940,7 @@ footer
     .playarea
     {
         margin:10vw 5vw;
+        margin-top: 20%;
         margin-bottom: 60%;
         padding: 0px;
     }
@@ -954,7 +971,7 @@ footer
     }
     html
     {
-        --hsize:27px;
+        --hsize:20px;
     }
 
 }
@@ -964,8 +981,10 @@ footer
     .playarea
     {
         margin:10vw 5vw 25vw;
+        margin-top: 30%;
         margin-bottom: 80%;
         padding: 0px;
+        /* background-color: green; */
     }
     .box
     {
@@ -994,8 +1013,10 @@ footer
     .playarea
     {
         margin:10vw 5vw 25vw;
+        margin-top: 30%;
         margin-bottom: 80%;
         padding: 0px;
+        /* background-color: orange; */
     }
     .box
     {
@@ -1052,17 +1073,3 @@ footer
 
 } */
 
-/* import java.util.*;
-
-class Main
-{
-    public static void main(String[] args)
-    {
-        Scanner scanner = new Scanner(System.in);
-        int N = scanner.nextInt();
-        int T = scanner.nextInt();
-
-        int[] arr = new int[N];
-
-        for(int i=0;i<N;i++)
-            arr[i] = scanner.nextInt(); */

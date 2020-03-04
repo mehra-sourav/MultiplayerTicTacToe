@@ -13,11 +13,12 @@ const client = new MongoClient(process.env.DB_CONNECT, { useNewUrlParser: true})
 var bcrypt = require('bcrypt')
 var jwt = require('jsonwebtoken')
 
-var file = fs.readFileSync('./rooms.json');
-// file = JSON.parse(file);     
+var file = fs.readFileSync('./rooms.json','utf8');
+file = JSON.parse(file);     
+console.log("File contents:",file)
 
 var rooms = 0;//##Implement dB instead of this
-var DB;
+// var DB;
 
 //For statically loading public folder
 app.use(express.static("public"))
@@ -151,7 +152,7 @@ app.post("/login",function(req,res){
                         name:user.userName,
                         ID:user.userID
                     }
-                    let accessToken = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"10h"})
+                    let accessToken = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1h"})
                     // res.json({accessToken:accessToken})
                       // res.set('accessToken', accessToken);
                     
@@ -399,17 +400,19 @@ app.post('/addmatchdata',authenticateToken,function(req,res){
 
 // io.
 io.on('connection',function(socket){
-    // file = JSON.parse(file);
+    
     console.log("In connection")
+    // console.log("In connection.File:",file)
     //Creating a new room and notifying the creator of room. 
     socket.on('createNewGame',function(data){
-        console.log("In new game")
         
-        socket.join('Room-'+ ++rooms);
-        console.log("P1 Joining room:",rooms)
-        let room = rooms
-
-        // file.rooms = file.rooms + 1;
+        var room = ++file.rooms;
+        socket.join('Room-'+ room);
+        console.log("P1 Joining room:",room)
+        let newjson = {
+            rooms:room
+        }
+        fs.writeFileSync('./rooms.json',JSON.stringify(newjson,null,4))
         socket.emit('newGame',{
             name:data.name,
             room:'Room-'+ room

@@ -1136,7 +1136,7 @@ var gameID = uuidv4();
     {
         document.getElementById("multimode").setAttribute("style","display:none");
         document.getElementById("game").setAttribute("style","display:block");
-        document.getElementById("h1").setAttribute("style","display:none");
+        document.getElementById("gameh1").setAttribute("style","display:none");
         document.getElementById("h2").setAttribute("style","display:flex");
         document.getElementById("gamelogo").setAttribute("style","display:block");
     }
