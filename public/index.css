@@ -769,6 +769,11 @@ footer
 }
 @media screen and (max-width:520px)
 {
+    #gamemode
+    {
+        margin-top:10%;
+    }
+    
     .playarea
     {
         margin:0vw 0vw;
