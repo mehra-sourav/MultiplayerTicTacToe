@@ -84,49 +84,95 @@ function changeborder(a)
         // });
     }
 
+    //Function for checking if password is same
+    function checkPass()
+    {
+        let firstPass = document.getElementsByName("signuppassword")[0].value
+        let secondPass = document.getElementsByName("confirmsignuppassword")[0].value
+
+        if(firstPass != secondPass)
+        {
+            document.getElementById("errormsg").innerText = "Passwords don't match"
+            document.getElementById("errormsg").style.setProperty("display","block");
+            document.getElementsByName("confirmsignuppassword")[0].classList = "redborder"
+        }
+        else
+        {
+            document.getElementById("errormsg").innerText = ""
+            document.getElementById("errormsg").style.setProperty("display","none");
+            document.getElementsByName("confirmsignuppassword")[0].classList.remove("redborder")
+        }
+
+    }
+
+    //Checking if confirm password field's border is red.If yes, then on focus remove the red border
+    document.getElementsByName("confirmsignuppassword")[0].onfocus = function(){
+        if(document.getElementsByName("confirmsignuppassword")[0].classList.value == "redborder")
+        {
+            document.getElementsByName("confirmsignuppassword")[0].classList.remove("redborder")
+        }
+    }
+
+
+
     document.querySelector(".authmodalclose").onclick = () =>
     {
-        console.log("IN")
+        // console.log("IN")
         document.querySelector(".bg-modal").style.display = "none";
     }
 
-    $('#signup-form').on('submit', function(e) {
+    $('#signup-form').submit(function(e) {
         e.preventDefault();
+        // console.log(document.getElementsByName("confirmsignuppassword")[0].classList)
+        var elements = $(this).serializeArray()
+        // console.log("ELements:",elements)
         var data =  $(this).serialize();
-        $.post('/signup', data, function(result) {
-            if(result == "Signedup")
-            {
-                document.getElementById("Msgbody").innerHTML = "Signed up. You can login now."
-                $("#Msg").modal("toggle");
-
-                //Toggles tab to login once use has signed up
-                $('#Msg').on("hidden.bs.modal", function (e) {
-                    setTimeout(() => {
-                
-                        document.getElementById("signup-form").style.display = "none";
-                        document.getElementById("signup").style.backgroundColor = "lightgrey";
-
-                        document.getElementById("login-form").style.display = "block";
-                        document.getElementById("login").style.backgroundColor = "white";
-                        changeborder("signup")
-                    }, 200);
-                })
-                
-                // window.location.href = '/profile';
-            }
-            else if(result == "Userexists")
-            {
-                document.getElementById("Msgbody").innerHTML = "This email is already associated with another account. Please try another email."
-                $("#Msg").modal("toggle");
-
-                //Does nothing if user has entered wrong password.Added this statement here as page was switching to signup tab becuase of adding condition in nosuchuser case.
-                $('#Msg').on("hidden.bs.modal", function (e) {
-                })
-            }
-        });
+        // console.log("In this:",decodeURIComponent(data))
+        // console.log(data);
+        if(elements[2].value != elements[3].value)
+        {
+            alert("Passwords don't match. Please enter the same passwords in both fields.")
+            //Making the border red
+            document.getElementsByName("confirmsignuppassword")[0].className = "redborder"
+        }
+        else
+        {
+            $.post('/signup', data, function(result) {
+                if(result == "Signedup")
+                {
+                    document.getElementById("Msgbody").innerHTML = "Signed up. You can login now."
+                    $("#Msg").modal("toggle");
+    
+                    //Toggles tab to login once use has signed up
+                    $('#Msg').on("hidden.bs.modal", function (e) {
+                        setTimeout(() => {
+                    
+                            document.getElementById("signup-form").style.display = "none";
+                            document.getElementById("signup").style.backgroundColor = "lightgrey";
+    
+                            document.getElementById("login-form").style.display = "block";
+                            document.getElementById("login").style.backgroundColor = "white";
+                            changeborder("signup")
+                        }, 200);
+                    })
+                    
+                    // window.location.href = '/profile';
+                }
+                else if(result == "Userexists")
+                {
+                    document.getElementById("Msgbody").innerHTML = "This email is already associated with another account. Please try another email."
+                    $("#Msg").modal("toggle");
+    
+                    //Does nothing if user has entered wrong password.Added this statement here as page was switching to signup tab becuase of adding condition in nosuchuser case.
+                    $('#Msg').on("hidden.bs.modal", function (e) {
+                    })
+                }
+            });
+        }
+        
     });
 
-    $('#login-form').on('submit', function(e) {
+    $('#login-form').submit(function(e) {
         e.preventDefault();
         var data =  $(this).serialize();
         console.log(typeof(data))

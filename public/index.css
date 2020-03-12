@@ -1,12 +1,3 @@
-/* html
-{ --bg: bisque;
-  --color-heading:#35363a;
-  --color-text:#35363a;
-  --select-color:#128F76;
-  --modal-bg:white;
-  --cross-color:grey;
-} */
-
 html
 { --bg: #1f1f1f;
   --color-heading:bisque;
@@ -22,10 +13,6 @@ body
 {
     background-color: var(--bg) !important;
     color:  var(--color-text) !important;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; */
 }
 
 .btn-primary
@@ -34,13 +21,11 @@ body
 }
 .btn-dark
 {
-    background-color: #343a40   ;
-    /* color:red; */
+    background-color: #343a40;
 }
 .btn-light
 {
-    background-color: bisque   ;
-    /* color:red; */
+    background-color: bisque;
 }
 
 .titlelink,.titlelink:hover
@@ -209,7 +194,21 @@ body
     height:10%;
     padding:5px;
     transition: all 0.5s ease;
-    /* border:1px solid; */
+    /* border:1px solid grey; */
+}
+
+.redborder
+{
+    border-color:red;
+}
+
+#errormsg
+{
+    display: none;
+    color:red;
+    font-size:10px;
+    margin-bottom: 10px;
+    
 }
 
 #Msg
@@ -217,34 +216,11 @@ body
     text-align: center;
 }
 
-
-/* ul
-{
-    color:red;
-    list-style-type: none;
-    background-color: yellow;
-}
-
-li
-{
-    display: inline;
-} .tab
-{
-    display:flex;
-    flex-direction: column;
-
-} */
-
-
-
 #signup input
 {
     display:block;
     /* width:50%; */
     margin:10px auto;
-    /* border-radius:2px; */
-    /* background-color: red; */
-    /* padding: */
 }
 
 #gamemode
@@ -266,9 +242,6 @@ li
     margin:auto;
     width:50%;
     text-align: center;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
 }
 #matchtable
 {
@@ -309,9 +282,6 @@ li
     background-color: #363535;
     /* background-image: linear-gradient(to top,#1f1f1f, #363535, #1f1f1f); */
 }
-
-
-
 
 #gamemode button
 {
@@ -366,8 +336,6 @@ li
     /* background-color: orange; */
 }
 
-
-
 #singlemode
 {
     display: none;
@@ -381,7 +349,6 @@ li
     width:30vh;
     /* background-color: blue; */
 }
-
 
 #multimode
 {
@@ -469,7 +436,8 @@ h1
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size:90px;
+    font-size:100px;
+    font-family: 'Baloo 2', cursive;
     /* color:blue; */
     /* animation: popin 3s linear 0.1s 1 forwards; */
 }
@@ -655,31 +623,16 @@ footer
 
 @media screen and (max-width:994px)
 {
-    /* .score
-    {
-        padding:8vw;
-    } */
-    
-    /* .playarea
-    {
-        margin:0vw 0vw;
-        margin-top: 3%;
-    } */
     .box
     {
-        font-size:80px;
+        font-size:90px;
         width: 130px;
         height:130px;
     }
 }
 
-
-
-
 @media screen and (max-width:975px)
 {
-    
-    
     .score
     {
         padding:8vw;
@@ -692,12 +645,7 @@ footer
     {
         margin:0vw 0vw;
         margin-top: 3%;
-   
     }
-    /* .box
-    {
-        font-size:7.5vw;
-    } */
 }
 
 @media screen and (max-width:880px)
@@ -720,7 +668,7 @@ footer
     {
         width: 125px;
         height:125px;
-        font-size: 75px;
+        font-size: 85px;
     }
     html
     {
@@ -747,7 +695,7 @@ footer
     {
         width: 120px;
         height:120px;
-        font-size: 70px;
+        font-size: 80px;
     }
     html
     {
@@ -773,7 +721,7 @@ footer
     {
         width: 150px;
         height:150px;
-        font-size:90px;
+        font-size:100px;
     }
    
     .second
@@ -798,14 +746,12 @@ footer
     {
         width: 145px;
         height:145px;
-        font-size:85px;
+        font-size:95px;
     }
     #showlogin
     {
         display: none;
-    }
-
-    
+    }  
 }
 
 @media screen and (max-width:582px)
@@ -814,7 +760,7 @@ footer
     {
         width: 130px;
         height:130px;
-        font-size:80px;
+        font-size:90px;
     }
     html
     {
@@ -834,7 +780,7 @@ footer
     {
         width: 120px;
         height:120px;
-        font-size:70px;
+        font-size:80px;
     }
     
     .right-text
@@ -877,7 +823,7 @@ footer
     {
         width: 100px;
         height:100px;
-        font-size:60px;
+        font-size:70px;
     }
     
     .playarea
@@ -948,7 +894,7 @@ footer
     }
     .box
     {
-        font-size:55px;
+        font-size:65px;
     }
     .score
     {
@@ -992,7 +938,7 @@ footer
     {
         width: 90px;
         height:90px;
-        font-size:50px;
+        font-size:60px;
     }
     .score
     {
@@ -1024,22 +970,8 @@ footer
     {
         width: 90px;
         height:90px;
-        font-size:45px;
+        font-size:55px;
     }
-
-    /* .playarea
-    {
-        margin:40vw 5vw;
-        margin-bottom: 70%;
-        padding: 0px;
-    }
-
-    .box
-    {
-        width: 70px;
-        height:80px;
-        font-size:13vw;
-    } */
 
     .score
     {
@@ -1064,14 +996,3 @@ footer
     }
 
 }
-
-/* @media screen and (max-width:318px)
-{
-    .playarea
-    {
-        display:static;
-    }
-
-
-} */
-

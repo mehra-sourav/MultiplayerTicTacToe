@@ -2,7 +2,9 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(app.listen(process.env.PORT || 3001));
+const io = require('socket.io')(app.listen(process.env.PORT || 3001))/*,function(){
+            console.log("SERVER RUNNING")
+            }));*/
 
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -16,7 +18,7 @@ const jwt = require('jsonwebtoken')
 const connection = client.connect()
 var file = fs.readFileSync('./rooms.json','utf8');
 file = JSON.parse(file);     
-console.log("File contents:",file)
+// console.log("File contents:",file)
 
 var rooms = 0;//##Implement dB instead of this
 // var DB;
@@ -34,15 +36,16 @@ app.get('/',function(req,res){
     res.sendFile(path.resolve(__dirname+"/index.html"))
 })
 
+
+
 app.post('/signup', async function(req,res){
     // console.log(req.body)
     try
     {
-        var collection = client.db("MultiTicTacToe").collection("users");
+        let collection = client.db("MultiTicTacToe").collection("users");
         
         connection.then(async ()=>{
         // client.connect(async err => {
-            // var collection = client.db("MultiTicTacToe").collection("users");
             var user =  await collection.findOne(
                 {
                     userID:req.body.signupemail
@@ -104,12 +107,11 @@ app.post("/login",function(req,res){
     console.log("In /login")
     try
     {
-        var collection = client.db("MultiTicTacToe").collection("users");
+        let collection = client.db("MultiTicTacToe").collection("users");
         console.log("In /login try")
         // client.connect(async err => {
         connection.then(async ()=>{
        
-            // var collection = client.db("MultiTicTacToe").collection("users");
             var user =  await collection.findOne(
                 {
                     userID:req.body.loginemail
@@ -140,10 +142,9 @@ app.post("/login",function(req,res){
                 res.send("Nosuchuser") //Add error message on frontend side   
             }
             
-            console.log("after  ini check:",user)
-                        
-            if(user.userID == req.body.loginemail)
+            else if(user.userID == req.body.loginemail)
             {
+                console.log("after  ini check:",user)
                 // console.log("User exists")
                 // Perform actions on the collection object
                 if(bcrypt.compare(req.body.loginpassword,user.userPassword))
@@ -401,6 +402,11 @@ app.post('/addmatchdata',authenticateToken,function(req,res){
     {}
 })
 
+app.get('*',function (req, res) {
+    // res.redirect('/');
+    res.sendFile(path.resolve(__dirname+"/public/imagination.html"))
+});
+
 // io.
 io.on('connection',function(socket){
     
@@ -410,7 +416,8 @@ io.on('connection',function(socket){
     socket.on('createNewGame',function(data){
         // file = JSON.parse(file);  
         console.log("File rooms:",file.rooms)
-        var newroom = ++file.rooms;
+        // var newroom = ++file.rooms;
+        var newroom = ++rooms;
         // var newroom = ++rooms;
         socket.join('Room-'+ newroom);
         console.log("P1 Joining room:",newroom)

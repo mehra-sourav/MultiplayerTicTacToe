@@ -5,162 +5,6 @@ let transition = () =>{
     },3000)
 }
 
-// document.getElementById("Singleplayer").onclick = function(event){
-//     // event.preventDefault();
-//     alert("Single player Getting clicked")
-//     // document.getElementById("gamemode").setAttribute("style","display:none");
-//     // document.getElementById("singlemode").setAttribute("style","display:flex");
-//     // document.getElementById("h1").setAttribute("style","display:none");
-// }
-
-//Single Player game
-
-// document.getElementById("newsinglegame").onclick = function(event){
-        
-//     event.preventDefault();
-//     console.log("Hello")
-//     var name = document.getElementById("singlemodename").value;
-//     document.getElementById("singlemode").setAttribute("style","display:none");
-//     document.getElementById("game").setAttribute("style","display:block");
-//     // document.getElementById("h1").setAttribute("style","display:none");
-//     // document.getElementById("h2").setAttribute("style","display:flex");
-
-//     document.getElementById("opp_name").innerHTML = "CPU";
-//     document.getElementById("player_name").innerHTML = name;
-//     document.getElementById("opp_score").innerHTML = "CPU's score";
-    
-//     var finish=true;
-//     var count=0;
-//     var arrTic = document.getElementsByClassName("col");
-
-//     for(let i=0;i<arrTic.length;i++)
-//     {
-//         arrTic[i].onclick = function(){
-
-//             var cputurn = Math.floor(Math.random() * Math.floor(9));
-
-//             while(arrTic[cputurn].getAttribute("checked")=="true")
-//                 cputurn = Math.floor(Math.random() * Math.floor(9));
-            
-//             if(this.getAttribute("checked")!="true")
-//             {
-//                 this.setAttribute("checked","true");
-//                 //console.log(this.id);
-//                 //this.style.backgroundColor="#4CAF50";
-//                 console.log(i+" was clicked")
-//                 ++count;
-//                 if(count%2!=0)
-//                     this.innerHTML = "X";
-//                 else
-//                     arrTic[cputurn].innerHTML = "O";
-//             }
-//             Check(arrTic)
-//         }
-//     }
-
-//     function Check(arrTic)
-//     {
-//         if(count>4 && !finish)
-//         {
-//             if(checkValue(0,1,2))
-//             {
-//                 finish = true;
-//             }
-//             else if(checkValue(3,4,5))
-//             {
-//                 finish = true;
-//             }
-//             else if(checkValue(6,7,8))
-//             {
-//                 finish = true;
-//             }
-//             else if(checkValue(0,3,6))
-//             {
-//                 finish = true;
-//             }
-//             else if(checkValue(1,4,7))
-//             {
-//                 finish = true;
-//             }
-//             else if(checkValue(2,5,8))
-//             {
-//                 finish = true;
-//             }
-//             else if(checkValue(0,4,8))
-//             {
-//                 finish = true;
-//             }
-//             else if(checkValue(2,4,6))
-//             {
-//                 finish = true;
-//             }
-//             else if(count==9)
-//             {
-//                 Show();
-//             }
-//         }
-//     }
-
-//     function Show()
-//     {
-//         if(count != 9)
-//         {
-//             $(document).ready(function() { 
-//                 $("#Winmsg").modal("show"); });
-//         }
-//         else
-//         {
-//             document.getElementById("Winmsgbody").innerHTML = "<p align='center'>Draw</p>";
-//             $(document).ready(function() { 
-//             $("#Winmsg").modal("show"); });
-//         }
-    
-//     }
-
-//     function checkValue(x,y,z)
-//     {
-//         if(arrTic[x].innerHTML == "O" && arrTic[y].innerHTML == "O" && arrTic[z].innerHTML == "O" || arrTic[x].innerHTML == "X" && arrTic[y].innerHTML == "X" && arrTic[z].innerHTML == "X" )
-//         {
-//             // arrTic[x].style.backgroundColor="#4CAF50";
-//             // arrTic[y].style.backgroundColor="#4CAF50";
-//             // arrTic[z].style.backgroundColor="#4CAF50";
-//             changeother(x,y,z);
-//             show();
-//             if(arrTic[x].innerHTML == "O")
-//                 document.getElementById("Winmsgbody").innerHTML = "<p align='center'>Player 2 wins</p>";
-//             else
-//                 document.getElementById("Winmsgbody").innerHTML = "<p align='center'>Player 1 wins</p>";
-                
-//             return true;
-//         }
-//         else
-//             return false;
-//     }
-
-//     function changeother(a,b,c)
-//     {
-//         for(var i=0;i<arrTic.length;i++)
-//         {
-//             if(i!=a && i!=b && i!=c)
-//             {
-//                 arrTic[i].innerHTML ="";
-//             }
-//         }
-//     }
-
-//     function Reset()
-//     {
-//         count = 0;
-//         finish = false;
-        
-//         for(var i=0;i<arrTic.length;i++)
-//         {
-//             arrTic[i].setAttribute("checked","false");
-//             arrTic[i].innerHTML ="";
-//         }   
-//     }
-// }
-
 
 function uuidv4() {
     return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -325,9 +169,10 @@ var gameID = uuidv4();
         // Playerturn(gamestate)
         
         ID = setInterval(function(){
+        // document.documentElement.onclick = function(){
             Check(gamestate)
             console.log("In setinterval")
-            console.log("arrTic:")
+            // console.log("arrTic:")
             // for(let i=0;i<arrTic.length;i++)
             // {
             //     console.log("Checked",i,arrTic[i].getAttribute("checked"))
@@ -347,6 +192,7 @@ var gameID = uuidv4();
                             //console.log(this.id);
                             //this.style.backgroundColor="#4CAF50";
                             // console.log(i+" was clicked")
+                            document.getElementsByClassName("box")[i].style.setProperty("color","#05C8D7");
                             ++gamestate.count;
                             this.innerHTML = "X";
                             changeTurn(gamestate)
@@ -362,37 +208,62 @@ var gameID = uuidv4();
                 console.log("Gamestate:",gamestate.finish)
                 console.log("CPU's turn.Playerturn:",gamestate.playerturn)
                 setTimeout(()=>{
-                    var cputurn = Math.floor(Math.random() * Math.floor(9));
-                    // console.log("CPU will play",cputurn)
-                    while(arrTic[cputurn].getAttribute("checked")=="true" && gamestate.count < 9)
+
+                    //Best CPU turn using Minimax algorithm
+                    
+                    // var cputurn = Bestmove()
+                    var board = []
+                    // var count = 0;
+
+                    for(let i=0;i<arrTic.length;i++)
                     {
-                        console.log("CPU will play",cputurn)
-                        cputurn = Math.floor(Math.random() * Math.floor(9));
-                        
+                        board[i] = arrTic[i].innerHTML
+                        if(board[i] == "")
+                            board[i] = i;
                     }
-                    // console.log("after while")
+                    
+                    var cputurn = minimax(board,"O").index;
+                    // var cputurn = Math.floor(Math.random() * Math.floor(9));
+                    console.log("CPU will play:",cputurn)
+                    // console.log("CPU will play",cputurn)
+                    // while(arrTic[cputurn].getAttribute("checked")=="true" && gamestate.count < 9)
+                    // {
+                    //     console.log("CPU will play",cputurn)
+                    //     cputurn = Math.floor(Math.random() * Math.floor(9));
+                    //     // cputurn = Bestmove(gamestate)
                         
-                    // setTimeout(function(){
+                    // }
+                    
                     if(arrTic[cputurn].getAttribute("checked")!="true" && gamestate.count < 9)
                     {
-                        // console.log("CPU Played",cputurn)
-                        // alert("CPU Played")
-                        // setTimeout(()=>{
-                            arrTic[cputurn].setAttribute("checked","true");
-                            arrTic[cputurn].innerHTML = "O";
-                            ++gamestate.count;
-                            changeTurn(gamestate)
-                            console.log("CPU's turn.Playerturn now:",gamestate.playerturn)
-                        
-                        // },800)
-                        
-                        
+                        arrTic[cputurn].setAttribute("checked","true");
+                        document.getElementsByClassName("box")[cputurn].style.setProperty("color","#E19A13");//#F1A007");
+                        arrTic[cputurn].innerHTML = "O";
+                        ++gamestate.count;
+                        changeTurn(gamestate)
+                        console.log("CPU's turn.Playerturn now")
                     }
-                    // if(count >=9)
-                    //     finish = true;
-                    // },1000);
-                },800);
+                },500);
+                    //Random CPU turn
+                    // var cputurn = Math.floor(Math.random() * Math.floor(9));
+                    // // console.log("CPU will play",cputurn)
+                    // while(arrTic[cputurn].getAttribute("checked")=="true" && gamestate.count < 9)
+                    // {
+                    //     console.log("CPU will play",cputurn)
+                    //     cputurn = Math.floor(Math.random() * Math.floor(9));
+                        
+                    // }
+                    
+                    // if(arrTic[cputurn].getAttribute("checked")!="true" && gamestate.count < 9)
+                    // {
+                    //     arrTic[cputurn].setAttribute("checked","true");
+                    //     arrTic[cputurn].innerHTML = "O";
+                    //     ++gamestate.count;
+                    //     changeTurn(gamestate)
+                    //     console.log("CPU's turn.Playerturn now:",gamestate.playerturn)                   
+                    // }
             }
+        // }
             console.log("Previous has played. count:",gamestate.count)
             
             console.log("In setinterval. Finish:",gamestate.finish)
@@ -410,70 +281,301 @@ var gameID = uuidv4();
         }
     }
 
-    // function Playerturn(gamestate)
-    // {
-    //     Check(gamestate)
-    //     if(gamestate.count%2==0 && !gamestate.finish && gamestate.playerturn)
-    //     {
-    //         console.log("Player's turn.Playerturn:",gamestate.playerturn)
-    //         for(let i=0;i<arrTic.length;i++)
-    //         {
-    //             arrTic[i].onclick = function(){
-    //                 console.log("In arrtic onclick")
+    function minimax(newBoard,player)
+    {
+        var availSpots = emptyIndexes(newBoard);
 
-    //                 if(this.getAttribute("checked")!="true" && !gamestate.finish && gamestate.count%2==0)
-    //                 {
-    //                     console.log("This is not checked")
-    //                     this.setAttribute("checked","true");
-    //                     //console.log(this.id);
-    //                     //this.style.backgroundColor="#4CAF50";
-    //                     // console.log(i+" was clicked")
-    //                     ++gamestate.count;
-    //                     this.innerHTML = "X";
-    //                     changeTurn(gamestate)
-    //                     console.log("Player's turn.Playerturn now:",gamestate.playerturn)
-    //                     // else
-    //                     //     arrTic[cputurn].innerHTML = "O";
-    //                 }
-    //             }
-    //         }
+        if(winning(newBoard, "X"))
+        {
+            return {score:10};
+        }
+        else if(winning(newBoard, "O"))
+        {
+            return {score:-10};
+        }
+        else if(availSpots.length === 0)
+        {
+            return {score:0};
+        }
+
+        var moves = [];
+
+        for (var i = 0; i < availSpots.length; i++)
+        {
+            var move = {};
+            move.index = newBoard[availSpots[i]];
+        
+            // set the empty spot to the current player
+            newBoard[availSpots[i]] = player;
+        
+            //if collect the score resulted from calling minimax on the opponent of the current player
+            if (player == "O")
+            {
+              var result = minimax(newBoard, "X");
+              move.score = result.score;
+            }
+            else
+            {
+              var result = minimax(newBoard, "O");
+              move.score = result.score;
+            }
+        
+            //reset the spot to empty
+            newBoard[availSpots[i]] = move.index;
+        
+            // push the object to the array
+            moves.push(move);
+        }
+
+        var bestMove;
+        if(player === "O")
+        {
+            var bestScore = 10000;
+            for(var i = 0; i < moves.length; i++)
+            {
+                if(moves[i].score < bestScore)
+                {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+        else
+        {
+            var bestScore = -10000;
+            for(var i = 0; i < moves.length; i++)
+            {
+                if(moves[i].score > bestScore)
+                {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+
+        return moves[bestMove];
+    }
+
+
+    function emptyIndexes(board)
+    {
+        var emptyspaces = []
+
+        for(let i=0;i<board.length;i++)
+            if(typeof(board[i]) === "number")
+                emptyspaces.push(i)
+
+        return emptyspaces
+        
+        // return board.filter(s => s != "O" && s != "X");
+    }
+
+    function winning(board, player)
+    {
+        if ((board[0] == player && board[1] == player && board[2] == player) ||
+            (board[3] == player && board[4] == player && board[5] == player) ||
+            (board[6] == player && board[7] == player && board[8] == player) ||
+            (board[0] == player && board[3] == player && board[6] == player) ||
+            (board[1] == player && board[4] == player && board[7] == player) ||
+            (board[2] == player && board[5] == player && board[8] == player) ||
+            (board[0] == player && board[4] == player && board[8] == player) ||
+            (board[2] == player && board[4] == player && board[6] == player))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // function Bestmove()
+    // {
+    //     // alert("in bestmove")
+    //     console.log("IN Bestmove")
+    //     var bestVal = -1000;
+    //     var bestMove;
+
+    //     var board = []
+    //     var count = 0;
+
+    //     for(let i=0;i<arrTic.length;i++)
+    //     {
+    //         board[i] = arrTic[i].innerHTML
+    //         if(board[i] != "")
+    //             count++
     //     }
+    //         for(let i=0;i<board.length;i++)
+    //         {
+    //             // console.log("In",i," ,bestval:",bestVal,"bestmove: ",bestMove)
+    //             if(board[i] == "")
+    //             {
+    //                 board[i] = "O"
+    //                 // arrTic[i].setAttribute("checked","true");
+    //                 ++count;
+
+    //                 // console.log("Unchecked i:",i)
+    //                 // alert("Calling minimax")
+    //                 console.log("Calling minimax")
+
+    //                 var move = minimax(board,1,false)
+
+    //                 board[i] = ""
+    //                 // arrTic[i].setAttribute("checked","false");
+    //                 --count;
+
+    //                 if(move > bestVal) 
+    //                 { 
+    //                     bestMove = i;
+    //                     bestVal = move; 
+    //                 }
+    //             }  
+    //         }
+    //     // }
+        
+    //     // console.log("In bestmove,RETURNING ",bestMove)
+    //     return bestMove;
     // }
 
-    // function CPUturn(gamestate)
+    // function minimax(board,depth,isMax)
     // {
-    //     Check(gamestate)
-    //     if(gamestate.count%2!=0 && !gamestate.finish && !gamestate.playerturn)
-    //     {
-    //         console.log("Gamestate:",gamestate.finish)
-    //         console.log("CPU's turn.Playerturn:",gamestate.playerturn)
-    //         // setTimeout(()=>{
-    //             var cputurn = Math.floor(Math.random() * Math.floor(9));
-    //             // console.log("CPU will play",cputurn)
-    //             while(arrTic[cputurn].getAttribute("checked")=="true" && gamestate.count < 9)
-    //             {
-    //                 console.log("CPU will play",cputurn)
-    //                 cputurn = Math.floor(Math.random() * Math.floor(9));
-                    
-    //             }
-    //             // console.log("after while")
-                    
-    //             // setTimeout(function(){
-    //             if(arrTic[cputurn].getAttribute("checked")!="true" && gamestate.count < 9)
-    //             {
-    //                 // console.log("CPU Played",cputurn)
-    //                 // alert("CPU Played")
-    //                 // setTimeout(()=>{
-    //                     arrTic[cputurn].setAttribute("checked","true");
-    //                     arrTic[cputurn].innerHTML = "O";
-    //                     ++gamestate.count;
-    //                     changeTurn(gamestate)
-    //                     console.log("CPU's turn.Playerturn now:",gamestate.playerturn)
+    //     // console.log("In minimax:","Depth:",depth,"isMax:",isMax,"board:",board)
+    //     // alert("In minimax")
+    //     // console.log("In minimax")
+    //     var score = evaluate(board)
+    //     // console.log("Eval boardscore:",score)
 
-    //             }
-      
-    //         // },800);
+    //     var count = 0;
+
+    //     for(let i=0;i<board.length;i++)
+    //     {
+    //         if(board[i]!= "")
+    //             count++
     //     }
+
+    //     // console.log("In minimax,board length:",count)
+
+
+    //     if(score == 10 || score == -10)
+    //         return score;
+
+    //     if(count >= 9 || score == 0)
+    //         return 0;
+        
+    //     if(isMax)
+    //     {
+    //         var best = -1000
+
+    //         for(let i=0;i<board.length;i++)
+    //         {
+    //             if(board[i] == "") 
+    //             {
+    //                 board[i] = "O"
+    //                 // board[i].setAttribute("checked","true");
+    //                 ++count;
+                    
+    //                 // console.log("best before editing:",best)
+    //                 best = Math.max(best, minimax(board,depth+1,false))
+    //                 // console.log("best after editing:",best)
+
+    //                 board[i] = ""
+    //                 // arrTic[i].setAttribute("checked","false");
+    //                 --count;
+    //             }
+    //         }
+    //         // console.log("In minimax,best:",best)
+    //         return best;
+    //     }
+    //     else
+    //     {
+    //         var best = 1000
+
+    //         for(let i=0;i<board.length;i++)
+    //         {
+    //             if(board[i] == "")
+    //             {
+    //                 board[i] = "X"
+    //                 // arrTic[i].setAttribute("checked","true");
+    //                 ++count;
+                    
+    //                 best = Math.min(best,minimax(board,depth+1,true))
+
+    //                 board[i] = ""
+    //                 // arrTic[i].setAttribute("checked","false");
+    //                 --count;
+    //             }
+    //         }
+    //         // console.log("In minimax,best:",best)
+    //         return best;
+    //     }   
+    // }
+
+    // function evaluate(board)
+    // {
+    //     // console.log("In evaluate")
+    //     var rows = [0,3,6],col = [0,1,2];
+    //     var flag = 0;
+
+    //     //Checking rows for victory
+    //     for(var x of rows)
+    //     {
+    //         // console.log("x:",x," x+1:",x+1," x+2:",x+2)
+    //         // console.log("board[x]:",board[x]," board[x+1]:",board[x+1]," board[x+2]:",board[x+2])
+    //         if(board[x] == board[x+1] && board[x+1] == board[x+2])
+    //         {
+    //             if(board[x] == "X")
+    //                 return 10;
+    //             else if(board[x] == "O")
+    //                 return -10;
+                
+    //             flag = 1
+    //             // alert("In evaluate,Row win")
+    //         }
+    //     }
+
+    //     //Checking columns for victory
+    //     for(var x of col)
+    //     {
+    //         // console.log("x:",x," x+3:",x+3," x+6:",x+6)
+    //         // console.log("board[x]:",board[x]," board[x+3]:",board[x+3]," board[x+6]:",board[x+6])
+    //         if(board[x] == board[x+3] && board[x+3] == board[x+6])
+    //         {
+    //             if(board[x] == "X")
+    //                 return 10;
+    //             else if(board[x] == "O")
+    //                 return -10;
+                
+    //             flag = 1
+    //             // alert("In evaluate,Col win")
+    //         }
+    //     }
+
+    //     //Checking diagonals for victory
+
+    //     if(board[0] == board[4] && board[4] == board[8])
+    //     {
+    //         if(board[0] == "X")
+    //             return 10;
+    //         else if(board[0] == "O")
+    //             return -10;
+            
+    //         flag = 1
+    //         // alert("In evaluate,Diag win")
+    //     }
+
+    //     if(board[2] == board[4] && board[4] == board[6])
+    //     {
+    //         if(board[2] == "X")
+    //             return 10;
+    //         else if(board[2] == "O")
+    //             return -10;
+
+    //         flag = 1
+    //         // alert("In evaluate,Diag win")
+    //     }
+
+    //     if(flag != 1)
+    //         return 0;
     // }
 
     function Check(gamestate)
@@ -926,6 +1028,8 @@ var gameID = uuidv4();
                 {
                   this.setAttribute("checked","true");
                   this.innerHTML = player.getPlayerMark();
+                  //Setting player's mark to blue color
+                  document.getElementsByClassName("box")[i].style.setProperty("color","#05C8D7");
                   
                   player.setturn(false);
                   game.updatecount()
@@ -957,6 +1061,7 @@ var gameID = uuidv4();
           {
 
               document.getElementById("player_name").setAttribute("style","background-color:var(--select-color)");
+            //   document.getElementById("player_name").setAttribute("style","background-color:#05C8D7");
               document.getElementById("opp_name").setAttribute("style","background-color:transparent"); 
 
           }
@@ -964,6 +1069,7 @@ var gameID = uuidv4();
           {
             document.getElementById("player_name").setAttribute("style","background-color:transparent");
             document.getElementById("opp_name").setAttribute("style","background-color:var(--select-color)");
+            // document.getElementById("opp_name").setAttribute("style","background-color:#E19A13");
           }
         }
         
@@ -1248,6 +1354,8 @@ var gameID = uuidv4();
         {
             arrTic[data.position].innerHTML = data.oppmark;
             arrTic[data.position].setAttribute("checked","true");
+            //Setting opponent's mark to orange color
+            document.getElementsByClassName("box")[data.position].style.setProperty("color","#E19A13");//#F1A007");
             game.updatecount();
             game.Check();
         }

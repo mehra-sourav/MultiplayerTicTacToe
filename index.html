@@ -61,18 +61,21 @@
                         <div id="login">Login</div>
                         <div id="signup">Signup</div> 
                     </div>
-                    <br>
-                    <br>
                     <form id="login-form" >
-                        <input name="loginemail" placeholder="Email ID" required><br>
+                        <br>
+                        <br>
+                        <input type="email" name="loginemail" placeholder="Email ID" required><br>
                         <input name="loginpassword" type="password" placeholder="Password" required><br>
                         <button type="Submit" class="btn btn-success mb-2 w-25" onsubmit="return false;">Login</button>
                     </form>
                     <form id="signup-form">
-                        
+                        <br>
                         <input name="signupname" placeholder="Enter your name"></input><br>
                         <input type="email" name="signupemail" placeholder="Enter your email ID" required></input><br>
                         <input name="signuppassword" type="password" placeholder="Enter a password" required></input><br>
+                        <input name="confirmsignuppassword" type="password" placeholder="Confirm password" onkeyup="checkPass()" required></input><br>
+                        <p id="errormsg"></p>
+
                         <button type="Submit" class="btn btn-success mb-2 w-25">Signup</button>
                     </form>
                 </div>
