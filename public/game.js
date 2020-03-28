@@ -1406,8 +1406,8 @@ var gameID = uuidv4();
             //  console.log("UNique ID:",gameID)
             if(gamemode=="Twoplayer" && !player.getgamestarted() && !game.getfinish())
             {
-                //Adding an exception for theme toggle button
-                if(event.target.id != 'gamelogo' )
+                //Adding an excepevent.tation for theme toggle button
+                if(event.target.id != 'gamelogo')
                     {
                         alert("The game hasn't started. The opponent hasn't joined")
                     }

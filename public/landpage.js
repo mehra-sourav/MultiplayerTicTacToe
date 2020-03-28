@@ -70,7 +70,8 @@
         event.preventDefault();
         // alert("Signin clicked")
         document.querySelector(".bg-modal").style.display = "flex";
-        console.log("Here")
+        // console.log("Here")
+        // console.log(document.querySelector(".bg-modal"))
     }
 
     document.querySelector("#showlogin").onclick = (event) =>
@@ -86,8 +87,6 @@
             document.querySelector("#login").style.display = "none";
             document.querySelector("#signup").style.display = "block";
         },400)
-        // var signup = document.getElementsByClassName("content-modal")[0].className.split(' ');
-        // console.log(signup);
     }
 
     document.querySelector("#showloginmodal").onclick = (event) =>
@@ -99,8 +98,6 @@
             document.querySelector("#login").style.display = "block";
         },400)
     }
-
-    
 
     //Function for validating email
     function checkEmail()
@@ -165,16 +162,7 @@
     for (let i = 0; i < closeelements.length; i++) {
         closeelements[i].addEventListener('click', closeFunction, false);
     }
-    // document.get(".authmodalclose").onclick = () =>
-    // {
-    //     // console.log("IN")
-    // }
-
-    // document.querySelector(".newauthmodalclose").onclick = () =>
-    // {
-    //     console.log("IN")
-    //     document.querySelector(".newbg-modal").style.display = "none";
-    // }
+    
 
     $('#signup-form').submit(function(e) {
         e.preventDefault();
@@ -276,4 +264,12 @@
         });
     });
     
-    
+    //Adding event listener to document to check click outside login/signup modal after it is clicked
+    document.addEventListener('click', function (event) {
+
+        let modal = document.querySelector(".content-modal");
+        if(!modal.contains(event.target) && event.target.id != 'Loginlink' && event.target.id != 'showlogin') 
+        {
+            document.querySelector(".bg-modal").style.display = "none";
+        }
+    });

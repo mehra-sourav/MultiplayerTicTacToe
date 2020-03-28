@@ -86,10 +86,11 @@
         <!-- Signup/Login Modal -->
         <div class="bg-modal">
             <div class="content-modal">
+                    <!-- <div class="authmodalclose">+</div> -->
                 <div id="login">
                     <div class="header">
                         <div class="header-modal"><h4>Login</h4></div>    
-                        <div class="authmodalclose">+</div>
+                        <!-- <div class="authmodalclose">+</div> -->
                     </div>
                     <div id="content-modal-body">
                         <form id="login-form">
@@ -108,13 +109,35 @@
                 </div>
                 <div id="signup">
                     <div class="header">
-                            <div class="header-modal"><h4>Signup</h4></div>    
-                            <div class="authmodalclose">+</div>
+                            <div class="header-modal"><h4>Signup</h4></div>
                     </div>
                     <div id="content-modal-body">
                         <form id="signup-form">
-                            <label>Name</label>
-                            <input name="signupname"></input>
+                                <label>Name</label>
+                                <input type="text" name="signupname"></input>
+                                <br>
+                                <br>
+                                <label>E-mail</label>
+                                <input type="email" name="signupemail" onkeyup="checkEmail()" required></input>
+                                <p id="emailerrormsg"></p>
+                                <br>
+                                <label>Password</label>
+                                <input name="signuppassword" type="password" required minlength="6"></input>
+                                <br>
+                                <br>    
+                                <label>Confirm Password</label>
+                                <br>
+                                <input name="confirmsignuppassword" type="password" onkeyup="checkPass()" required minlength="6"></input>
+                                <p id="pswderrormsg"></p>
+                                <br>
+                                
+                                <button type="Submit" class="btn btn-primary mb-2 center">Signup</button>
+                                <label id="noaccountmsg">Already have an account? <a href="/" id="showloginmodal">Sign In</a></label>
+
+
+
+                            <!-- <label>Name</label>
+                            <input type="text" name="signupname"></input>
                             <label>E-mail</label>
                             <input type="email" name="signupemail" onkeyup="checkEmail()" required></input>
                             <p id="emailerrormsg"></p>
@@ -125,7 +148,7 @@
                             <p id="pswderrormsg"></p>
                             <br>
                             <button type="Submit" class="btn btn-primary mb-2 w-25">Signup</button>
-                            <label id="noaccountmsg">Already have an account? <a href="/" id="showloginmodal">Sign In</a></label>
+                            <label id="noaccountmsg">Already have an account? <a href="/" id="showloginmodal">Sign In</a></label> -->
                         </form>
                     </div>
                 </div>
