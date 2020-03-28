@@ -38,153 +38,286 @@ app.get('/',function(req,res){
 
 
 
-app.post('/signup', async function(req,res){
-    // console.log(req.body)
-    try
-    {
-        let collection = client.db("MultiTicTacToe").collection("users");
-        
-        connection.then(async ()=>{
-        // client.connect(async err => {
-            var user =  await collection.findOne(
-                {
-                    userID:req.body.signupemail
-                }
-            ).then(result => {
-                // console.log("value of result:",result)
-                    if(result){ 
-                        // console.log("rsults")
-                    //     // return result.userID;
-                    //   console.log('Successfully found document:', result);
-                        return result;
-                    }
-                    // else {
-                    //   console.log("No document matches the provided query.");
-                    // }
-                }
-            ).catch()
-            console.log("Value of user:",user)
-            console.log("Value of entered email:",req.body.signupemail)
-            // console.log(typeof(user))
-            if(user!= undefined || user!=null && user.userID == req.body.signupemail)
-            {
-                console.log("User exists")
-                res.send("Userexists")
-                // res.send("A user with the same email ID already exists.Try another emailID.")
-            }
-            else
-            {
-                console.log("User doesn't exist.Putting in DB")
-                // Perform actions on the collection object
-                let hashPass = await bcrypt.hash(req.body.signuppassword,10)
-                collection.insertOne(
+// client.connect(async err => {
+    app.post('/signup', async function(req,res){
+        // console.log(req.body)
+        try
+        {
+            let collection = client.db("MultiTicTacToe").collection("users");
+            
+            connection.then(async ()=>{ //Connectionend here
+            // client.connect(async err => {
+                var user =  await collection.findOne(
                     {
-                        userID:req.body.signupemail,
-                        userName:req.body.signupname,
-                        userPassword:hashPass,
-                        history:[]
+                        userID:req.body.signupemail
                     }
-                ).then(result=>{})
-                .catch(result=>{})
-                res.send("Signedup")
-            }
-            client.close();
-        })
-        // })
-        // .then(client.close());
-    }
-    catch
-    {
-    //     console.log("incatch")
-    //     res.status(500).send()
-    }
-    
-    
-});
-
-app.post("/login",function(req,res){
-    console.log(req.body)
-    console.log("In /login")
-    try
-    {
-        let collection = client.db("MultiTicTacToe").collection("users");
-        console.log("In /login try")
-        // client.connect(async err => {
-        connection.then(async ()=>{
-       
-            var user =  await collection.findOne(
+                ).then(result => {
+                    // console.log("value of result:",result)
+                        if(result){ 
+                            // console.log("rsults")
+                        //     // return result.userID;
+                        //   console.log('Successfully found document:', result);
+                            return result;
+                        }
+                        // else {
+                        //   console.log("No document matches the provided query.");
+                        // }
+                    }
+                ).catch()
+                console.log("Value of user:",user)
+                console.log("Value of entered email:",req.body.signupemail)
+                // console.log(typeof(user))
+                if(user!= undefined || user!=null && user.userID == req.body.signupemail)
                 {
-                    userID:req.body.loginemail
-                }
-            ).then(result => {
-                // console.log("value of result:",result)
-                    // console.log("Result:",result)
-                    if(result){ 
-                        // console.log("rsults")
-                    //     // return result.userID;
-                    //   console.log('Successfully found document:', result);
-                        return result;
-                    }
-                    // else {
-                    //   console.log("No document matches the provided query.");
-                    // }
-                }
-            ).catch(result=>{
-                // console.log(result)
-            })
-            // console.log("Value of user:",user)
-            // console.log("Value of entered email:",req.body.loginemail)
-            // console.log(typeof(user))
-
-            // console.log("/login user:",user)
-
-            if(user == undefined || user==null)
-            {
-                console.log("User doesn't exist")
-                res.send("Nosuchuser") //Add error message on frontend side   
-            }
-            else if(user.userID == req.body.loginemail)
-            {
-                // console.log("after  ini check:",user)
-                // console.log("User exists")
-                // Perform actions on the collection object
-                // console.log(await bcrypt.compare(req.body.loginpassword,user.userPassword))
-
-                if(await bcrypt.compare(req.body.loginpassword,user.userPassword)) //bcrypt compare returns a promise
-                {
-                    console.log("Login successful");
-                    var user = {
-                        // userID:req.body.loginemail,
-                        name:user.userName,
-                        ID:user.userID
-                    }
-                    let accessToken = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1h"})
-                    // res.json({accessToken:accessToken})
-                      // res.set('accessToken', accessToken);
-                    
-                      // res.sne('/game');
-                    // res.header('auth-token',accessToken);
-                    // res.status(302).end();
-                    
-                    res.cookie('auth-token',accessToken)
-                    res.cookie('userName',user.name)
-                    console.log("header name:",user.name)
-                    res.send('game')
-                    // res.sendFile(path.resolve(__dirname+"/public/game.html"))
+                    console.log("User exists")
+                    res.send("Userexists")
+                    // res.send("A user with the same email ID already exists.Try another emailID.")
                 }
                 else
-                    res.send("Wrongpassword")
-            }
-        })
-        //     client.close();
-        // })
-        //.then(client.close());
-    }
-    catch
-    {
-        res.status(500).send()
-    }
-});
+                {
+                    console.log("User doesn't exist.Putting in DB")
+                    // Perform actions on the collection object
+                    let hashPass = await bcrypt.hash(req.body.signuppassword,10)
+                    collection.insertOne(
+                        {
+                            userID:req.body.signupemail,
+                            userName:req.body.signupname,
+                            userPassword:hashPass,
+                            history:[]
+                        }
+                    ).then(result=>{})
+                    .catch(result=>{})
+                    res.send("Signedup")
+                }
+                // client.close();
+            }) //Connectionend here
+            // })
+            // .then(client.close());
+        }
+        catch
+        {
+        //     console.log("incatch")
+        //     res.status(500).send()
+        }
+        
+        
+    });
+
+    app.post("/login",function(req,res){
+        console.log(req.body)
+        console.log("In /login")
+        try
+        {
+            let collection = client.db("MultiTicTacToe").collection("users");
+            console.log("In /login try")
+            // client.connect(async err => {
+            connection.then(async ()=>{ //Connectionend
+        
+                var user =  await collection.findOne(
+                    {
+                        userID:req.body.loginemail
+                    }
+                ).then(result => {
+                    // console.log("value of result:",result)
+                        // console.log("Result:",result)
+                        if(result){ 
+                            // console.log("rsults")
+                        //     // return result.userID;
+                        //   console.log('Successfully found document:', result);
+                            return result;
+                        }
+                        // else {
+                        //   console.log("No document matches the provided query.");
+                        // }
+                    }
+                ).catch(result=>{
+                    console.log(result)
+                })
+                // console.log("Value of user:",user)
+                // console.log("Value of entered email:",req.body.loginemail)
+                // console.log(typeof(user))
+
+                // console.log("/login user:",user)
+
+                if(user == undefined || user==null)
+                {
+                    console.log("User doesn't exist")
+                    res.send("Nosuchuser") //Add error message on frontend side   
+                }
+                else if(user.userID == req.body.loginemail)
+                {
+                    // console.log("after  ini check:",user)
+                    // console.log("User exists")
+                    // Perform actions on the collection object
+                    // console.log(await bcrypt.compare(req.body.loginpassword,user.userPassword))
+
+                    if(await bcrypt.compare(req.body.loginpassword,user.userPassword)) //bcrypt compare returns a promise
+                    {
+                        console.log("Login successful");
+                        var user = {
+                            // userID:req.body.loginemail,
+                            name:user.userName,
+                            ID:user.userID
+                        }
+                        let accessToken = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1h"})
+                        
+                        res.cookie('auth-token',accessToken)
+                        res.cookie('userName',user.name)
+                        console.log("header name:",user.name)
+                        res.send('game')
+                    }
+                    else
+                        res.send("Wrongpassword")
+                }
+            }) //Connectionend
+                // client.close();
+            // })
+            //.then(client.close());
+        }
+        catch
+        {
+            res.status(500).send()
+        }
+    });
+
+    app.get('/matchdata',authenticateToken,function(req,res){
+        try
+        {
+            var collection = client.db("MultiTicTacToe").collection("users");
+            console.log("In matchdata")
+            connection.then(async ()=>{ //Connection
+            // client.connect(async err => {
+                var Cookie = req.headers['cookie']
+                var output = {};
+                Cookie.split(/\s*;\s*/).forEach(function(pair) {
+                    pair = pair.split(/\s*=\s*/);
+                    output[pair[0]] = pair[1]
+                });
+                console.log("Username:",req.user.ID)
+                
+                var user = await collection.findOne(
+                    {
+                        userID:req.user.ID
+                    }//,
+                    // {
+                    //     $orderby: { "history.date":-1 }
+                    // }
+                ).then(result => {
+                    // console.log("value of result:",result)
+                        if(result){ 
+                            // console.log("rsults")
+                        //     // return result.userID;
+                        //   console.log('Successfully found document:', result);
+                            return result;
+                        }
+                        // else {
+                    //   console.log("No document matches the provided query.");
+                        // }
+                    }
+                ).catch(result=>{})
+
+                console.log(user)
+                res.send(user)
+            }) //Connectionend
+                // client.close();
+            // })
+            //.then(client.close())
+        }
+        catch
+        {}
+    })
+
+    app.post('/addmatchdata',authenticateToken,function(req,res){
+        try
+        {
+            console.log("In addmatch data")
+            // console.log(req.body)
+            var matchdata  = req.body
+            var exists;
+
+            matchdata.date = new Date(Date.now())//Date("<YYYY-mm-ddTHH:MM:ss>")
+            var collection = client.db("MultiTicTacToe").collection("users");
+            // console.log("Matchdata:",matchdata)
+            connection.then(async ()=>{  //Connection
+            // client.connect(async err => {
+                    
+                var user = await collection.findOne(
+                {
+                    // {
+                        "userID":req.user.ID,
+                        "history.matchID":matchdata.matchID
+                    // }
+                }
+                )
+                console.log("Addmatchdata user:",user)
+
+                // console.log(user.history)
+                if(user)
+                {
+                    for(i in user.history)
+                    {
+                        if(user.history[i].matchID == matchdata.matchID)
+                        {
+                            console.log("In")
+                            exists = true;
+                            break;
+                        }
+                    }
+                }
+
+                
+                if(exists) //Update old score of same match
+                {
+                    collection.updateOne(
+                            
+                        { 
+                            userID:req.user.ID,
+                            history:{ $elemMatch:{ matchID:matchdata.matchID }} // Query parameter
+                        },
+                        {
+                            $set:
+                            {
+                                "history.$.playerAscore": matchdata.playerAscore,               // Replacement document
+                                "history.$.playerBscore": matchdata.playerBscore,
+                                "history.$.date":new Date(Date.now())
+                            } 
+                    
+                        },
+                        // { upsert:true }                                          // Options
+                    
+                        // { $set: { "grades.$" : matchdata } }
+                        // { $push:{ history:matchdata } }
+                    ).then(result=>{ console.log("DB res:",result); res.send(result)})
+                    .catch(result=>{})
+                    
+                }
+                else   //Add new score
+                {
+                    collection.updateOne(
+                            
+                        { userID:req.user.ID },
+                        { $push:{ history:matchdata } }// Replacement document
+                        
+                        // { upsert:true }                                          // Options
+                    
+                        // { $set: { "grades.$" : matchdata } }
+                        // { $push:{ history:matchdata } }
+                    ).then(result=>{ console.log("DB res:",result); res.send(result)})
+                    .catch(result=>{})
+                }
+                res.send("Success")
+            }) //Connectionend
+            // client.close();
+            // })
+            //.then(client.close())
+        }
+        catch
+        {}
+    })
+// })
+
+
+
 
 function authenticateToken(req,res,next)
 {
@@ -251,8 +384,6 @@ app.get('/logout',function(req,res){
 })
 
 app.post('/roomlength',function(req,res){
-    // io.on('connection',function(socket){
-        // console.log("In roomlength",req.body.ID)
         console.log("In /roomlength:",req.body.ID)
         var roomID = io.nsps['/'].adapter.rooms[req.body.ID];
         console.log("RoomID:",roomID)
@@ -265,144 +396,10 @@ app.post('/roomlength',function(req,res){
             res.send("Full")
         else
             res.send("Invalid")
-    // })
 })
 
 app.get('/history',authenticateToken,function(req,res){
     res.sendFile(path.resolve(__dirname+"/public/history.html"))
-})
-
-app.get('/matchdata',authenticateToken,function(req,res){
-    try
-    {
-        var collection = client.db("MultiTicTacToe").collection("users");
-        console.log("In matchdata")
-        connection.then(async ()=>{
-        // client.connect(async err => {
-            var Cookie = req.headers['cookie']
-            var output = {};
-            Cookie.split(/\s*;\s*/).forEach(function(pair) {
-                pair = pair.split(/\s*=\s*/);
-                output[pair[0]] = pair[1]
-            });
-            console.log("Username:",req.user.ID)
-            
-            var user = await collection.findOne(
-                {
-                    userID:req.user.ID
-                }//,
-                // {
-                //     $orderby: { "history.date":-1 }
-                // }
-            ).then(result => {
-                // console.log("value of result:",result)
-                    if(result){ 
-                        // console.log("rsults")
-                    //     // return result.userID;
-                    //   console.log('Successfully found document:', result);
-                        return result;
-                    }
-                    // else {
-                //   console.log("No document matches the provided query.");
-                    // }
-                }
-            ).catch(result=>{})
-
-            console.log(user)
-            res.send(user)
-        })
-        //     client.close();
-        // })
-        //.then(client.close())
-    }
-    catch
-    {}
-})
-
-app.post('/addmatchdata',authenticateToken,function(req,res){
-    try
-    {
-        console.log("In addmatch data")
-        // console.log(req.body)
-        var matchdata  = req.body
-        var exists;
-
-        matchdata.date = new Date(Date.now())//Date("<YYYY-mm-ddTHH:MM:ss>")
-        var collection = client.db("MultiTicTacToe").collection("users");
-        // console.log("Matchdata:",matchdata)
-        connection.then(async ()=>{
-                 
-            var user = await collection.findOne(
-            {
-                // {
-                    "userID":req.user.ID,
-                    "history.matchID":matchdata.matchID
-                // }
-            }
-            )
-            console.log("Addmatchdata user:",user)
-
-            // console.log(user.history)
-            if(user)
-            {
-                for(i in user.history)
-                {
-                    if(user.history[i].matchID == matchdata.matchID)
-                    {
-                        console.log("In")
-                        exists = true;
-                        break;
-                    }
-                }
-            }
-
-            
-            if(exists) //Update old score of same match
-            {
-                collection.updateOne(
-                        
-                    { 
-                        userID:req.user.ID,
-                        history:{ $elemMatch:{ matchID:matchdata.matchID }} // Query parameter
-                    },
-                    {
-                        $set:
-                        {
-                            "history.$.playerAscore": matchdata.playerAscore,               // Replacement document
-                            "history.$.playerBscore": matchdata.playerBscore,
-                            "history.$.date":new Date(Date.now())
-                        } 
-                
-                    },
-                    // { upsert:true }                                          // Options
-                
-                    // { $set: { "grades.$" : matchdata } }
-                    // { $push:{ history:matchdata } }
-                ).then(result=>{ console.log("DB res:",result); res.send(result)})
-                .catch(result=>{})
-                
-            }
-            else   //Add new score
-            {
-                collection.updateOne(
-                        
-                    { userID:req.user.ID },
-                    { $push:{ history:matchdata } }// Replacement document
-                    
-                    // { upsert:true }                                          // Options
-                
-                    // { $set: { "grades.$" : matchdata } }
-                    // { $push:{ history:matchdata } }
-                ).then(result=>{ console.log("DB res:",result); res.send(result)})
-                .catch(result=>{})
-            }
-            res.send("Success")
-        })
-        // })
-        //.then(client.close())
-    }
-    catch
-    {}
 })
 
 app.get('*',function (req, res) {
@@ -414,7 +411,6 @@ app.get('*',function (req, res) {
 io.on('connection',function(socket){
     
     console.log("In connection")
-    // console.log("In connection.File:",file)
     //Creating a new room and notifying the creator of room. 
     socket.on('createNewGame',function(data){
         // file = JSON.parse(file);  

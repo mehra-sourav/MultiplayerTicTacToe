@@ -82,20 +82,31 @@
     document.querySelector("#showsignupmodal").onclick = (event) =>
     {
         event.preventDefault();
-        document.getElementsByClassName("content-modal")[0].classList.add("logincard")
-        setTimeout(()=>{
-            document.querySelector("#login").style.display = "none";
-            document.querySelector("#signup").style.display = "block";
-        },400)
+        changetosignup();
     }
 
     document.querySelector("#showloginmodal").onclick = (event) =>
     {
         event.preventDefault();
+        changetologin()
+    }
+
+    //Function to change to login modal
+    function changetologin()
+    {
         document.getElementsByClassName("content-modal")[0].classList.remove("logincard")
         setTimeout(()=>{
             document.querySelector("#signup").style.display = "none";
             document.querySelector("#login").style.display = "block";
+        },400)
+    }
+    //Function to change to signup modal
+    function changetosignup()
+    {
+        document.getElementsByClassName("content-modal")[0].classList.add("logincard")
+        setTimeout(()=>{
+            document.querySelector("#login").style.display = "none";
+            document.querySelector("#signup").style.display = "block";
         },400)
     }
 
@@ -115,7 +126,7 @@
         else
         {
             document.getElementById("emailerrormsg").innerText = ""
-            document.getElementById("emailerrormsg").style.setProperty("display","none");
+            // document.getElementById("emailerrormsg").style.setProperty("display","none");
             document.getElementsByName("signupemail")[0].classList.remove("redborder")
         }
 
@@ -186,16 +197,10 @@
                     document.getElementById("Msgbody").innerHTML = "Signed up. You can login now."
                     $("#Msg").modal("toggle");
     
-                    //Toggles tab to login once use has signed up
+                    //Toggles tab to login once user has signed up
                     $('#Msg').on("hidden.bs.modal", function (e) {
                         setTimeout(() => {
-                    
-                            document.getElementById("signup-form").style.display = "none";
-                            document.getElementById("signup").style.backgroundColor = "lightgrey";
-    
-                            document.getElementById("login-form").style.display = "block";
-                            document.getElementById("login").style.backgroundColor = "white";
-                            changeborder("signup")
+                            changetologin()
                         }, 200);
                     })
                     
@@ -228,15 +233,9 @@
                 //Toggles signup modal if user hasn't registered yet
                 $('#Msg').on("hidden.bs.modal", function (e) {
                     setTimeout(() => {
-                        document.getElementById("Msgbody").innerHTML = "Signed up. You can login now."
-                        document.getElementById("signup-form").style.display = "block";
-                        document.getElementById("signup").style.backgroundColor = "white";
-
-                        document.getElementById("login-form").style.display = "none";
-                        document.getElementById("login").style.backgroundColor = "lightgrey";
-                        changeborder("login")
-                    }, 200);
-                  })
+                        changetosignup()
+                    }, 100);
+                })
                 // document.getElementById("Msgbody").innerHTML = "Signed up. You can login now."
                 // document.getElementById("signup-form").style.display = "block";
                 // document.getElementById("signup").style.backgroundColor = "white";
@@ -268,7 +267,9 @@
     document.addEventListener('click', function (event) {
 
         let modal = document.querySelector(".content-modal");
-        if(!modal.contains(event.target) && event.target.id != 'Loginlink' && event.target.id != 'showlogin') 
+        let msgmodal = document.querySelector("#Msg");
+
+        if(!modal.contains(event.target) && !msgmodal.contains(event.target) && event.target.id != 'Loginlink' && event.target.id != 'showlogin') 
         {
             document.querySelector(".bg-modal").style.display = "none";
         }
