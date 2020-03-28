@@ -76,6 +76,11 @@
 
     document.querySelector("#showlogin").onclick = (event) =>
     {
+        // if(document.getElementsByClassName("content-modal")[0].classList.contains('logincard'))
+        // {
+        //     console.log("In this")
+        //     document.getElementsByClassName("content-modal")[0].classList.add('signupcard')
+        // }
         document.querySelector(".bg-modal").style.display = "flex";
     }
 
@@ -103,6 +108,11 @@
     //Function to change to signup modal
     function changetosignup()
     {
+        // if(document.getElementsByClassName("content-modal")[0].classList.contains('signupcard'))
+        // {
+        //     // console.log("In this")
+        //     document.getElementsByClassName("content-modal")[0].classList.remove('signupcard')
+        // }
         document.getElementsByClassName("content-modal")[0].classList.add("logincard")
         setTimeout(()=>{
             document.querySelector("#login").style.display = "none";
@@ -110,11 +120,32 @@
         },400)
     }
 
+    //Function for validating name
+    function checkName()
+    {
+        let name = document.getElementsByName("signupname")[0].value;
+        let nameformat = /^[a-zA-Z\s*]{1,30}$/;
+
+        if(!name.match(nameformat))
+        {
+            document.getElementById("nameerrormsg").innerText = "Invalid name"
+            document.getElementById("nameerrormsg").style.setProperty("display","block");
+            document.getElementsByName("signupname")[0].classList = "redborder"
+        }
+        else
+        {
+            document.getElementById("nameerrormsg").innerText = ""
+            // document.getElementById("emailerrormsg").style.setProperty("display","none");
+            document.getElementsByName("signupname")[0].classList.remove("redborder")
+        }
+    }
+
+
     //Function for validating email
     function checkEmail()
     {
         let email = document.getElementsByName("signupemail")[0].value
-        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         // let secondPass = document.getElementsByName("confirmsignuppassword")[0].value
 
         if(!email.match(mailformat))
@@ -147,7 +178,7 @@
         else
         {
             document.getElementById("pswderrormsg").innerText = ""
-            document.getElementById("pswderrormsg").style.setProperty("display","none");
+            // document.getElementById("pswderrormsg").style.setProperty("display","none");
             document.getElementsByName("confirmsignuppassword")[0].classList.remove("redborder")
         }
 
@@ -162,18 +193,7 @@
     // }
 
 
-    //Closing Login/Signup modal
-    let closeelements = document.getElementsByClassName("authmodalclose")
-    let closeFunction = function(){ 
-        for(let i=0;i<closeelements.length;i++)
-        {
-            document.querySelector(".bg-modal").style.display = "none";
-        }
-    }
-    for (let i = 0; i < closeelements.length; i++) {
-        closeelements[i].addEventListener('click', closeFunction, false);
-    }
-    
+     
 
     $('#signup-form').submit(function(e) {
         e.preventDefault();
@@ -185,9 +205,17 @@
         // console.log(data);
         if(elements[2].value != elements[3].value)
         {
-            alert("Passwords don't match. Please enter the same passwords in both fields.")
+            // alert("Passwords don't match. Please enter the same passwords in both fields.")
+            document.getElementById("Msgbody").innerHTML = "Passwords don't match. Please enter the same passwords in both fields."
+            $("#Msg").modal("toggle");
+
             //Making the border red
             document.getElementsByName("confirmsignuppassword")[0].className = "redborder"
+        }
+        else if(!elements[1].value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
+        {
+            document.getElementById("Msgbody").innerHTML = "Please enter a valid email ID!!"
+            $("#Msg").modal("toggle");
         }
         else
         {

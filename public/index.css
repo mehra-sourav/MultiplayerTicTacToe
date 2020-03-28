@@ -221,9 +221,20 @@ body
     transform: rotateX(180deg);
 }
 
+/* .signupcard
+{
+    -webkit-transform: rotateX(-180deg);
+    -moz-transform: rotateX(-180deg);
+    -o-transform: rotateX(-180deg);
+    transform: rotateX(-180deg);
+} */
+
 #signup
 {
     display: none;
+    -webkit-transform: rotateX(180deg);
+    -moz-transform: rotateX(180deg);
+    -o-transform: rotateX(180deg);
     transform: rotateX(180deg);
 }
 

@@ -114,8 +114,9 @@
                     <div id="content-modal-body">
                         <form id="signup-form">
                                 <label>Name</label>
-                                <input type="text" name="signupname"></input>
-                                <br>
+                                <input type="text" name="signupname" onkeyup="checkName()" required></input>
+                                <p id="nameerrormsg"></p>
+                                <!-- <br> -->
                                 <br>
                                 <label>E-mail</label>
                                 <input type="email" name="signupemail" onkeyup="checkEmail()" required></input>
