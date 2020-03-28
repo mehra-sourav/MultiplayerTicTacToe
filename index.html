@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="index.css" type="text/css"><!-- For server deployment-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
         <!-- <link rel="icon" href='/public/favicon.ico' class='js-favicon'> -->
         <title>2 Player Tic-Tac-Toe</title>
         <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -22,7 +23,7 @@
                     <!-- <h1 id="h2">Room ID:  </h1> -->
                 </div>                        
         </div>
-        <!-- Signup/loginmodal -->
+        <!-- Main page message -->
         <div id="info">
             <div>
                 <u><h5 style="width:initial; text-align:center">Have no friends?</h5></u>
@@ -53,7 +54,7 @@
             </div>
         </div>
         
-        <div class="bg-modal">
+        <!-- <div class="bg-modal">
             <div class="content-modal">
                 <div class="authmodalclose">+</div>
                 <div id="content-modal-body">
@@ -80,7 +81,60 @@
                     </form>
                 </div>
             </div>  
+        </div> -->
+
+        <!-- Signup/Login Modal -->
+        <div class="bg-modal">
+            <div class="content-modal">
+                <div id="login">
+                    <div class="header">
+                        <div class="header-modal"><h4>Login</h4></div>    
+                        <div class="authmodalclose">+</div>
+                    </div>
+                    <div id="content-modal-body">
+                        <form id="login-form">
+                            <label>E-mail</label>
+                            <input type="email" name="loginemail" required>
+                            <br>
+                            <br>
+                            <label>Password</label>
+                            <input name="loginpassword" type="password"  required>
+                            <br>
+                            <br>
+                            <button type="Submit" class="btn btn-primary mb-2 center" onsubmit="return false;" >Login</button>
+                            <label id="noaccountmsg">Don't have an account? <a href="/" id="showsignupmodal" onclick="return false;">Signup</a></label>
+                        </form>
+                    </div>
+                </div>
+                <div id="signup">
+                    <div class="header">
+                            <div class="header-modal"><h4>Signup</h4></div>    
+                            <div class="authmodalclose">+</div>
+                    </div>
+                    <div id="content-modal-body">
+                        <form id="signup-form">
+                            <label>Name</label>
+                            <input name="signupname"></input>
+                            <label>E-mail</label>
+                            <input type="email" name="signupemail" onkeyup="checkEmail()" required></input>
+                            <p id="emailerrormsg"></p>
+                            <label>Password</label>
+                            <input name="signuppassword" type="password" required minlength="6"></input>
+                            <label>Confirm Password</label>
+                            <input name="confirmsignuppassword" type="password" onkeyup="checkPass()" required minlength="6"></input>
+                            <p id="pswderrormsg"></p>
+                            <br>
+                            <button type="Submit" class="btn btn-primary mb-2 w-25">Signup</button>
+                            <label id="noaccountmsg">Already have an account? <a href="/" id="showloginmodal">Sign In</a></label>
+                        </form>
+                    </div>
+                </div>
+            </div>  
         </div>
+
+
+
+
         <div class="modal fade" id="Msg" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content modalcolor">

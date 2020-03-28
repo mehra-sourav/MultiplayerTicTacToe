@@ -1,60 +1,60 @@
 //For changing login and signup tab borders in Login/Signup modal
-function changeborder(a)
-    {
-        if(a == "signup")//Login tab is active
-        {
-            // alert("current active:login")
-            document.getElementById("login").style.borderWidth = "1px";
-            document.getElementById("login").style.borderBottomWidth = "0px";
-            document.getElementById("login").style.borderTopWidth = "2px";
-            document.getElementById("login").style.borderTopColor = "#0F9D58";
+// function changeborder(a)
+//     {
+//         if(a == "signup")//Login tab is active
+//         {
+//             // alert("current active:login")
+//             document.getElementById("login").style.borderWidth = "1px";
+//             document.getElementById("login").style.borderBottomWidth = "0px";
+//             document.getElementById("login").style.borderTopWidth = "2px";
+//             document.getElementById("login").style.borderTopColor = "#0F9D58";
 
-            document.getElementById("signup").style.borderWidth = "0px";
-            document.getElementById("signup").style.borderBottomWidth = "1px";
-            document.getElementById("signup").style.borderBottomColor = "grey";
-        }
-        else//Signup tab is active
-        {
-            // alert("Signup is active")
-            document.getElementById("signup").style.borderWidth = "1px";
-            document.getElementById("signup").style.borderBottomWidth = "0px";
-            document.getElementById("signup").style.borderTopWidth = "2px";
-            document.getElementById("signup").style.borderTopColor = "#0F9D58";
-            // document.getElementById("signup").style.borderBottomColor = "grey";
+//             document.getElementById("signup").style.borderWidth = "0px";
+//             document.getElementById("signup").style.borderBottomWidth = "1px";
+//             document.getElementById("signup").style.borderBottomColor = "grey";
+//         }
+//         else//Signup tab is active
+//         {
+//             // alert("Signup is active")
+//             document.getElementById("signup").style.borderWidth = "1px";
+//             document.getElementById("signup").style.borderBottomWidth = "0px";
+//             document.getElementById("signup").style.borderTopWidth = "2px";
+//             document.getElementById("signup").style.borderTopColor = "#0F9D58";
+//             // document.getElementById("signup").style.borderBottomColor = "grey";
             
-            document.getElementById("login").style.borderWidth = "0px";
-            document.getElementById("login").style.borderBottomWidth = "1px";
-            document.getElementById("login").style.borderBottomColor = "grey";
-        }
-    }
+//             document.getElementById("login").style.borderWidth = "0px";
+//             document.getElementById("login").style.borderBottomWidth = "1px";
+//             document.getElementById("login").style.borderBottomColor = "grey";
+//         }
+//     }
         
 
     // Login/signup modal shown
-    document.getElementById("signup-form").style.display = "none";
-    document.getElementById("signup").style.backgroundColor = "lightgrey";
-    changeborder("signup")
+    // document.getElementById("signup-form").style.display = "none";
+    // document.getElementById("signup").style.backgroundColor = "lightgrey";
+    // changeborder("signup")
 
 
-    document.getElementById("signup").onclick = () =>{
-        // alert("Hello")
-        document.getElementById("login-form").style.display = "none";
-        document.getElementById("login").style.backgroundColor = "lightgrey";
+    // document.getElementById("signup").onclick = () =>{
+    //     // alert("Hello")
+    //     document.getElementById("login-form").style.display = "none";
+    //     document.getElementById("login").style.backgroundColor = "lightgrey";
 
-        document.getElementById("signup-form").style.display = "block";
+    //     document.getElementById("signup-form").style.display = "block";
 
-        document.getElementById("signup").style.backgroundColor = "white";
-        changeborder("login")
-    }
+    //     document.getElementById("signup").style.backgroundColor = "white";
+    //     changeborder("login")
+    // }
 
-    document.getElementById("login").onclick = () =>{
-        // alert("Hello")
-        document.getElementById("signup-form").style.display = "none";
-        document.getElementById("signup").style.backgroundColor = "lightgrey";
+    // document.getElementById("login").onclick = () =>{
+    //     // alert("Hello")
+    //     document.getElementById("signup-form").style.display = "none";
+    //     document.getElementById("signup").style.backgroundColor = "lightgrey";
 
-        document.getElementById("login-form").style.display = "block";
-        document.getElementById("login").style.backgroundColor = "white";
-        changeborder("signup")
-    }
+    //     document.getElementById("login-form").style.display = "block";
+    //     document.getElementById("login").style.backgroundColor = "white";
+    //     changeborder("signup")
+    // }
 
     $(".choicebutton").hover(
         function () {
@@ -75,15 +75,55 @@ function changeborder(a)
 
     document.querySelector("#showlogin").onclick = (event) =>
     {
-        // event.preventDefault();
-        // alert("Sign123licked")
         document.querySelector(".bg-modal").style.display = "flex";
-        // let socket = io()
-        // socket.emit('sfd',{
-        //     name:"Hello"
-        // });
     }
 
+    document.querySelector("#showsignupmodal").onclick = (event) =>
+    {
+        event.preventDefault();
+        document.getElementsByClassName("content-modal")[0].classList.add("logincard")
+        setTimeout(()=>{
+            document.querySelector("#login").style.display = "none";
+            document.querySelector("#signup").style.display = "block";
+        },400)
+        // var signup = document.getElementsByClassName("content-modal")[0].className.split(' ');
+        // console.log(signup);
+    }
+
+    document.querySelector("#showloginmodal").onclick = (event) =>
+    {
+        event.preventDefault();
+        document.getElementsByClassName("content-modal")[0].classList.remove("logincard")
+        setTimeout(()=>{
+            document.querySelector("#signup").style.display = "none";
+            document.querySelector("#login").style.display = "block";
+        },400)
+    }
+
+    
+
+    //Function for validating email
+    function checkEmail()
+    {
+        let email = document.getElementsByName("signupemail")[0].value
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        // let secondPass = document.getElementsByName("confirmsignuppassword")[0].value
+
+        if(!email.match(mailformat))
+        {
+            document.getElementById("emailerrormsg").innerText = "Invalid email"
+            document.getElementById("emailerrormsg").style.setProperty("display","block");
+            document.getElementsByName("signupemail")[0].classList = "redborder"
+        }
+        else
+        {
+            document.getElementById("emailerrormsg").innerText = ""
+            document.getElementById("emailerrormsg").style.setProperty("display","none");
+            document.getElementsByName("signupemail")[0].classList.remove("redborder")
+        }
+
+    }
+    
     //Function for checking if password is same
     function checkPass()
     {
@@ -92,34 +132,49 @@ function changeborder(a)
 
         if(firstPass != secondPass)
         {
-            document.getElementById("errormsg").innerText = "Passwords don't match"
-            document.getElementById("errormsg").style.setProperty("display","block");
+            document.getElementById("pswderrormsg").innerText = "Passwords don't match"
+            document.getElementById("pswderrormsg").style.setProperty("display","block");
             document.getElementsByName("confirmsignuppassword")[0].classList = "redborder"
         }
         else
         {
-            document.getElementById("errormsg").innerText = ""
-            document.getElementById("errormsg").style.setProperty("display","none");
+            document.getElementById("pswderrormsg").innerText = ""
+            document.getElementById("pswderrormsg").style.setProperty("display","none");
             document.getElementsByName("confirmsignuppassword")[0].classList.remove("redborder")
         }
 
     }
 
     //Checking if confirm password field's border is red.If yes, then on focus remove the red border
-    document.getElementsByName("confirmsignuppassword")[0].onfocus = function(){
-        if(document.getElementsByName("confirmsignuppassword")[0].classList.value == "redborder")
+    // document.getElementsByName("confirmsignuppassword")[0].onfocus = function(){
+    //     if(document.getElementsByName("confirmsignuppassword")[0].classList.value == "redborder")
+    //     {
+    //         document.getElementsByName("confirmsignuppassword")[0].classList.remove("redborder")
+    //     }
+    // }
+
+
+    //Closing Login/Signup modal
+    let closeelements = document.getElementsByClassName("authmodalclose")
+    let closeFunction = function(){ 
+        for(let i=0;i<closeelements.length;i++)
         {
-            document.getElementsByName("confirmsignuppassword")[0].classList.remove("redborder")
+            document.querySelector(".bg-modal").style.display = "none";
         }
     }
-
-
-
-    document.querySelector(".authmodalclose").onclick = () =>
-    {
-        // console.log("IN")
-        document.querySelector(".bg-modal").style.display = "none";
+    for (let i = 0; i < closeelements.length; i++) {
+        closeelements[i].addEventListener('click', closeFunction, false);
     }
+    // document.get(".authmodalclose").onclick = () =>
+    // {
+    //     // console.log("IN")
+    // }
+
+    // document.querySelector(".newauthmodalclose").onclick = () =>
+    // {
+    //     console.log("IN")
+    //     document.querySelector(".newbg-modal").style.display = "none";
+    // }
 
     $('#signup-form').submit(function(e) {
         e.preventDefault();
@@ -182,9 +237,8 @@ function changeborder(a)
                 document.getElementById("Msgbody").innerHTML = "No such user exists with this email.Please sign up first."
                 $("#Msg").modal("toggle");
 
-                //Toggles tab to signup if user hasn't registered yet
+                //Toggles signup modal if user hasn't registered yet
                 $('#Msg').on("hidden.bs.modal", function (e) {
-                    
                     setTimeout(() => {
                         document.getElementById("Msgbody").innerHTML = "Signed up. You can login now."
                         document.getElementById("signup-form").style.display = "block";

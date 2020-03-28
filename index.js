@@ -103,7 +103,7 @@ app.post('/signup', async function(req,res){
 });
 
 app.post("/login",function(req,res){
-    // console.log(req.body)
+    console.log(req.body)
     console.log("In /login")
     try
     {
@@ -118,7 +118,7 @@ app.post("/login",function(req,res){
                 }
             ).then(result => {
                 // console.log("value of result:",result)
-                    console.log("Result:",result)
+                    // console.log("Result:",result)
                     if(result){ 
                         // console.log("rsults")
                     //     // return result.userID;
@@ -129,25 +129,28 @@ app.post("/login",function(req,res){
                     //   console.log("No document matches the provided query.");
                     // }
                 }
-            ).catch(result=>{})
+            ).catch(result=>{
+                // console.log(result)
+            })
             // console.log("Value of user:",user)
             // console.log("Value of entered email:",req.body.loginemail)
             // console.log(typeof(user))
 
-            console.log("/login user:",user)
+            // console.log("/login user:",user)
 
             if(user == undefined || user==null)
             {
                 console.log("User doesn't exist")
                 res.send("Nosuchuser") //Add error message on frontend side   
             }
-            
             else if(user.userID == req.body.loginemail)
             {
-                console.log("after  ini check:",user)
+                // console.log("after  ini check:",user)
                 // console.log("User exists")
                 // Perform actions on the collection object
-                if(bcrypt.compare(req.body.loginpassword,user.userPassword))
+                // console.log(await bcrypt.compare(req.body.loginpassword,user.userPassword))
+
+                if(await bcrypt.compare(req.body.loginpassword,user.userPassword)) //bcrypt compare returns a promise
                 {
                     console.log("Login successful");
                     var user = {
