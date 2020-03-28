@@ -165,6 +165,8 @@ var gameID = uuidv4();
         gamemode="Single"
         
         console.log("In singlegame")
+        document.getElementById("Playermarkbody").innerHTML = "You are "+ "<b>X</b>"+" in this game."
+        $("#Playermark").modal("toggle");
         
         // Playerturn(gamestate)
         
