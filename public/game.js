@@ -59,7 +59,6 @@ var gameID = uuidv4();
     
     // document.getElementById("Singleplayer").onclick = function(event){
     //     // event.preventDefault();
-    //     // alert("Getting clicked")
     //     console.log("IN singlegame")
     //     document.getElementById("gamemode").setAttribute("style","display:none");
     //     document.getElementById("singlemode").setAttribute("style","display:flex");
@@ -128,16 +127,13 @@ var gameID = uuidv4();
     document.getElementById("Singleplayer").onclick = function(event)
     {
         // event.preventDefault();
-        // alert("Hello")
         // var name = document.getElementById("singlemodename").value;
         // Playername = fetch('')
         // console.log
         // socket.
-        // alert("In singlemplayer")
         // fetch('http://example.com/movies.json')
         // console.log("In newsinglegame",name);
         // if(!name)
-        //     alert("Please enter your name.")
         // else
         // {
             document.getElementById("gamemode").setAttribute("style","display:none");
@@ -393,7 +389,6 @@ var gameID = uuidv4();
 
     // function Bestmove()
     // {
-    //     // alert("in bestmove")
     //     console.log("IN Bestmove")
     //     var bestVal = -1000;
     //     var bestMove;
@@ -417,7 +412,6 @@ var gameID = uuidv4();
     //                 ++count;
 
     //                 // console.log("Unchecked i:",i)
-    //                 // alert("Calling minimax")
     //                 console.log("Calling minimax")
 
     //                 var move = minimax(board,1,false)
@@ -442,7 +436,6 @@ var gameID = uuidv4();
     // function minimax(board,depth,isMax)
     // {
     //     // console.log("In minimax:","Depth:",depth,"isMax:",isMax,"board:",board)
-    //     // alert("In minimax")
     //     // console.log("In minimax")
     //     var score = evaluate(board)
     //     // console.log("Eval boardscore:",score)
@@ -531,7 +524,6 @@ var gameID = uuidv4();
     //                 return -10;
                 
     //             flag = 1
-    //             // alert("In evaluate,Row win")
     //         }
     //     }
 
@@ -548,7 +540,6 @@ var gameID = uuidv4();
     //                 return -10;
                 
     //             flag = 1
-    //             // alert("In evaluate,Col win")
     //         }
     //     }
 
@@ -562,7 +553,6 @@ var gameID = uuidv4();
     //             return -10;
             
     //         flag = 1
-    //         // alert("In evaluate,Diag win")
     //     }
 
     //     if(board[2] == board[4] && board[4] == board[6])
@@ -573,7 +563,6 @@ var gameID = uuidv4();
     //             return -10;
 
     //         flag = 1
-    //         // alert("In evaluate,Diag win")
     //     }
 
     //     if(flag != 1)
@@ -653,7 +642,6 @@ var gameID = uuidv4();
             // arrTic[y].style.backgroundColor="#4CAF50";
             // arrTic[z].style.backgroundColor="#4CAF50";
             changeother(x,y,z);
-            // alert("Won");
             console.log("Calling clear interval",ID)
             clearInterval(ID);
             Show(gamestate.count);
@@ -665,7 +653,6 @@ var gameID = uuidv4();
                     document.getElementById("oppscore").innerHTML++
                     document.getElementById("secondoppscore").innerHTML++
                 }
-                // alert("CPU score upgrade")
             }
             else
             {
@@ -675,7 +662,6 @@ var gameID = uuidv4();
                     document.getElementById("playerscore").innerHTML++ 
                     document.getElementById("secondplayerscore").innerHTML++ 
                 }
-                // alert("Player score upgrade")
             }
             console.log("In checkValue")
             console.log("Gamemode:",gamemode)
@@ -734,10 +720,8 @@ var gameID = uuidv4();
     //Player clicks on two player game-mode
     document.getElementById("Twoplayer").onclick = function(event){
         //To let the game know that the player wants a two player mode
-        // alert("hello")
         gamemode="Twoplayer"
         event.preventDefault();
-        // alert("Getting clicked")
         console.log("IN twoplayergame")
         document.getElementById("gamemode").setAttribute("style","display:none");
         document.getElementById("multimode").setAttribute("style","display:flex");
@@ -749,7 +733,6 @@ var gameID = uuidv4();
             //To let the game know that the player wants a two player mode
             gamemode="Twoplayer"
             console.log("in two play newgame")
-            // alert("New game")
             // event.preventDefault();
             document.getElementById("multimode").setAttribute("style","display:none");
             document.getElementById("game").setAttribute("style","display:block");
@@ -762,7 +745,6 @@ var gameID = uuidv4();
             // console.log(playername)
             // if(!name)
             // {
-            //     alert("Please enter your name.")
             //     document.getElementById("newname").classList.add("errorclass")
             //     // $(this).toggleClass("btn-outline-light");
             // }
@@ -778,7 +760,7 @@ var gameID = uuidv4();
     
     //Joining an existing game
     document.getElementById("joingame").onclick = function(event){
-        // event.preventDefault();
+        event.preventDefault();
         // var name = document.getElementById("joinname").value;
         var roomID = document.getElementById("roomID").value;
         
@@ -793,11 +775,23 @@ var gameID = uuidv4();
             console.log("POSTING roomlength")
 
             if(!roomID)
-                alert("Please enter the room ID before joining."); 
+            {
+                // alert("Please enter the room ID before joining."); 
+                document.getElementById("Msgbody").innerHTML = "Please enter the room ID before joining."
+                $("#Msg").modal("show");
+            }
             else if(result == "Full")
-                alert("The room ID you entered is full.Please try some other room.");
+            {
+                // alert("The room ID you entered is full.Please try some other room.");
+                document.getElementById("Msgbody").innerHTML = "The room ID you entered is full.Please try some other room."
+                $("#Msg").modal("toggle");
+            }
             else if(result == "Invalid")
-                alert("The room ID you entered doesn't exist yet.Please try some other room."); 
+            {
+                // alert("The room ID you entered doesn't exist yet.Please try some other room."); 
+                document.getElementById("Msgbody").innerHTML = "The room ID you entered doesn't exist yet.Please try some other room."
+                $("#Msg").modal("toggle");
+            }
             else if(result == "Notfull")
             {
                 ChangepageTwoPlayer()
@@ -809,34 +803,7 @@ var gameID = uuidv4();
                 player = new Player(Playername,"O");
             }
             
-        })
-
-        // var user = $.get('/userinfo',function(result){
-        //     user = JSON.parse(result);
-        //     // console.log("user inside:",user)
-        //     return user
-        // }).then(result=> {return result;})
-        // }, 5000);
-        
-        // setTimeout(()=>{
-
-            // console.log("Validroom:",validroom)
-        // },3000)
-
-        // if(!roomID)
-        //     alert("Please enter the room ID before joining."); 
-        // else if(validroom == "Full")
-        //     alert("The room ID you entered is either full or doesn't exist yet.Please try some other room."); 
-        // else if(validroom == "Notfull")
-        // {
-        //     ChangepageTwoPlayer()
-        //     console.log("In joingame,just before emit")
-        //     socket.emit("joinGame",{
-        //         name:Playername,
-        //         room:roomID
-        //     });
-        //     player = new Player(Playername,"O");
-        // }  
+        }) 
     }
     
     //Match history click
@@ -1021,11 +988,24 @@ var gameID = uuidv4();
               arrTic[i].onclick = function(){
                 
                 if(this.getAttribute("checked")=="true" && !player.getcurrentTurn() && !game.getfinish())
-                    alert("This tile is already selected and it's not your turn")
+                {
+                    // alert("This tile is already selected and it's not your turn")
+                    document.getElementById("Msgbody").innerHTML = "This tile is already selected and it's not your turn."
+                    $("#Msg").modal("toggle");
+                }
                 else if(this.getAttribute("checked")=="true" && !game.getfinish())
-                    alert("This tile is already selected")
+                {
+                    // alert("This tile is already selected")
+                    document.getElementById("Msgbody").innerHTML = "This tile is already selected."
+                    $("#Msg").modal("toggle");
+
+                }
                 else if(!player.getcurrentTurn() && !game.getfinish())
-                    alert("It's not your turn")
+                {
+                    // alert("It's not your turn")
+                    document.getElementById("Msgbody").innerHTML = "It's not your turn."
+                    $("#Msg").modal("toggle");
+                }
                 else if(this.getAttribute("checked")!="true" && player.getcurrentTurn() && !game.getfinish())
                 {
                   this.setAttribute("checked","true");
@@ -1125,7 +1105,6 @@ var gameID = uuidv4();
                 game.setfinish(true);
                 game.showresult();
                 document.getElementById("Winmsgbody").innerHTML = "The match was a Draw";
-                // alert("draw");
             } 
           }
         }
@@ -1285,7 +1264,6 @@ var gameID = uuidv4();
                 console.log("POSTING roomlength")
                 if(result == "Notfull")
                 {
-                    // alert("Opp has left the game.")
                     game.showcustommodal("<b>"+opp_name+"</b>"+" has left the game.<br/>Redirecting you to the main page in 5 seconds.");
                     $("#Winmsg").modal("toggle");
                     setTimeout(function(){
@@ -1338,7 +1316,6 @@ var gameID = uuidv4();
                 console.log("POSTING roomlength")
                 if(result == "Notfull")
                 {
-                    // alert("Opp has left the game.")
                     game.showcustommodal("<b>"+opp_name+"</b>"+" has left the game. <br/>Redirecting you to the main page in 5 seconds.");
                     $("#Winmsg").modal("toggle");
                     setTimeout(function(){
@@ -1411,7 +1388,9 @@ var gameID = uuidv4();
                 //Adding an excepevent.tation for theme toggle button
                 if(event.target.id != 'gamelogo')
                     {
-                        alert("The game hasn't started. The opponent hasn't joined")
+                        // alert("The game hasn't started. The opponent hasn't joined")
+                        document.getElementById("Msgbody").innerHTML = "The game hasn't started. The opponent hasn't joined yet."
+                        $("#Msg").modal("toggle");
                     }
             }
                 
