@@ -1,4 +1,4 @@
-require('dotenv').config({path: './public/.env'})
+require('dotenv').config({path: './public/.env'});
 const express = require('express');
 const app = express();
 const io = require('socket.io')(app.listen(process.env.PORT || 3001));
@@ -6,17 +6,14 @@ const io = require('socket.io')(app.listen(process.env.PORT || 3001));
 const path = require('path');
 const fs = require('fs')
 const MongoClient = require('mongodb').MongoClient;
-// var uri = "mongodb+srv://test1:t est1@cluster0-or75i.mongodb.net/test?retryWrites=true&w=majority";
+const ObjectId = require('mongodb').ObjectId;
+
 const client = new MongoClient(process.env.DB_CONNECT, { useNewUrlParser: true});
 
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const connection = client.connect()
-var file = fs.readFileSync('./rooms.json','utf8');
-file = JSON.parse(file);     
-
-var rooms = 0;//##Implement dB instead of this
 
 
 //For statically loading public folder
@@ -164,7 +161,7 @@ app.post('/addmatchdata',authenticateToken,function(req,res){
     try
     {
         // console.log("In addmatch data")
-        var matchdata  = req.body
+        var matchdata  = req.body;
         var exists;
 
         matchdata.date = new Date(Date.now())//Date("<YYYY-mm-ddTHH:MM:ss>")
@@ -240,7 +237,6 @@ function authenticateToken(req,res,next)
     });
     
     //Making sure that we have a authHeader.  It will either return undefined or the actual token
-    
     let token = output && output['auth-token'];
     if(token == null)
         return res.status(401).sendFile(path.resolve(__dirname+"/public/forbidden.html"))
@@ -306,20 +302,42 @@ io.on('connection',socket => {
 
     //Creating a new room and notifying the creator of room. 
     socket.on('createNewGame',data => {
-        console.log("File rooms:",file.rooms)
-        // var newroom = ++file.rooms;
-        var newroom = ++rooms;
-        // var newroom = ++rooms;
-        socket.join('Room-'+ newroom);
-        console.log("P1 Joining room:",newroom)
-        let newjson = {
-            rooms:newroom
-        }
-        fs.writeFileSync('./rooms.json',JSON.stringify(newjson,null,4))
-        socket.emit('newGame',{
-            name:data.name,
-            room:'Room-'+ newroom
-        })
+        
+        let collection = client.db("MultiTicTacToe").collection("room");
+        connection.then( async () => {     
+            var newroom;
+            var user =  await collection.findOne({
+                "_id":ObjectId("5ea802a35a6c8f21c04c254b")
+            }
+            ).then(result => {
+                console.log("Prop res:",result);
+                newroom = result.rooms+1;
+
+                socket.join('Room-'+ newroom);
+                console.log("P1 Joining room:",newroom)
+
+                collection.updateOne({ 
+                        "_id":ObjectId("5ea802a35a6c8f21c04c254b") //Query
+                    },
+                    {
+                        $set:{
+                            "rooms": newroom, // Replacement document
+                        } 
+                    },
+                ).then(result => {
+                       console.log("DB res:",result);
+                    //    res.send(result)
+                })
+                .catch(result => {})
+
+                socket.emit('newGame',{
+                    name:data.name,
+                    room:'Room-'+ newroom
+                })
+            }).catch(result => {
+                console.log(result);
+            });         
+        });
     });
     
     //Connecting second player to room.

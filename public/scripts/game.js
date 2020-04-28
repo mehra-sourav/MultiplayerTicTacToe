@@ -93,33 +93,49 @@ var gameID = uuidv4();
         
         ID = setInterval(() => {
             Check(gamestate)
-            console.log("In setinterval")
+            // console.log("In setinterval")
             
             if(gamestate.count%2==0 && !gamestate.finish)
             {
-                console.log("Player's turn.Playerturn:",gamestate.playerturn)
+                // console.log("Player's turn.Playerturn:",gamestate.playerturn)
                 for(let i=0;i<arrTic.length;i++)
                 {
                     arrTic[i].onclick = function(){
-                        console.log("In arrtic onclick")
+                        // console.log("In arrtic onclick")
 
-                        if(this.getAttribute("checked")!="true"  && gamestate.count%2==0)
+                        if(this.getAttribute("checked")=="true" && gamestate.count%2!=0)
                         {
-                            console.log("This is not checked")
+                            document.getElementById("Msgbody").innerHTML = "This tile is already selected and it's not your turn."
+                            $("#Msg").modal("toggle");
+                        }
+                        else if(this.getAttribute("checked")=="true")
+                        {
+                            document.getElementById("Msgbody").innerHTML = "This tile is already selected."
+                            $("#Msg").modal("toggle");
+
+                        }
+                        else if(gamestate.count%2!=0)
+                        {
+                            document.getElementById("Msgbody").innerHTML = "It's not your turn."
+                            $("#Msg").modal("toggle");
+                        }
+                        else if(this.getAttribute("checked")!="true"  && gamestate.count%2==0)
+                        {
+                            // console.log("This is not checked")
                             this.setAttribute("checked","true");
                             document.getElementsByClassName("box")[i].style.setProperty("color","#05C8D7");
                             ++gamestate.count;
                             this.innerHTML = "X";
                             changeTurn(gamestate)
-                            console.log("Player's turn.Playerturn now:",gamestate.playerturn)
+                            // console.log("Player's turn.Playerturn now:",gamestate.playerturn)
                         }
                     }
                 }
             }
             else if(gamestate.count%2!=0 && !gamestate.finish)// && !gamestate.playerturn)
             {
-                console.log("Gamestate:",gamestate.finish)
-                console.log("CPU's turn.Playerturn:",gamestate.playerturn)
+                // console.log("Gamestate:",gamestate.finish)
+                // console.log("CPU's turn.Playerturn:",gamestate.playerturn)
                 setTimeout(() => {
                     var board = []
                     
@@ -131,7 +147,7 @@ var gameID = uuidv4();
                     }
                     
                     var cputurn = minimax(board,"O").index;
-                    console.log("CPU will play:",cputurn)
+                    // console.log("CPU will play:",cputurn)
                     
                     if(arrTic[cputurn].getAttribute("checked")!="true" && gamestate.count < 9)
                     {
@@ -140,22 +156,22 @@ var gameID = uuidv4();
                         arrTic[cputurn].innerHTML = "O";
                         ++gamestate.count;
                         changeTurn(gamestate)
-                        console.log("CPU's turn.Playerturn now")
+                        // console.log("CPU's turn.Playerturn now")
                     }
                 },500);
             }
-            console.log("Previous has played. count:",gamestate.count)
+            // console.log("Previous has played. count:",gamestate.count)
             
-            console.log("In setinterval. Finish:",gamestate.finish)
+            // console.log("In setinterval. Finish:",gamestate.finish)
         },1000);
 
         document.getElementById("resetbutton").onclick = function(){
-            console.log("In reset mode")    
+            // console.log("In reset mode")    
             Reset(gamestate);      
         }
 
         document.getElementById("quitbutton").onclick = function(){
-            console.log("In quit mode")
+            // console.log("In quit mode")
             document.getElementById("Winmsgbody").innerHTML = "Loading main page ...";
             location.reload();
         }
@@ -332,7 +348,7 @@ var gameID = uuidv4();
         if(arrTic[x].innerHTML == "O" && arrTic[y].innerHTML == "O" && arrTic[z].innerHTML == "O" || arrTic[x].innerHTML == "X" && arrTic[y].innerHTML == "X" && arrTic[z].innerHTML == "X")
         {
             changeother(x,y,z);
-            console.log("Calling clear interval",ID)
+            // console.log("Calling clear interval",ID)
             clearInterval(ID);
             Show(gamestate.count);
             if(arrTic[x].innerHTML == "O")
@@ -353,8 +369,8 @@ var gameID = uuidv4();
                     document.getElementById("secondplayerscore").innerHTML++ 
                 }
             }
-            console.log("In checkValue")
-            console.log("Gamemode:",gamemode)
+            // console.log("In checkValue")
+            // console.log("Gamemode:",gamemode)
             return true;
         }
         else
@@ -374,7 +390,7 @@ var gameID = uuidv4();
 
     function changeTurn(gamestate)
     {
-        console.log("In changeturn ",gamestate.count)
+        // console.log("In changeturn ",gamestate.count)
         if(gamestate.count%2==0)
         {
             document.getElementById("player_name").setAttribute("style","background-color:var(--select-color)");
@@ -408,7 +424,7 @@ var gameID = uuidv4();
     document.getElementById("Twoplayer").onclick = event => {
         gamemode="Twoplayer"
         event.preventDefault();
-        console.log("IN twoplayergame")
+        // console.log("IN twoplayergame")
         document.getElementById("gamemode").setAttribute("style","display:none");
         document.getElementById("multimode").setAttribute("style","display:flex");
     }
@@ -418,7 +434,7 @@ var gameID = uuidv4();
 
         //To let the game know that the player wants a two player mode
         gamemode="Twoplayer"
-        console.log("in two play newgame")
+        // console.log("in two play newgame")
         document.getElementById("multimode").setAttribute("style","display:none");
         document.getElementById("game").setAttribute("style","display:block");
 
@@ -433,13 +449,13 @@ var gameID = uuidv4();
     document.getElementById("joingame").onclick = event => {
         event.preventDefault();
         var roomID = document.getElementById("roomID").value;
-        console.log("In joingame")
+        // console.log("In joingame")
 
         document.getElementById("player_name").innerHTML = Playername;
         
         //Checking if entered roomID is valid or not,i.e., if the room has been created or not.
         $.post('/roomlength',{ID:roomID}, result => {
-            console.log("POSTING roomlength")
+            // console.log("POSTING roomlength")
 
             if(!roomID)
             {
@@ -459,7 +475,7 @@ var gameID = uuidv4();
             else if(result == "Notfull")
             {
                 ChangepageTwoPlayer()
-                console.log("In joingame,just before emit")
+                // console.log("In joingame,just before emit")
                 socket.emit("joinGame",{
                     name:Playername,
                     room:roomID
@@ -477,7 +493,7 @@ var gameID = uuidv4();
 
     //Requesting the opponent for a rematch
     document.getElementById("resetbutton").onclick = () => {
-        console.log("In reset mode")    
+        // console.log("In reset mode")    
         if(gamemode == "Single")
         {
             Reset();
@@ -492,7 +508,7 @@ var gameID = uuidv4();
     
     //Quiting the game
     document.getElementById("quitbutton").onclick = () => {
-        console.log("In quit mode")
+        // console.log("In quit mode")
         if(gamemode == "Single")
         {
             game.showcustommodal("Loading main page ...");
@@ -716,7 +732,7 @@ var gameID = uuidv4();
         {
           if(!game.getfinish())
           {
-            console.log("Game count:",game.getcount());
+            // console.log("Game count:",game.getcount());
             if(game.checkValue(0,1,2))
             {
                 game.setfinish(true);
@@ -781,7 +797,7 @@ var gameID = uuidv4();
         
         checkValue(x,y,z)
         {
-            console.log("IN checkvalue")
+            // console.log("IN checkvalue")
             if(arrTic[x].innerHTML == "O" && arrTic[y].innerHTML == "O" && arrTic[z].innerHTML == "O" || arrTic[x].innerHTML == "X" && arrTic[y].innerHTML == "X" && arrTic[z].innerHTML == "X" )
             {
                 game.changeother(x,y,z);
@@ -800,7 +816,7 @@ var gameID = uuidv4();
                     document.getElementById("secondoppscore").innerHTML++
                 }
 
-                console.log("UUID:",gameID)
+                // console.log("UUID:",gameID)
                 let matchresult = {
                         matchID:gameID,
                         playerA:Playername,
@@ -908,7 +924,7 @@ var gameID = uuidv4();
         setInterval(function(){
             
             $.post('/roomlength',{ID}, result => {
-                console.log("POSTING roomlength")
+                // console.log("POSTING roomlength")
                 if(result == "Notfull")
                 {
                     game.showcustommodal("<b>"+opp_name+"</b>"+" has left the game.<br/>Redirecting you to the main page in 5 seconds.");
@@ -921,7 +937,7 @@ var gameID = uuidv4();
             });
         }, 5000);
 
-        console.log("In player1  on P1 side")
+        // console.log("In player1  on P1 side")
         socket.emit('player-1name',{
             name:player.getPlayerName(),
             room:game.getRoomID()
@@ -957,7 +973,7 @@ var gameID = uuidv4();
         var ID = game.getRoomID()
         setInterval(function(){
             $.post('/roomlength',{ID}, function(result) {
-                console.log("POSTING roomlength")
+                // console.log("POSTING roomlength")
                 if(result == "Notfull")
                 {
                     game.showcustommodal("<b>"+opp_name+"</b>"+" has left the game. <br/>Redirecting you to the main page in 5 seconds.");
