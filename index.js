@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({path: './public/.env'})
 const express = require('express');
 const app = express();
 const io = require('socket.io')(app.listen(process.env.PORT || 3001));
