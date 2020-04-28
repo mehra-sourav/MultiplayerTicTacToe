@@ -14,100 +14,46 @@ function uuidv4() {
 
 var player,game;
 var gameID = uuidv4();
+
 (function()
 {
-    // document.getElementById("h1").setAttribute("style","display:none");
     var arrTic = document.getElementsByClassName("box");
     var opp_name = document.getElementById("opp_name").innerHTML;
     
     
-    var socket = io.connect()//'http://localhost:3001')
+    var socket = io.connect()
     var ID;
     var Playername
     var gamemode;
-    // document.getElementById("h1").setAttribute("style","display:none");
 
     $(".choicebutton").hover(
         function () {
-        //   $(this).addClass("btn-light");
           $(this).toggleClass("btn-outline-dark");
         
         },
     );
 
-    //Fetching userinfo from backend
-    var user = $.get('/userinfo',function(result){
+    var user = $.get('/userinfo',result => {
         user = JSON.parse(result);
-        // console.log("user inside:",user)
         return user
-    }).then(result=> {return result;})
+    }).then(result => {return result;})
 
     
 
     //Extracting name of user from cookie
     let output = {};
-    // console.log("Cookie:")
-    document.cookie.split(/\s*;\s*/).forEach(function(pair) {
+    document.cookie.split(/\s*;\s*/).forEach(pair => {
         pair = pair.split(/\s*=\s*/);
         output[pair[0]] = pair[1]
     });
 
-    //decoding URI encoding from name and selecting first name
+    //Decoding URI encoding from name and selecting first name
     Playername = decodeURIComponent(output['userName']).split(/\s* \s*/)[0]
-    // console.log("Cookie",output['userName'])
-    
-    
-    // document.getElementById("Singleplayer").onclick = function(event){
-    //     // event.preventDefault();
-    //     console.log("IN singlegame")
-    //     document.getElementById("gamemode").setAttribute("style","display:none");
-    //     document.getElementById("singlemode").setAttribute("style","display:flex");
-    //     // document.getElementBcyId("h1").setAttribute("style","display:none");
-    // }
-    
-    // document.getElementById("newsinglegame").onclick = function(event)
-    
-    // async function fetchusername(user) 
-    // {
-    //     try
-    //     {
-    //             // let mode= JSON.stringify({
-    //             //    game:"single" 
-    //             // })
-    //             let fetchResult = await fetch('/userinfo',{
-    //                 method:"GET",
-    //                 headers : { 
-    //                 'Content-Type': 'application/json',
-    //                 'Accept': 'application/json'
-    //                 },
-    //                 redirect:"follow"
-    //             }).then(result => {return result.text()})
-
-    //         fetchResult = fetchResult.replace(/['"]/g,'')
-    //         // Playername = fetchResult
-    //         // console.log("fetchResult",fetchResult)
-    //         // console.log("Playername",Playername)
-            
-    //         // let response = await fetchResult;
-    //         // let jsonData = await response.json();
-    //         // console.log("NAme:",jsonData);
-    //         // if(user == "player")
-    //         document.getElementById("player_name").innerHTML= fetchResult
-    //         // else
-    //         // return Playername
-            
-    //     }
-    //     catch(error)
-    //     {
-
-    //     }
-    // }
-    console.log("Global playername:",Playername)
+    // console.log("Global playername:",Playername)
     
     //Logging out and redirecting to login page
     document.getElementById("logout").onclick = function(event)
     {
-        // document.cookie = "cookiename= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
         document.cookie = "";
         fetch('/logout',{
             method:"GET",
@@ -115,40 +61,22 @@ var gameID = uuidv4();
             'Content-Type': 'application/json',
             'Accept': 'application/json'
             },
-            // redirect:"follow"
         })
         window.location.href="/";
     }
     
-    
-    
-    
     //Player clicks on single player game-mode
     document.getElementById("Singleplayer").onclick = function(event)
     {
-        // event.preventDefault();
-        // var name = document.getElementById("singlemodename").value;
-        // Playername = fetch('')
-        // console.log
-        // socket.
-        // fetch('http://example.com/movies.json')
-        // console.log("In newsinglegame",name);
-        // if(!name)
-        // else
-        // {
-            document.getElementById("gamemode").setAttribute("style","display:none");
-            document.getElementById("game").setAttribute("style","display:block");
-            // document.getElementById("h1").setAttribute("style","display:none");
-            // document.getElementById("h2").setAttribute("style","display:flex");
-
-            document.getElementById("opp_name").innerHTML = "CPU";
-            // fetchusername("player")
-            document.getElementById("player_name").innerHTML = Playername;
-            console.log("Single player username:",Playername)
-            // document.getElementById("player_name").innerHTML = name;
-            document.getElementById("right_score").innerHTML = "CPU's score" + "<div id=\"oppscore\">0</div>";
-            SingleGame();
-        // }   
+        document.getElementById("gamemode").setAttribute("style","display:none");
+        document.getElementById("game").setAttribute("style","display:block");
+        
+        document.getElementById("opp_name").innerHTML = "CPU";
+        document.getElementById("player_name").innerHTML = Playername;
+        // console.log("Single player username:",Playername)
+        
+        document.getElementById("right_score").innerHTML = "CPU's score" + "<div id=\"oppscore\">0</div>";
+        SingleGame(); 
     }
     
     function SingleGame()
@@ -156,7 +84,6 @@ var gameID = uuidv4();
         var gamestate = {
             finish:false,
             count:0,
-            // playerturn:true
         }
         gamemode="Single"
         
@@ -164,18 +91,11 @@ var gameID = uuidv4();
         document.getElementById("Playermarkbody").innerHTML = "You are "+ "<b>X</b>"+" in this game."
         $("#Playermark").modal("toggle");
         
-        // Playerturn(gamestate)
-        
-        ID = setInterval(function(){
-        // document.documentElement.onclick = function(){
+        ID = setInterval(() => {
             Check(gamestate)
             console.log("In setinterval")
-            // console.log("arrTic:")
-            // for(let i=0;i<arrTic.length;i++)
-            // {
-            //     console.log("Checked",i,arrTic[i].getAttribute("checked"))
-            // }
-            if(gamestate.count%2==0 && !gamestate.finish)// && gamestate.playerturn)
+            
+            if(gamestate.count%2==0 && !gamestate.finish)
             {
                 console.log("Player's turn.Playerturn:",gamestate.playerturn)
                 for(let i=0;i<arrTic.length;i++)
@@ -187,16 +107,11 @@ var gameID = uuidv4();
                         {
                             console.log("This is not checked")
                             this.setAttribute("checked","true");
-                            //console.log(this.id);
-                            //this.style.backgroundColor="#4CAF50";
-                            // console.log(i+" was clicked")
                             document.getElementsByClassName("box")[i].style.setProperty("color","#05C8D7");
                             ++gamestate.count;
                             this.innerHTML = "X";
                             changeTurn(gamestate)
                             console.log("Player's turn.Playerturn now:",gamestate.playerturn)
-                            // else
-                            //     arrTic[cputurn].innerHTML = "O";
                         }
                     }
                 }
@@ -205,14 +120,9 @@ var gameID = uuidv4();
             {
                 console.log("Gamestate:",gamestate.finish)
                 console.log("CPU's turn.Playerturn:",gamestate.playerturn)
-                setTimeout(()=>{
-
-                    //Best CPU turn using Minimax algorithm
-                    
-                    // var cputurn = Bestmove()
+                setTimeout(() => {
                     var board = []
-                    // var count = 0;
-
+                    
                     for(let i=0;i<arrTic.length;i++)
                     {
                         board[i] = arrTic[i].innerHTML
@@ -221,16 +131,7 @@ var gameID = uuidv4();
                     }
                     
                     var cputurn = minimax(board,"O").index;
-                    // var cputurn = Math.floor(Math.random() * Math.floor(9));
                     console.log("CPU will play:",cputurn)
-                    // console.log("CPU will play",cputurn)
-                    // while(arrTic[cputurn].getAttribute("checked")=="true" && gamestate.count < 9)
-                    // {
-                    //     console.log("CPU will play",cputurn)
-                    //     cputurn = Math.floor(Math.random() * Math.floor(9));
-                    //     // cputurn = Bestmove(gamestate)
-                        
-                    // }
                     
                     if(arrTic[cputurn].getAttribute("checked")!="true" && gamestate.count < 9)
                     {
@@ -242,26 +143,7 @@ var gameID = uuidv4();
                         console.log("CPU's turn.Playerturn now")
                     }
                 },500);
-                    //Random CPU turn
-                    // var cputurn = Math.floor(Math.random() * Math.floor(9));
-                    // // console.log("CPU will play",cputurn)
-                    // while(arrTic[cputurn].getAttribute("checked")=="true" && gamestate.count < 9)
-                    // {
-                    //     console.log("CPU will play",cputurn)
-                    //     cputurn = Math.floor(Math.random() * Math.floor(9));
-                        
-                    // }
-                    
-                    // if(arrTic[cputurn].getAttribute("checked")!="true" && gamestate.count < 9)
-                    // {
-                    //     arrTic[cputurn].setAttribute("checked","true");
-                    //     arrTic[cputurn].innerHTML = "O";
-                    //     ++gamestate.count;
-                    //     changeTurn(gamestate)
-                    //     console.log("CPU's turn.Playerturn now:",gamestate.playerturn)                   
-                    // }
             }
-        // }
             console.log("Previous has played. count:",gamestate.count)
             
             console.log("In setinterval. Finish:",gamestate.finish)
@@ -303,10 +185,10 @@ var gameID = uuidv4();
             var move = {};
             move.index = newBoard[availSpots[i]];
         
-            // set the empty spot to the current player
+            //Set the empty spot to the current player
             newBoard[availSpots[i]] = player;
         
-            //if collect the score resulted from calling minimax on the opponent of the current player
+            //If collect the score resulted from calling minimax on the opponent of the current player
             if (player == "O")
             {
               var result = minimax(newBoard, "X");
@@ -318,10 +200,10 @@ var gameID = uuidv4();
               move.score = result.score;
             }
         
-            //reset the spot to empty
+            //Reset the spot to empty
             newBoard[availSpots[i]] = move.index;
         
-            // push the object to the array
+            //Push the object to the array
             moves.push(move);
         }
 
@@ -364,8 +246,6 @@ var gameID = uuidv4();
                 emptyspaces.push(i)
 
         return emptyspaces
-        
-        // return board.filter(s => s != "O" && s != "X");
     }
 
     function winning(board, player)
@@ -386,188 +266,6 @@ var gameID = uuidv4();
             return false;
         }
     }
-
-    // function Bestmove()
-    // {
-    //     console.log("IN Bestmove")
-    //     var bestVal = -1000;
-    //     var bestMove;
-
-    //     var board = []
-    //     var count = 0;
-
-    //     for(let i=0;i<arrTic.length;i++)
-    //     {
-    //         board[i] = arrTic[i].innerHTML
-    //         if(board[i] != "")
-    //             count++
-    //     }
-    //         for(let i=0;i<board.length;i++)
-    //         {
-    //             // console.log("In",i," ,bestval:",bestVal,"bestmove: ",bestMove)
-    //             if(board[i] == "")
-    //             {
-    //                 board[i] = "O"
-    //                 // arrTic[i].setAttribute("checked","true");
-    //                 ++count;
-
-    //                 // console.log("Unchecked i:",i)
-    //                 console.log("Calling minimax")
-
-    //                 var move = minimax(board,1,false)
-
-    //                 board[i] = ""
-    //                 // arrTic[i].setAttribute("checked","false");
-    //                 --count;
-
-    //                 if(move > bestVal) 
-    //                 { 
-    //                     bestMove = i;
-    //                     bestVal = move; 
-    //                 }
-    //             }  
-    //         }
-    //     // }
-        
-    //     // console.log("In bestmove,RETURNING ",bestMove)
-    //     return bestMove;
-    // }
-
-    // function minimax(board,depth,isMax)
-    // {
-    //     // console.log("In minimax:","Depth:",depth,"isMax:",isMax,"board:",board)
-    //     // console.log("In minimax")
-    //     var score = evaluate(board)
-    //     // console.log("Eval boardscore:",score)
-
-    //     var count = 0;
-
-    //     for(let i=0;i<board.length;i++)
-    //     {
-    //         if(board[i]!= "")
-    //             count++
-    //     }
-
-    //     // console.log("In minimax,board length:",count)
-
-
-    //     if(score == 10 || score == -10)
-    //         return score;
-
-    //     if(count >= 9 || score == 0)
-    //         return 0;
-        
-    //     if(isMax)
-    //     {
-    //         var best = -1000
-
-    //         for(let i=0;i<board.length;i++)
-    //         {
-    //             if(board[i] == "") 
-    //             {
-    //                 board[i] = "O"
-    //                 // board[i].setAttribute("checked","true");
-    //                 ++count;
-                    
-    //                 // console.log("best before editing:",best)
-    //                 best = Math.max(best, minimax(board,depth+1,false))
-    //                 // console.log("best after editing:",best)
-
-    //                 board[i] = ""
-    //                 // arrTic[i].setAttribute("checked","false");
-    //                 --count;
-    //             }
-    //         }
-    //         // console.log("In minimax,best:",best)
-    //         return best;
-    //     }
-    //     else
-    //     {
-    //         var best = 1000
-
-    //         for(let i=0;i<board.length;i++)
-    //         {
-    //             if(board[i] == "")
-    //             {
-    //                 board[i] = "X"
-    //                 // arrTic[i].setAttribute("checked","true");
-    //                 ++count;
-                    
-    //                 best = Math.min(best,minimax(board,depth+1,true))
-
-    //                 board[i] = ""
-    //                 // arrTic[i].setAttribute("checked","false");
-    //                 --count;
-    //             }
-    //         }
-    //         // console.log("In minimax,best:",best)
-    //         return best;
-    //     }   
-    // }
-
-    // function evaluate(board)
-    // {
-    //     // console.log("In evaluate")
-    //     var rows = [0,3,6],col = [0,1,2];
-    //     var flag = 0;
-
-    //     //Checking rows for victory
-    //     for(var x of rows)
-    //     {
-    //         // console.log("x:",x," x+1:",x+1," x+2:",x+2)
-    //         // console.log("board[x]:",board[x]," board[x+1]:",board[x+1]," board[x+2]:",board[x+2])
-    //         if(board[x] == board[x+1] && board[x+1] == board[x+2])
-    //         {
-    //             if(board[x] == "X")
-    //                 return 10;
-    //             else if(board[x] == "O")
-    //                 return -10;
-                
-    //             flag = 1
-    //         }
-    //     }
-
-    //     //Checking columns for victory
-    //     for(var x of col)
-    //     {
-    //         // console.log("x:",x," x+3:",x+3," x+6:",x+6)
-    //         // console.log("board[x]:",board[x]," board[x+3]:",board[x+3]," board[x+6]:",board[x+6])
-    //         if(board[x] == board[x+3] && board[x+3] == board[x+6])
-    //         {
-    //             if(board[x] == "X")
-    //                 return 10;
-    //             else if(board[x] == "O")
-    //                 return -10;
-                
-    //             flag = 1
-    //         }
-    //     }
-
-    //     //Checking diagonals for victory
-
-    //     if(board[0] == board[4] && board[4] == board[8])
-    //     {
-    //         if(board[0] == "X")
-    //             return 10;
-    //         else if(board[0] == "O")
-    //             return -10;
-            
-    //         flag = 1
-    //     }
-
-    //     if(board[2] == board[4] && board[4] == board[6])
-    //     {
-    //         if(board[2] == "X")
-    //             return 10;
-    //         else if(board[2] == "O")
-    //             return -10;
-
-    //         flag = 1
-    //     }
-
-    //     if(flag != 1)
-    //         return 0;
-    // }
 
     function Check(gamestate)
     {
@@ -611,11 +309,6 @@ var gameID = uuidv4();
                 Show(gamestate);
             }
         }
-        // else if(finish)
-        // {
-        //     Show(count);
-        // }
-
     }
 
     function Show(gamestate)
@@ -638,9 +331,6 @@ var gameID = uuidv4();
     {
         if(arrTic[x].innerHTML == "O" && arrTic[y].innerHTML == "O" && arrTic[z].innerHTML == "O" || arrTic[x].innerHTML == "X" && arrTic[y].innerHTML == "X" && arrTic[z].innerHTML == "X")
         {
-            // arrTic[x].style.backgroundColor="#4CAF50";
-            // arrTic[y].style.backgroundColor="#4CAF50";
-            // arrTic[z].style.backgroundColor="#4CAF50";
             changeother(x,y,z);
             console.log("Calling clear interval",ID)
             clearInterval(ID);
@@ -689,14 +379,11 @@ var gameID = uuidv4();
         {
             document.getElementById("player_name").setAttribute("style","background-color:var(--select-color)");
             document.getElementById("opp_name").setAttribute("style","background-color:transparent");
-            // gamestate.playerturn = !gamestate.playerturn
-            // Playerturn(gamestate)
         }
         else
         {
             document.getElementById("player_name").setAttribute("style","background-color:transparent");
             document.getElementById("opp_name").setAttribute("style","background-color:var(--select-color)");
-            // gamestate.playerturn = !gamestate.playerturn 
         }
         
     }
@@ -718,77 +405,54 @@ var gameID = uuidv4();
     }
 
     //Player clicks on two player game-mode
-    document.getElementById("Twoplayer").onclick = function(event){
-        //To let the game know that the player wants a two player mode
+    document.getElementById("Twoplayer").onclick = event => {
         gamemode="Twoplayer"
         event.preventDefault();
         console.log("IN twoplayergame")
         document.getElementById("gamemode").setAttribute("style","display:none");
         document.getElementById("multimode").setAttribute("style","display:flex");
-        // document.getElementBcyId("h1").setAttribute("style","display:none");
     }
     
     //Player clicks on newgame in two player mode
-    document.getElementById("newgame").onclick = function(event){
-            //To let the game know that the player wants a two player mode
-            gamemode="Twoplayer"
-            console.log("in two play newgame")
-            // event.preventDefault();
-            document.getElementById("multimode").setAttribute("style","display:none");
-            document.getElementById("game").setAttribute("style","display:block");
-            // var name = document.getElementById("newname").value;
-            
-            // fetchusername()
-            // Playername = document.getElementById("player_name").innerHTML
-            // console.log("Single player username:",Playername)
-            document.getElementById("player_name").innerHTML = Playername;
-            // console.log(playername)
-            // if(!name)
-            // {
-            //     document.getElementById("newname").classList.add("errorclass")
-            //     // $(this).toggleClass("btn-outline-light");
-            // }
-            // else
-            // {
-            //     document.getElementById("newname").classList.remove("errorclass")
-                socket.emit('createNewGame',{
-                    name:Playername
-                });
-                player = new Player(Playername,"X");
-            // } 
+    document.getElementById("newgame").onclick = event => {
+
+        //To let the game know that the player wants a two player mode
+        gamemode="Twoplayer"
+        console.log("in two play newgame")
+        document.getElementById("multimode").setAttribute("style","display:none");
+        document.getElementById("game").setAttribute("style","display:block");
+
+        document.getElementById("player_name").innerHTML = Playername;
+        socket.emit('createNewGame',{
+            name:Playername
+        });
+        player = new Player(Playername,"X");
     }
     
     //Joining an existing game
-    document.getElementById("joingame").onclick = function(event){
+    document.getElementById("joingame").onclick = event => {
         event.preventDefault();
-        // var name = document.getElementById("joinname").value;
         var roomID = document.getElementById("roomID").value;
-        
-        // if(document.getElementById("joinname").value == "")
         console.log("In joingame")
 
-        
         document.getElementById("player_name").innerHTML = Playername;
         
-        //Checking if entered roomID is valid or not,i.e., if the room has been created or not
-            $.post('/roomlength',{ID:roomID}, function(result) {
+        //Checking if entered roomID is valid or not,i.e., if the room has been created or not.
+        $.post('/roomlength',{ID:roomID}, result => {
             console.log("POSTING roomlength")
 
             if(!roomID)
             {
-                // alert("Please enter the room ID before joining."); 
                 document.getElementById("Msgbody").innerHTML = "Please enter the room ID before joining."
                 $("#Msg").modal("show");
             }
             else if(result == "Full")
             {
-                // alert("The room ID you entered is full.Please try some other room.");
                 document.getElementById("Msgbody").innerHTML = "The room ID you entered is full.Please try some other room."
                 $("#Msg").modal("toggle");
             }
             else if(result == "Invalid")
             {
-                // alert("The room ID you entered doesn't exist yet.Please try some other room."); 
                 document.getElementById("Msgbody").innerHTML = "The room ID you entered doesn't exist yet.Please try some other room."
                 $("#Msg").modal("toggle");
             }
@@ -801,19 +465,18 @@ var gameID = uuidv4();
                     room:roomID
                 });
                 player = new Player(Playername,"O");
-            }
-            
+            }  
         }) 
     }
     
     //Match history click
-    document.getElementById("History").onclick = function(){
-        console.log("In History mode")
+    document.getElementById("History").onclick = () => {
+        // console.log("In History mode");
         window.location.href="/history";
     }
 
     //Requesting the opponent for a rematch
-    document.getElementById("resetbutton").onclick = function(){
+    document.getElementById("resetbutton").onclick = () => {
         console.log("In reset mode")    
         if(gamemode == "Single")
         {
@@ -828,7 +491,7 @@ var gameID = uuidv4();
     }
     
     //Quiting the game
-    document.getElementById("quitbutton").onclick = function(){
+    document.getElementById("quitbutton").onclick = () => {
         console.log("In quit mode")
         if(gamemode == "Single")
         {
@@ -846,7 +509,7 @@ var gameID = uuidv4();
     }
     
     //Accepting the rematch request
-    document.getElementById("yesbutton").onclick = function(){
+    document.getElementById("yesbutton").onclick = () => {
         socket.emit("Challenge_accepted",{
             room:game.getRoomID()
        });
@@ -854,7 +517,7 @@ var gameID = uuidv4();
     }
     
     //Rejecting the rematch request
-    document.getElementById("nobutton").onclick = function(){
+    document.getElementById("nobutton").onclick = () => {
         socket.emit("Challenge_rejected",{
             room:game.getRoomID()
        });
@@ -890,12 +553,12 @@ var gameID = uuidv4();
         
         updatemovesnum()
         {
-            this.movesPlayed++//=val
+            this.movesPlayed++;
         }
 
         getmovesnum()
         {
-            return this.movesPlayed
+            return this.movesPlayed;
         }
 
         setturn(turn)
@@ -986,23 +649,20 @@ var gameID = uuidv4();
             for(let i=0;i<arrTic.length;i++)
             {
               arrTic[i].onclick = function(){
-                
+                  
                 if(this.getAttribute("checked")=="true" && !player.getcurrentTurn() && !game.getfinish())
                 {
-                    // alert("This tile is already selected and it's not your turn")
                     document.getElementById("Msgbody").innerHTML = "This tile is already selected and it's not your turn."
                     $("#Msg").modal("toggle");
                 }
                 else if(this.getAttribute("checked")=="true" && !game.getfinish())
                 {
-                    // alert("This tile is already selected")
                     document.getElementById("Msgbody").innerHTML = "This tile is already selected."
                     $("#Msg").modal("toggle");
 
                 }
                 else if(!player.getcurrentTurn() && !game.getfinish())
                 {
-                    // alert("It's not your turn")
                     document.getElementById("Msgbody").innerHTML = "It's not your turn."
                     $("#Msg").modal("toggle");
                 }
@@ -1010,6 +670,7 @@ var gameID = uuidv4();
                 {
                   this.setAttribute("checked","true");
                   this.innerHTML = player.getPlayerMark();
+
                   //Setting player's mark to blue color
                   document.getElementsByClassName("box")[i].style.setProperty("color","#05C8D7");
                   
@@ -1040,26 +701,22 @@ var gameID = uuidv4();
         TurnCheck()
         {
             if(game.getcount() == 0 || player.getcurrentTurn())
-          {
-
-              document.getElementById("player_name").setAttribute("style","background-color:var(--select-color)");
-            //   document.getElementById("player_name").setAttribute("style","background-color:#05C8D7");
-              document.getElementById("opp_name").setAttribute("style","background-color:transparent"); 
-
-          }
-          else
-          {
-            document.getElementById("player_name").setAttribute("style","background-color:transparent");
-            document.getElementById("opp_name").setAttribute("style","background-color:var(--select-color)");
-            // document.getElementById("opp_name").setAttribute("style","background-color:#E19A13");
-          }
+            {
+                document.getElementById("player_name").setAttribute("style","background-color:var(--select-color)");
+                document.getElementById("opp_name").setAttribute("style","background-color:transparent"); 
+            }
+            else
+            {
+                document.getElementById("player_name").setAttribute("style","background-color:transparent");
+                document.getElementById("opp_name").setAttribute("style","background-color:var(--select-color)");
+            }
         }
         
         Check()
         {
           if(!game.getfinish())
           {
-            console.log("Game count:",game.getcount())
+            console.log("Game count:",game.getcount());
             if(game.checkValue(0,1,2))
             {
                 game.setfinish(true);
@@ -1111,15 +768,7 @@ var gameID = uuidv4();
         
         showresult()
         {
-            if(game.getcount() != 9)
-            {
-                $("#Winmsg").modal("show");
-                // alert("In showresult 1")
-            }
-            else
-            {
-                $("#Winmsg").modal("show");
-            }
+            $("#Winmsg").modal("show");
         }
         
         //Shows request from other player's side
@@ -1158,14 +807,13 @@ var gameID = uuidv4();
                         playerAscore:document.getElementById("playerscore").innerHTML,
                         playerBscore:document.getElementById("oppscore").innerHTML,
                         playerB:opp_name
-                    }
-                //Updating match result in DB
-                $.post('/addmatchdata',matchresult, function(result) {
-                    console.log("POSTING addmatchdata")
-                    console.log("Result:",result)    
-                })
+                }
 
-                
+                //Updating match result in DB
+                $.post('/addmatchdata',matchresult, result => {
+                    // console.log("POSTING addmatchdata")
+                    // console.log("Result:",result)    
+                });
                 return true;
             }
           else
@@ -1229,22 +877,21 @@ var gameID = uuidv4();
     }
     
     socket.on('newGame',function(data){
-        document.getElementById('h2').innerHTML="Room ID:  "+data.room;
-        // document.getElementById('h1').innerHTML="Room ID:  "+data.room;
+        document.getElementById('h2').innerHTML="Room ID:  "+ data.room;
        
         //Setting player_name on player-1 side
         document.getElementById('player_name').innerHTML = data.name; 
 
         game = new Game(data.room);
-        console.log("In new game event ")
+        // console.log("In new game event ")
         ChangepageTwoPlayer();
     })
     
     socket.on('Player1',function(data){
         player.setturn(true);
-        console.log("In Player1")
+        // console.log("In Player1")
          
-        //Seting opp_name on player-1 side
+        //Setting opp_name on player-1 side
         document.getElementById('opp_name').innerHTML = data.name;
 
         //Updating opponent's name in global variable 'opp_name'
@@ -1260,7 +907,7 @@ var gameID = uuidv4();
         var ID = game.getRoomID()
         setInterval(function(){
             
-            $.post('/roomlength',{ID}, function(result) {
+            $.post('/roomlength',{ID}, result => {
                 console.log("POSTING roomlength")
                 if(result == "Notfull")
                 {
@@ -1274,8 +921,6 @@ var gameID = uuidv4();
             });
         }, 5000);
 
-
-        
         console.log("In player1  on P1 side")
         socket.emit('player-1name',{
             name:player.getPlayerName(),
@@ -1302,16 +947,15 @@ var gameID = uuidv4();
     //Updating Player-1's Name in Player-2's UI
     socket.on('player-1name',function(data){
         document.getElementById('opp_name').innerHTML = data.oppname;
+
         //Updating opponent's name in global variable 'opp_name'
         opp_name = data.oppname;
         
-        
-        console.log("In player-1name")
+        // console.log("In player-1name")
         
         //Checking every five seconds if opponent in the same room has left the game or not
         var ID = game.getRoomID()
         setInterval(function(){
-            
             $.post('/roomlength',{ID}, function(result) {
                 console.log("POSTING roomlength")
                 if(result == "Notfull")
@@ -1344,18 +988,18 @@ var gameID = uuidv4();
     });
     
     //Opponent wants to playagain
-    socket.on("Playagain",function(){    
+    socket.on("Playagain",() => {    
         game.Playagainshow()
     });
     
     //Opponent accepted rematch request
-    socket.on("Challenge_accepted",function(){
+    socket.on("Challenge_accepted",() => {
         $("#Winmsg").modal("toggle");
         game.Reset();
     });
     
     //Opponent rejected rematch request
-    socket.on("Challenge_rejected",function(){
+    socket.on("Challenge_rejected",() => {
         game.showcustommodal("<b>"+opp_name+"</b>"+" has rejected your challenge. Redirecting you to the main page in 5 seconds.")
         setTimeout(function(){
             game.showcustommodal("Loading main page ...");
@@ -1363,7 +1007,7 @@ var gameID = uuidv4();
         },5000);
     });
     
-    socket.on("Opponentquit",function(){
+    socket.on("Opponentquit",() => {
         game.showcustommodal("<b>"+opp_name+"</b>"+" has quit the game.Redirecting you to the main page in 5 seconds.");
         setTimeout(function(){
             game.showcustommodal("Loading main page ...");
@@ -1375,31 +1019,23 @@ var gameID = uuidv4();
     try
     {
         document.documentElement.addEventListener("click", function(event){
-            //Making sure that 'closebutton' and 'resetbutton' don't have event listeners attached
-            console.log("Global user:",user)
-            //  console.log("Global playername",Playername)
-            //  console.log("Global",Playername," score:",document.getElementById("playerscore").innerHTML)
-            //  console.log("Global oppname",opp_name)
-            //  console.log("Global",opp_name," score:",document.getElementById("oppscore").innerHTML)
             
-            //  console.log("UNique ID:",gameID)
+            // console.log("Global user:",user)
             if(gamemode=="Twoplayer" && !player.getgamestarted() && !game.getfinish())
             {
-                //Adding an excepevent.tation for theme toggle button
+                //Adding an exception for homebutton
                 if(event.target.id != 'gamelogo')
-                    {
-                        // alert("The game hasn't started. The opponent hasn't joined")
-                        document.getElementById("Msgbody").innerHTML = "The game hasn't started. The opponent hasn't joined yet."
-                        $("#Msg").modal("toggle");
-                    }
+                {
+                    document.getElementById("Msgbody").innerHTML = "The game hasn't started. The opponent hasn't joined yet."
+                    $("#Msg").modal("toggle");
+                }
             }
                 
-            if(event.target.id == "closebutton" || event.target.id == "resetbutton"  || event.target.id == "quitbutton" || event.target.id == "switch")
-            {
+            //Making sure that 'closebutton', 'resetbutton' and 'quitbutton'  don't have event listeners attached
+            if(event.target.id == "closebutton" || event.target.id == "resetbutton"  || event.target.id == "quitbutton")
                 return;
-            }
+
             
-            //else
             if(gamemode=="Twoplayer" && game.getfinish() == true && game.getcount()!=9)
             {
                 let modaltext = document.getElementById("Winmsgbody").innerHTML
@@ -1409,25 +1045,6 @@ var gameID = uuidv4();
                 document.getElementById("Winmsgbody").innerHTML = modaltext
                 $("#Winmsg").modal("show");
             }
-
-            // if(gamemode=="Twoplayer" && game.getfinish() == true)
-            // {
-            //     console.log("UUID:",gameID)
-            //     let matchresult = {
-            //         matchID:gameID,
-            //         playerA:Playername,
-            //         playerAscore:document.getElementById("playerscore").innerHTML,
-            //         playerBscore:document.getElementById("oppscore").innerHTML,
-            //         playerB:opp_name
-            //     }
-
-            // //  console.log("Global oppname",opp_name)
-            // //  console.log("Global",opp_name," score:",document.getElementById("oppscore").innerHTML)
-            //     $.post('/addmatchdata',matchresult, function(result) {
-            //         console.log("POSTING addmatchdata")
-            //         console.log("Result:",result)    
-            //     })
-            // }
         });
     }catch(err)
         {

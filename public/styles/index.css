@@ -6,8 +6,6 @@ html
   --modal-bg:#4D4D4D;
   --cross-color:#ffffff;
   --hsize:40px;
-  
-  /* -- */
 }
 
 body
@@ -103,20 +101,6 @@ body
     top:10px;
     right: 10px;
 }
-/* .bg-modal
-{
-    width:100%;
-    height: 100%;
-    position: absolute;
-    top:0;
-    background-color:rgba(255,255,255,.1);
-    z-index:2;
-    border-radius:4px;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    color:black;
-} */
 
 .bg-modal
 {
@@ -136,27 +120,11 @@ body
     -moz-transition: all 1.2s ease-in;
     -o-transition: all 1.2s ease-in;
     transition: all 1.2s ease-in;
-    /* transform: scale(0.2); */
-    /* animation: popin 1.2s; */
 
     -webkit-perspective: 1000px;
     -moz-perspective: 1000px;
     -o-perspective: 1000px;
-    perspective: 1000px;
-    
-}
-
-@keyframes popin
-{
-    0%
-    {
-        transform: scale(0);
-    }
-
-    100%
-    {
-        transform: scale(1);
-    }
+    perspective: 1000px; 
 }
 
 .header-modal
@@ -183,8 +151,6 @@ body
 
 .content-modal
 {
-    /* width:400px; */
-    /* height:450px; */
     background-color: white;
     display:flex;
     justify-content: center;
@@ -221,14 +187,6 @@ body
     transform: rotateX(180deg);
 }
 
-/* .signupcard
-{
-    -webkit-transform: rotateX(-180deg);
-    -moz-transform: rotateX(-180deg);
-    -o-transform: rotateX(-180deg);
-    transform: rotateX(-180deg);
-} */
-
 #signup
 {
     display: none;
@@ -254,12 +212,10 @@ body
     padding:5px;
     transition: all 0.5s ease;
     margin-top:0px; 
-    /* border:1px solid grey; */
 }
 
 #login-form button,#signup-form button
 {
-    /* margin:10px auto; */
     width:30%;
     display: block;
 }
@@ -282,10 +238,6 @@ body
     font-size:13px;
 }
 
-
-
-
-
 .redborder
 {
     border-color:red;
@@ -296,21 +248,13 @@ body
     display: none;
     color:red;
     font-size:10px;
-    margin-bottom: 10px;
-    
+    margin-bottom: 10px;  
 }
 
 #Msg
 {
     text-align: center;
 }
-
-/* #signup input
-{
-    display:block;
-    width:50%;
-    margin:10px auto;
-} */
 
 #gamemode
 {
@@ -320,10 +264,8 @@ body
     align-items: center;
     margin:auto;
     padding:auto;
-    /* align-items: center; */
     height: 60vh;
     width:30vh;
-    /* background-color: blue; */
 }
 
 #histtable
@@ -338,13 +280,8 @@ body
     text-align: center;
     table-layout: fixed;
     text-overflow: ellipsis;
-    /* border:1px solid white; */
 }
 
-#matchtable tr td
-{
-    /* border:1px solid white; */
-}
 
 .red
 {
@@ -369,14 +306,12 @@ body
 .lightmtchbg
 {
     background-color: #363535;
-    /* background-image: linear-gradient(to top,#1f1f1f, #363535, #1f1f1f); */
 }
 
 #gamemode button
 {
     width:80%;
     height: 10%;
-    /* background-color: red   ; */
 }
 
 #info
@@ -387,42 +322,24 @@ body
     align-items: center;
     margin:auto;
     padding:auto;
-    /* background-color: blue; */
     width:50vh;
     height: 70vh;
 }
 
 #showlogin
 {
-    /* display: flex;
-    justify-content: flex-end; */
     position: absolute; 
     right:15px;
     top:25px;
-    /* background-color: red; */
     z-index: 1;
-}
-
-
-#showlogin:hover
-{
-    /* background-color:blue; */
 }
 
 #logout
 {
-    /* display: flex;
-    justify-content: flex-end; */
     position: absolute; 
     right:15px;
     top:25px;
-    /* background-color: red; */
     z-index: 1;
-}
-
-.heading
-{
-    /* background-color: orange; */
 }
 
 #singlemode
@@ -431,27 +348,22 @@ body
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* flex-basis: 100%; */
     margin:auto;
     padding:auto;
     height: 60vh;
     width:30vh;
-    /* background-color: blue; */
 }
 
 #multimode
 {
     display: none;
-    /* display: flex; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* flex-basis: 100%; */
     margin:auto;
     padding:auto;
     height: 60vh;
     width:30vh;
-    /* background-color: blue; */
 }
 
 #h6
@@ -469,8 +381,8 @@ h1
     display: flex;
     justify-content: center;
     text-align: center;
-    /* background-color: green; */
 }
+
 #joinname
 {
     margin-bottom: 3%;
@@ -527,15 +439,11 @@ h1
     align-items: center;
     font-size:100px;
     font-family: 'Baloo 2', cursive;
-    /* color:blue; */
-    /* animation: popin 3s linear 0.1s 1 forwards; */
 }
 
 @keyframes popin
 {
     0%{ opacity:0; transform: scale(0.3);}
-    /* 70%{ opacity:0.2; transform: scale(1.12);}
-    90%{ opacity:0.6; transform: scale(0.9);} */
     100%{ opacity:1; transform: scale(1);}
 }
 
@@ -588,31 +496,6 @@ input[type=checkbox]
     visibility: hidden;
 }
 
-/* label 
-{
-    cursor: pointer;
-    text-indent: -9999px;
-    width: 50px;
-    height: 25px;
-    background: #1690fa;
-    display: block;
-    border-radius: 100px;
-    position: relative;
-}
-
-label:after
-{
-    content: 'Dark';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 22px;
-    height: 22px;
-    background: #fff;
-    border-radius: 90px;
-    transition: 0.5s;
-} */
-
 input:checked + label
 {
     background: grey;
@@ -627,15 +510,6 @@ label:active:after
 {
     width: 20px;
 }
-
-/* html.transition,
-html.transition *,
-html.transition *:before,
-html.transition *:after{
-    transition: all 750ms !important;
-    transition-delay:0 !important;
-} */
-
 
 .vscard
 {
@@ -965,7 +839,6 @@ footer
         margin:10vw 5vw;
         margin-top: 20%;
         padding: 0px;
-        /* background-color: red; */
     }
     .score
     {
@@ -1026,7 +899,6 @@ footer
         margin-top: 30%;
         margin-bottom: 80%;
         padding: 0px;
-        /* background-color: green; */
     }
     .box
     {
@@ -1058,7 +930,6 @@ footer
         margin-top: 30%;
         margin-bottom: 80%;
         padding: 0px;
-        /* background-color: orange; */
     }
     .box
     {

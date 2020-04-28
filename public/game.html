@@ -5,138 +5,57 @@
         <link rel="stylesheet" href="index.css" type="text/css"><!-- For server deployment-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Baloo+2&display=swap" rel="stylesheet">
-        <!-- <link rel="icon" href="public/favicon.ico"> -->
         <title>2 Player Tic-Tac-Toe</title>
         <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     </head>
     <body>
         <br>
-        <!-- <br> -->
         <div class="heading">
-                <!-- <button class="btn btn-outline-light choicebutton" id="showlogin">
-                        Login/Signup
-                </button> -->
                 <button class="btn btn-outline-light choicebutton" id="logout">
-                    Logout<!-- <img src="https://m.media-amazon.com/images/M/MV5BNDhlNWFiZTItMjFhZi00NGRmLWI2ZmUtNzdjYjUzM2VmNDIxXkEyXkFqcGdeQW1yb3NzZXI@._V1_UX477_CR0,0,477,268_AL_.jpg" id="starwars" title="Light Mode"> -->
+                    Logout
                 </button>
             
                 <div id="name">
                     <a href="/game"><img src="/gamelogo.png" id="gamelogo" title="Take me to Home" /></a>
                     <a href="/game" class="titlelink"><h1 id="gameh1">2-Player Tic Tac Toe</h1></a>
                     <h1 id="h2">Room ID:  </h1>
-                    <!-- <h2 id="nametag">Hi</h2> -->
-                    
-                    <!-- <img src=""> -->
                 </div>                
                 
         </div>
         <div id="gamemode">
-            <!-- <form action="/game/singleplayer" method="get" class="form"> -->
-                <button id="Singleplayer" class="btn btn-primary mb-2" class="choicebutton" onsubmit="return false;">Single Player</button>
-            <!-- </form> -->
+            <button id="Singleplayer" class="btn btn-primary mb-2" class="choicebutton" onsubmit="return false;">Single Player</button>
+            
             <br/>
             <br/>
-            <!-- <form action="/game/twoplayer" method="get" class="form"></form> -->
-                <button id="Twoplayer" class="btn btn-primary mb-2" class="choicebutton"onsubmit="return false;"> Two Player </button>
-            <!-- </form> -->
+            
+            <button id="Twoplayer" class="btn btn-primary mb-2" class="choicebutton"onsubmit="return false;"> Two Player </button>
+            
             <br/>
             <br/>
-            <!-- <form action="/history" method="get" class="form"> -->
-                <button id="History" class="btn btn-primary mb-2" class="choicebutton"onsubmit="return false;"> Match History </button>
-            <!-- </form> -->
+            
+            <button id="History" class="btn btn-primary mb-2" class="choicebutton"onsubmit="return false;"> Match History </button>
+            
         </div>
-        <!-- Asking user for their name when clicking on singleplayer -->
-        <!-- <div id="singlemode">
-            <form class="form" id="form1" onsubmit="return false;">
-                <div class="form-group mx-sm-3 mb-2">
-                    <h5 style="width:initial; text-align:center">Enter your name</h5>
-                    
-                    <input type="text" class="form-control" id="singlemodename" style="text-align:center" placeholder="Enter your name" required>
-                </div>
-            </form>
-            <button type="submit" id="newsinglegame" class="btn btn-success mb-2 choicebutton" onsubmit="return false;" form="form1">Start</button>
-        </div> -->
         <div id="multimode">
-            <!-- <div class="container ml-5"> -->
                 <br/>
                 <br/>
                 <br/>
                 <br/>
                 <br/>
-                <!-- <form class="form" id="form2" action="/game/twoplayer" method="get"> -->
                 <div class="form-group mx-sm-3 mb-2">
-                    <!-- <h6 id="h6" style="width:initial; text-align:center">Create a New Game</h6> -->
                     <h5 style="width:initial; text-align:center">Create a New Game</h5>
-                    <!-- <br/> -->
-                    
-                    <!-- </div> -->
                 </div>
                 <button type="Submit" id="newgame" class="btn btn-success mb-2 choicebutton">New Game</button>
-                <!-- </form> -->
                 <br/>
                 <br/>
                 <form class="form" id="form3" onsubmit="return false;">
                     <div class="form-group mx-sm-3 mb-2">
-                        <!-- <h5 id="h6" style="width:initial; text-align:center">Join a Game</h5> -->
                         <h5 style="width:initial; text-align:center">Join a Game</h5>
-                        <!-- <br/> -->
-                        <!-- <input type="text" class="form-control" id="joinname" style="text-align:center" placeholder="Enter your name" required > -->
                         <input type="text" class="form-control" id="roomID" style="text-align:center" placeholder="Enter Room ID"  required>
-                        <!-- </div> -->
                     </div>
                 </form>
                 <button type="submit" id="joingame" class="btn btn-success mb-2 choicebutton">Join Game</button>
-            
-                <!-- <h3><u>Rules</u></h3>
-                <ol>
-                    <li>Create a new game by entering your name.</li>
-                    <li>If you want to join an existing game, enter the room id along with your name to join that room.<br> (Only 2 players may join the room at this moment. Spectator mode maybe available soon)</li>
-                </ol>
-                <br>
-                <h3>Create a New Game</h3>
-                <form class="form-inline" onsubmit="return false;">
-                    <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="newname" placeholder="Enter your name" required>
-                    </div>
-                    <button type="submit" id="newgame" class="btn btn-outline-light mb-2">New Game</button>
-                </form>
-                <br>
-                <h3>Join an Existing Game</h3>
-                <form class="form-inline" onsubmit="return false;">
-                    <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="joinname" placeholder="Enter your name" required >
-                        <input type="text" class="form-control" id="roomID" placeholder="Enter room id"  required >
-                    </div>
-                    <button type="submit" id="joingame" class="btn btn-outline-light mb-2">Join Game</button>
-                </form>      -->
-            <!-- </div> -->
-            
-            
-            <!-- <div class="container ml-5">
-                <h3><u>Rules</u></h3>
-                <ol>
-                    <li>Create a new game by entering your name.</li>
-                    <li>If you want to join an existing game, enter the room id along with your name to join that room.<br> (Only 2 players may join the room at this moment. Spectator mode maybe available soon)</li>
-                </ol>
-                <br>
-                <h3>Create a New Game</h3>
-                <form class="form-inline" onsubmit="return false;">
-                    <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="newname" placeholder="Enter your name" required>
-                    </div>
-                    <button type="submit" id="newgame" class="btn btn-outline-light mb-2">New Game</button>
-                </form>
-                <br>
-                <h3>Join an Existing Game</h3>
-                <form class="form-inline" onsubmit="return false;">
-                    <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="joinname" placeholder="Enter your name" required >
-                        <input type="text" class="form-control" id="roomID" placeholder="Enter room id"  required >
-                    </div>
-                    <button type="submit" id="joingame" class="btn btn-outline-light mb-2">Join Game</button>
-                </form>     
-            </div> -->
         </div>
         <div id="game">
             <div class="displayarea">
@@ -203,7 +122,6 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger mr-auto" id="quitbutton">Quit Game</button>
                             <button type="button" class="btn btn-primary" id="resetbutton">Play again</button>
-                            <!-- <button type="button" class="btn btn-success" data-dismiss="modal" id="closebutton">Close</button> -->
                         </div>
                     </div>
                 </div>
@@ -252,8 +170,7 @@
                     </div>
                 </div>
             </div>
-        <!-- <script src="index.js"></script> For server deployment -->
-        <script src="/game.js"></script> <!-- For server deployment-->
+        <script src="scripts/game.js"></script> <!-- For server deployment-->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.8/uuid.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
