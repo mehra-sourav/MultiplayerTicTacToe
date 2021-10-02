@@ -1,5 +1,4 @@
 # MultiplayerTicTacToe
-Heroku Deployable game
 
 * An online 2 player Tic-Tac-Toe game.
 * Includes a single player and a two-player mode.
